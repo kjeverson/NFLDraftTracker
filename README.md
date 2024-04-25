@@ -10,8 +10,5 @@ Current features:
 - Ability to trade picks (Only allows picks from 2024 at the moment)
 - Ability to view draft picks and needs by team using the Team Control section.
 
-Picture of the overall big board view:
-![Big Board Overview](./README/bigBoardOverview.png)
-
-Picture of what is displayed in the Prospect Modal (Completely filled out for the top ~100 prospects):
-![Prospect Modal](./README/prospectDraftProfile.png)
+Video Example:
+[![Big Board Overview](./README/example.gif))]
