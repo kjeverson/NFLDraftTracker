@@ -11,4 +11,4 @@ Current features:
 - Ability to view draft picks and needs by team using the Team Control section.
 
 Video Example:
-[![Big Board Overview](./README/example.gif))]
+![Big Board Overview](./README/example.gif)
