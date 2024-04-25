@@ -1,0 +1,122 @@
+<div id="prospectModal" class="modal" tabindex="-1">
+  <div class="modal-dialog modal-xl bg-dark text-white">
+    <div class="modal-content bg-dark" >
+      <div class="modal-body bg-dark">
+          <div class="row prospect-row" style="background:linear-gradient(to top, rgba(0,0,0,0) 40%, #{{ prospect.college_team.primary_color if prospect.college_team else '4c8bc6' }})">
+            <div class="col-6 align-self-center">
+                <div class="row text-center">
+                    <h3>{{ prospect.name }}</h3>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-8 align-self-center">
+                        <div class="row p-1 text-center">
+                            <small>{{ prospect.position }}{% if prospect.college_team %} | <img src="{{ url_for('static', filename='img/NCAA/'+ prospect.college_team.ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/NCAA/default.png') }}'" height="30px"> {{ prospect.college_team.fullname if prospect.college_team else "None" }} {% endif %}</small>
+                        </div>
+                        {% if prospect.height and prospect.weight %}
+                        <div class="row p-1 text-center">
+                            <small>{{ prospect.height }} • {{ prospect.weight }} lbs </small>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if prospect.drafted_team %}
+                <div class="row text-center mt-2 justify-content-center">
+                    <div class="col-8 justify-content-center align-items-center">
+                      <div class="row mt-4 text-center">
+                        <button class="btn btn-dark text-white p-2 position-relative" style="pointer-events: none; background:linear-gradient(to left, rgba(0,0,0,0) 45%, #{{ prospect.drafted_team.primary_color }}) !important">
+                            <div class="row align-items-center">
+                                <div class="col-1 justify-content-center"><img src="{{ url_for('static', filename='img/NFL/'+ prospect.drafted_team.key +'.png') }}" height="40px"></div>
+                                <div class="col-10 justify-content-center"><h5>{{ prospect.drafted_team.name }} - Round {{ prospect.draft_pick.round }}, Pick {{ prospect.draft_pick.pick }}</h5></div>
+                            </div>
+                          <span class="position-absolute top-0 start-50 translate-middle badge text-dark bg-light"><small>Drafted:</small></span>
+                        </button>
+                      </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="row text-center mt-2 justify-content-center">
+                    {% if 301 > prospect.rank > 0 %}
+                    <div class="col-6">
+                        <div class="row mt-4 text-center">
+                            <button class="btn btn-dark text-white p-2 position-relative" style="pointer-events: none">
+                                {{ prospect.rank }}
+                              <span class="position-absolute top-0 start-50 translate-middle badge text-dark bg-light"><small>Rank:</small></span>
+                            </button>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if prospect.comparison %}
+                    <div class="col-6">
+                        <div class="row mt-4 text-center">
+                            <button class="btn btn-dark text-white p-2 position-relative" style="pointer-events: none">
+                                {{ prospect.comparison }}
+                              <span class="position-absolute top-0 start-50 translate-middle badge text-dark bg-light"><small>NFL Comparison:</small></span>
+                            </button>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div>
+            <div class="col-6 align-self-center">
+                <div class="row">
+                    <img src="{{ url_for('static', filename='img/headshots/'+ prospect.ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/headshots/default.png') }}'" class="img-fluid">
+                </div>
+            </div>
+          </div>
+          <div class="row pb-1 px-3">
+              <div class="btn active btn-secondary position-relative" style="pointer-events: none">
+                <div class="row">
+                    <div class="col"><div class="row"><h2><strong id="prospectCard40Yard">{{ prospect.forty if prospect.forty else ' -- ' }}</strong></h2></div><div class="row"><small>40-YD Dash</small></div></div>
+                    <div class="col"><div class="row"><h2><strong id="prospectCardVertical">{{ prospect.vertical if prospect.vertical else ' -- ' }}</strong></h2></div><div class="row"><small>Vertical Jump</small></div></div>
+                    <div class="col"><div class="row"><h2><strong id="prospectCardBroad">{{ prospect.broad if prospect.broad else ' -- ' }}</strong></h2></div><div class="row"><small>Broad Jump</small></div></div>
+                    <div class="col"><div class="row"><h2><strong id="prospectCardThreeCone">{{ prospect.three_cone if prospect.three_cone else ' -- ' }}</strong></h2></div><div class="row"><small>3-Cone</small></div></div>
+                    <div class="col"><div class="row"><h2><strong id="prospectCardTwentyShuttle">{{ prospect.twenty_shuttle if prospect.twenty_shuttle else ' -- ' }}</strong></h2></div><div class="row"><small>20-YD Shuttle</small></div></div>
+                    <div class="col"><div class="row"><h2><strong id="prospectCardBench">{{ prospect.bench if prospect.bench else ' -- ' }}</strong></h2></div><div class="row"><small>Bench Press</small></div></div>
+                    <div class="col"><div class="row"><h2><strong id="prospectCardRAS">{{ prospect.ras if prospect.ras else ' -- ' }}</strong></h2></div><div class="row"><small>RAS</small></div></div>
+                </div>
+                <span class="position-absolute top-0 start-50 translate-middle badge text-dark bg-light"><small id="statHeader">Combine Results</small></span>
+              </div>
+          </div>
+          {% if prospect.overview %}
+          <div class="row p-1 text-center">
+              <h5>Overview:</h5>
+          </div>
+          <div class="row">
+              <small>{{ prospect.overview }}</small>
+          </div>
+          {% endif %}
+          <div class="row p-1 justify-content-center">
+              {% if prospect.strengths %}
+              <div class="col-6">
+                  <div class="row p-1 text-center"><h5>Strengths:</h5></div>
+              <small>
+              <ul>
+                {% for strength in strengths %}
+                <li>{{ strength }}</li>
+                {% endfor %}
+              </ul>
+              </small>
+              </div>
+              {% endif %}
+              {% if prospect.weaknesses %}
+              <div class="col-6">
+                  <div class="row p-1 text-center"><h5>Weaknesses:</h5></div>
+              <small>
+              <ul>
+                {% for weakness in weaknesses %}
+                <li>{{ weakness }}</li>
+                {% endfor %}
+              </ul>
+              </small>
+              </div>
+              {% endif %}
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button data-id="{{ prospect.ID }}" type="button" class="btn btn-sm btn-secondary" onclick="editProspect(this.getAttribute('data-id'))">Edit</button>
+      </div>
+  </div>
+</div>
+  </div>

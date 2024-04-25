@@ -1,0 +1,39 @@
+<div class="row p-1 flex-row flex-nowrap text-center overflow-scroll">
+{% for pick in picks | sort(attribute='pick', reverse=False) %}
+<div class="col-2 p-0">
+  {% if current_pick.ID == pick.ID %}
+  <div class="card bg-dark border-light" id="pick{{ pick.ID }}" data-id="{{ pick.ID }}">
+  {% else %}
+  <div class="card bg-dark" id="pick{{ pick.ID }}" data-id="{{ pick.ID }}">
+  {% endif %}
+  <h6 class="card-header" style="background:#{{ pick.pick_owner.primary_color }}">{{ pick.round }}.{{ pick.pick }}</h6>{% if pick.traded %}<i class="bi bi-arrow-repeat" style="position: absolute; top: 5px; right: 10px;"></i>{% endif %}
+      <div class="card-body" style="background:linear-gradient(to top, rgba(0,0,0,0) 50%, #{{ pick.pick_owner.primary_color }}">
+        <img src="{{ url_for('static', filename='img/NFL/'+ pick.pick_owner.key +'.png') }}" height="60px">
+          {% if pick.prospect %}
+          <div class="row"><h6><span id="pick{{ pick.ID }}CardPlayerName">{{ pick.prospect[0].sname }}</span></h6></div>
+          <div class="row"><small><span id="pick{{ pick.ID }}CardPlayerInfo">{{ pick.prospect[0].position }} | {{ pick.prospect[0].college_team.location if pick.prospect[0].college_team else "--" }} </span></small></div>
+          {% else %}
+          <div class="row"><h6><span id="pick{{ pick.ID }}CardPlayerName">--</span></h6></div>
+          <div class="row"><small><span id="pick{{ pick.ID }}CardPlayerInfo">--</span></small></div>
+          {% endif %}
+      </div>
+  </div>
+</div>
+{% endfor %}
+</div>
+<div class="row p-1">
+    <div class="col-10">
+        <button id="draftStatusContainer" type="button" class="btn w-100 text-white" style="pointer-events: none; background:#{{ current_pick.pick_owner.primary_color }}; !important" >
+            {% if current_pick %}
+            <small><span id="draftStatus">{{ current_pick.pick_owner.fullname }} Are On The Clock!</span></small>
+            {% else %}
+            <small>The 2024 NFL Draft Has Concluded!</small>
+            {% endif %}
+        </button>
+    </div>
+    <div class="col-2">
+        <button id="tradeBtn" class="btn btn-secondary w-100 text-white" data-current-pick="{{ current_pick.ID }}" onclick="tradeModal(this.getAttribute('data-current-pick'))">
+            <i class="bi bi-arrow-repeat"></i> Trade Picks
+        </button>
+    </div>
+</div>

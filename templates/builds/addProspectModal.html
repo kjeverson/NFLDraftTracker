@@ -1,0 +1,41 @@
+<div id="addProspectModal" class="modal" tabindex="-1">
+  <div class="modal-dialog modal-lg bg-dark text-white">
+    <div class="modal-content bg-dark" >
+      <div class="modal-body bg-dark">
+        <h4 class="modal-title text-center">Add Prospect</h4>
+        <div class="row p-1 m-1 justify-content-center">
+          <div class="col-2">First Name:</div>
+          <div class="col-10">
+            <input class="form-control-sm w-100" id="addProspectFname">
+          </div>
+        </div>
+        <div class="row p-1 m-1 justify-content-center">
+          <div class="col-2 align-content-center">Last Name:</div>
+          <div class="col-10">
+            <input class="form-control-sm w-100" id="addProspectLname">
+          </div>
+        </div>
+        <div class="row p-1 m-1">
+          <div class="col-2 align-content-center">Position:</div>
+          <div class="col-10">
+            <input class="form-control-sm w-100" id="addProspectPosition">
+          </div>
+        </div>
+        <div class="row p-1 m-1">
+          <div class="col-2">College:</div>
+          <div class="col-10">
+            <select id="addProspectCollege" class="form-select" aria-label="Default select example">
+              <option data-college-id="" selected>No College</option>
+              {% for college in colleges | sort(attribute='location', reverse=False) %}
+              <option data-college-id="{{ college.ID }}">{{ college.location }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-secondary" onclick="addProspect()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>

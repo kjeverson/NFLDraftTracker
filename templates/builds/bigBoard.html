@@ -1,0 +1,68 @@
+
+  <!-- BIG BOARD POSITION SELECT -->
+  <div class="row p-2 text-center">
+    <div class="btn-group">
+      <button id="ALL" class="btn btn-secondary pos-btn" type="button" data-pick-id="{{ current_pick.ID }}" data-pos="ALL" onclick="getPosition(this.getAttribute('data-pos'), this.getAttribute('data-pick-id'))">ALL</button>
+      <button id="QB" class="btn btn-secondary pos-btn" type="button" data-pick-id="{{ current_pick.ID }}" data-pos="QB" onclick="getPosition(this.getAttribute('data-pos'), this.getAttribute('data-pick-id'))">QB</button>
+      <button id="RB" class="btn btn-secondary pos-btn" type="button" data-pick-id="{{ current_pick.ID }}" data-pos="RB" onclick="getPosition(this.getAttribute('data-pos'), this.getAttribute('data-pick-id'))">RB</button>
+      <button id="WR" class="btn btn-secondary pos-btn" type="button" data-pick-id="{{ current_pick.ID }}" data-pos="WR" onclick="getPosition(this.getAttribute('data-pos'), this.getAttribute('data-pick-id'))">WR</button>
+      <button id="TE" class="btn btn-secondary pos-btn" type="button" data-pick-id="{{ current_pick.ID }}" data-pos="TE" onclick="getPosition(this.getAttribute('data-pos'), this.getAttribute('data-pick-id'))">TE</button>
+      <button id="OT" class="btn btn-secondary pos-btn" type="button" data-pick-id="{{ current_pick.ID }}" data-pos="OT" onclick="getPosition(this.getAttribute('data-pos'), this.getAttribute('data-pick-id'))">OT</button>
+      <button id="IOL" class="btn btn-secondary pos-btn" type="button" data-pick-id="{{ current_pick.ID }}" data-pos="IOL" onclick="getPosition(this.getAttribute('data-pos'), this.getAttribute('data-pick-id'))">IOL</button>
+      <button id="EDGE" class="btn btn-secondary pos-btn" type="button" data-pick-id="{{ current_pick.ID }}" data-pos="EDGE" onclick="getPosition(this.getAttribute('data-pos'), this.getAttribute('data-pick-id'))">EDGE</button>
+      <button id="DT" class="btn btn-secondary pos-btn" type="button" data-pick-id="{{ current_pick.ID }}" data-pos="DT" onclick="getPosition(this.getAttribute('data-pos'), this.getAttribute('data-pick-id'))">DT</button>
+      <button id="LB" class="btn btn-secondary pos-btn" type="button" data-pick-id="{{ current_pick.ID }}" data-pos="LB" onclick="getPosition(this.getAttribute('data-pos'), this.getAttribute('data-pick-id'))">LB</button>
+      <button id="CB" class="btn btn-secondary pos-btn" type="button" data-pick-id="{{ current_pick.ID }}" data-pos="CB" onclick="getPosition(this.getAttribute('data-pos'), this.getAttribute('data-pick-id'))">CB</button>
+      <button id="S" class="btn btn-secondary pos-btn" type="button" data-pick-id="{{ current_pick.ID }}" data-pos="S" onclick="getPosition(this.getAttribute('data-pos'), this.getAttribute('data-pick-id'))">S</button>
+      <button id="ST" class="btn btn-secondary pos-btn" type="button" data-pick-id="{{ current_pick.ID }}" data-pos="ST" onclick="getPosition(this.getAttribute('data-pos'), this.getAttribute('data-pick-id'))">ST</button>
+    </div>
+  </div>
+  <div class="row p-2 text-white">
+    <div class="col-10">
+      <div class="row m-1">
+        <input id="playerSearchBar" class="form-control w-100" type="search" placeholder="Search Player">
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="row m-1">
+        <button type="button" class="btn btn-secondary w-100" onclick="addProspectModal()"><i class="bi bi-person-fill-add"></i></button>
+      </div>
+    </div>
+  </div>
+  <!-- BIG BOARD LIST -->
+  <div class="row p-2 flex-row flex-nowrap overflow-scroll" style="height: 500px;">
+    <div class="card bg-dark">
+      <div class="card-body">
+        <div class="row text-white">
+          <table class="table table-dark table-hover">
+            <tbody id="prospectTable">
+              {% for prospect in prospects | sort(attribute='rank', reverse=False) %}
+              {% if prospect.drafted_pick_id == None %}
+              {%else%}
+                <tr data-prospect-name="{{ prospect.name|lower }}" class="player-btn">
+                  <td style="background:linear-gradient(to left, rgba(0,0,0,0) 65%, #{{ prospect.college_team.primary_color if prospect.college_team else '4c8bc6' }})">
+                    <div class="row align-items-center">
+                      <div class="col-2">
+                        <div class="row text-center">
+                          <h4>{{ prospect.rank if prospect.rank > 0 else "" }}</h4>
+                        </div>
+                      </div>
+                      <div class="col-1"><img src="{{ url_for('static', filename='img/NCAA/'+ prospect.college_team.ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/draft_logo.png') }}'" height="40px"></div>
+                      <div class="col-7" data-id="{{ prospect.ID }}" onclick="getProspect(this.getAttribute('data-id'))">
+                        <div class="row"><h5>{% if prospect.favorite %}<i class="bi bi-star-fill"></i> {% else %}<i class="bi bi-star"></i> {% endif %}{{ prospect.name }}</h5></div>
+                        <div class="row"><small>{{ prospect.position }}{% if prospect.college_team %} | {{ prospect.college_team.location }} {% endif %}</small></div>
+                      </div>
+                      <div class="col-2">
+                        <button class="btn w-100 btn-secondary" type="button" data-pick-id="{{ current_pick.ID }}" data-id="{{ prospect.ID }}" onclick="draftProspect(this.getAttribute('data-pick-id'), this.getAttribute('data-id'))">DRAFT</button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

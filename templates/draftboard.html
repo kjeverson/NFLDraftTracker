@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% block title %}
+  2024 NFL Draft Tracker
+{% endblock %}
+{% block content %}
+
+<script src="{{ url_for('static', filename='js/team.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bigBoard.js') }}"></script>
+
+<div id="mainContainer" class="container p-1">
+  <div id="homePage" class="container p-2 text-white">
+    <!-- DRAFT PICKS -->
+    <div class="container-fluid" id="draftPickContainer">
+
+
+
+
+    </div>
+    <!-- DRAFT STATUS -->
+    <div class="row p-1 text-center">
+
+    </div>
+    <!-- MAIN CONTENT -->
+    <div class="row">
+      <!-- BIG BOARD -->
+      <div class="col-6" id="bigBoard">
+
+      </div>
+      <!-- TEAM CONTROL -->
+      <div class="col-6">
+        <!-- TEAM SELECTION -->
+        <div class="row p-2">
+          <div class="col">
+            <div class="dropdown">
+              <button class="btn w-100 btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Select Team
+              </button>
+              <div class="shadow dropdown-menu dropdown-menu-dark p-4 mw-50" aria-labelledby="dropdownMenuButton1">
+                <div class="row justify-content-center">AFC</div>
+                <div class="row m-2">
+                  <div class="col-3">
+                    <div class="row justify-content-center">
+                      {% for team in teams | sort(attribute='key', reverse=False) %}
+                      {% if team.conference == "AFC" and team.division == "North" %}
+                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
+                      <div class="row" >
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
+                      </div>
+                      </button>
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="row justify-content-center">
+                      {% for team in teams | sort(attribute='key', reverse=False) %}
+                      {% if team.conference == "AFC" and team.division == "East" %}
+                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
+                      <div class="row" >
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
+                      </div>
+                      </button>
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="row justify-content-center">
+                      {% for team in teams | sort(attribute='key', reverse=False) %}
+                      {% if team.conference == "AFC" and team.division == "South" %}
+                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
+                      <div class="row" >
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
+                      </div>
+                      </button>
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="row justify-content-center">
+                      {% for team in teams | sort(attribute='key', reverse=False) %}
+                      {% if team.conference == "AFC" and team.division == "West" %}
+                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
+                      <div class="row" >
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
+                      </div>
+                      </button>
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-center">NFC</div>
+                <div class="row m-2">
+                  <div class="col-3">
+                    <div class="row justify-content-center">
+                      {% for team in teams | sort(attribute='key', reverse=False) %}
+                      {% if team.conference == "NFC" and team.division == "North" %}
+                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
+                      <div class="row" >
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
+                      </div>
+                      </button>
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="row justify-content-center">
+                      {% for team in teams | sort(attribute='key', reverse=False) %}
+                      {% if team.conference == "NFC" and team.division == "East" %}
+                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
+                      <div class="row" >
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
+                      </div>
+                      </button>
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="row justify-content-center">
+                      {% for team in teams | sort(attribute='key', reverse=False) %}
+                      {% if team.conference == "NFC" and team.division == "South" %}
+                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
+                      <div class="row" >
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
+                      </div>
+                      </button>
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="row justify-content-center">
+                      {% for team in teams | sort(attribute='key', reverse=False) %}
+                      {% if team.conference == "NFC" and team.division == "West" %}
+                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
+                      <div class="row" >
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
+                      </div>
+                      </button>
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- TEAM PICKS -->
+        <div id="teamControl" class="container">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="modalContainer" class="container">
+
+</div>
+{% endblock %}

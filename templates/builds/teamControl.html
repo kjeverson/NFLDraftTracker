@@ -1,0 +1,49 @@
+
+<div class="row p-2">
+  <div class="row p-1">
+    <div class="col-2 align-self-center">Needs:</div>
+    {% for need in needs %}
+    <div class="col-2">
+      <button class="btn w-100 {% if need in drafted %}btn-outline-secondary{% else %}btn-secondary{% endif %}"disabled>{{ need }}</button>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<!-- TEAM PICKS -->
+<div class="row p-2 ">
+  <div id="teamCard" class="card bg-dark" data-team-id="{{ team.ID }}">
+      <div class="row text-white">
+        <table class="table table-dark table-hover">
+          <tbody>
+              {% for team_pick in team.picks | sort(attribute='pick', reverse=False) %}
+                <tr data-id="{{ team_pick.ID }}">
+                  <td style="background:linear-gradient(to left, rgba(0,0,0,0) 65%, #{{ team.primary_color }}")>
+                    <div class="row align-items-center">
+                      <div class="col-2 justify-content-center">
+                        <div class="row text-center">
+                          <h4>{{ team_pick.pick }}</h4>
+                        </div>
+                        <div class="row text-center">
+                          <small>{% if team_pick.traded %}<i class="bi bi-arrow-repeat"></i>{% endif %}</small>
+                        </div>
+                      </div>
+                      <div class="col-1 justify-content-center"><img src="{{ url_for('static', filename='img/NFL/'+ team.key +'.png') }}" height="40px"></div>
+                      {% if team_pick.prospect %}
+                      <div class="col-7" data-id="{{ team_pick.prospect[0].ID }}" onclick="getProspect(this.getAttribute('data-id'))">
+                        <div class="row"><h5>{% if team_pick.prospect[0].favorite %}<i class="bi bi-star-fill"></i> {% else %}<i class="bi bi-star"></i> {% endif %}{{ team_pick.prospect[0].name }}</h5></div>
+                        <div class="row"><small>{{ team_pick.prospect[0].position }} | {{ team_pick.prospect[0].college_team.location if team_pick.prospect[0].college_team else "--" }}</small></div>
+                      </div>
+                      {% else %}
+                      <div class="col-7">
+
+                      </div>
+                      {% endif %}
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+      </div>
+  </div>
+</div>
