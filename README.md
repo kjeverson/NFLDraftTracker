@@ -3,7 +3,7 @@
 
 Current features:
 - 637 Draft Prospects with measurables, overview, strengths and weakness, and NFL comparison (mostly).
-- Response draft board that follows the current pick.
+- Responsive draft board that follows the current pick.
 - Responsive prospect search bar.
 - Ability to add prospects on the fly, if they do not exist in the tracker already.
 - Ability to favorite prospects.
