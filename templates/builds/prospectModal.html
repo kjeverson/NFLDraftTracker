@@ -27,7 +27,7 @@
                 <div class="row text-center mt-2 justify-content-center">
                     <div class="col-8 justify-content-center align-items-center">
                       <div class="row mt-4 text-center">
-                        <button class="btn btn-dark text-white p-2 position-relative" style="pointer-events: none;">
+                        <button class="btn btn-dark text-white p-2 position-relative" style="pointer-events: none; background-color: rgba(0,0,0,0); !important">
                             <div class="row mt-2 align-items-center">
                                 <div class="col-1 justify-content-center"><img src="{{ url_for('static', filename='img/NFL/'+ prospect.drafted_team.key +'.png') }}" height="40px"></div>
                                 <div class="col-10 justify-content-center"><h5>{{ prospect.drafted_team.name }} - Round {{ prospect.draft_pick.round }}, Pick {{ prospect.draft_pick.pick }}</h5></div>
