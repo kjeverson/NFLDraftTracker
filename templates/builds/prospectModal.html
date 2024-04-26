@@ -24,7 +24,7 @@
                     <div class="col-8 justify-content-center align-items-center">
                       <div class="row mt-4 text-center">
                         <button class="btn btn-dark text-white p-2 position-relative" style="pointer-events: none; background:linear-gradient(to left, rgba(0,0,0,0) 45%, #{{ prospect.drafted_team.primary_color }}) !important">
-                            <div class="row align-items-center">
+                            <div class="row mt-2 align-items-center">
                                 <div class="col-1 justify-content-center"><img src="{{ url_for('static', filename='img/NFL/'+ prospect.drafted_team.key +'.png') }}" height="40px"></div>
                                 <div class="col-10 justify-content-center"><h5>{{ prospect.drafted_team.name }} - Round {{ prospect.draft_pick.round }}, Pick {{ prospect.draft_pick.pick }}</h5></div>
                             </div>
@@ -67,7 +67,7 @@
           </div>
           <div class="row pb-1 px-3">
               <div class="btn active btn-secondary position-relative" style="pointer-events: none">
-                <div class="row">
+                <div class="row mt-2">
                     <div class="col"><div class="row"><h2><strong id="prospectCard40Yard">{{ prospect.forty if prospect.forty else ' -- ' }}</strong></h2></div><div class="row"><small>40-YD Dash</small></div></div>
                     <div class="col"><div class="row"><h2><strong id="prospectCardVertical">{{ prospect.vertical if prospect.vertical else ' -- ' }}</strong></h2></div><div class="row"><small>Vertical Jump</small></div></div>
                     <div class="col"><div class="row"><h2><strong id="prospectCardBroad">{{ prospect.broad if prospect.broad else ' -- ' }}</strong></h2></div><div class="row"><small>Broad Jump</small></div></div>
