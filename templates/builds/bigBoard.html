@@ -72,7 +72,9 @@
                         <div class="row"><small>{{ prospect.position }}{% if prospect.college_team %} | {{ prospect.college_team.location }} {% endif %}</small></div>
                       </div>
                       <div class="col-2">
+                        {% if current_pick %}
                         <button class="btn w-100 btn-secondary" type="button" data-pick-id="{{ current_pick.ID }}" data-id="{{ prospect.ID }}" onclick="draftProspect(this.getAttribute('data-pick-id'), this.getAttribute('data-id'))">DRAFT</button>
+                        {% endif %}
                       </div>
                     </div>
                   </td>
