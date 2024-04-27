@@ -1,15 +1,19 @@
 window.onload = function() {
-    getPosition("ALL", 1);
-    getDraftPicks(1);
+    getPosition("ALL", 101);
+    getDraftPicks(101);
 }
 
 function getPosition(pos, pick_id) {
+    var showDraftedCheck = document.getElementById("showDraftedCheckBox")
+    var showDrafted = (showDraftedCheck)? showDraftedCheck.checked: false;
+
     $.ajax({
         url: "/prospectPosition",
         type: "GET",
         data: {
             pos: pos,
-            pick_id: pick_id
+            pick_id: pick_id,
+            show_drafted: showDrafted
         },
         success: function(data) {
             var object = document.getElementById("bigBoard");

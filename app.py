@@ -33,7 +33,7 @@ needs = {
     "DEN": ['QB', 'CB', 'DT', 'EDGE', 'OT'],
     "LV" : ['QB', 'CB', 'OT', 'WR', 'IOL'],
     "NO" : ['OT', 'WR', 'CB', 'DT', 'LB'],
-    "IND": ['CB', 'WR', 'RB', 'IOL', 'S'],
+    "IND": ['CB', 'WR', 'IOL', 'S', 'RB'],
     "SEA": ['DT', 'LB', 'IOL', 'EDGE', 'TE'],
     "JAX": ['CB', 'DT', 'OT', 'IOL', 'EDGE'],
     "CIN": ['OT', 'DT', 'CB', 'WR', 'TE'],
@@ -54,43 +54,6 @@ needs = {
     "HOU": ['CB', 'TE', 'LB', 'IOL', 'DT']
 }
 
-drafted = {
-    "CHI": [],
-    "WSH": [],
-    "NE": [],
-    "ARI": [],
-    "LAC": [],
-    "NYG": [],
-    "TEN": [],
-    "ATL": [],
-    "NYJ": [],
-    "MIN": [],
-    "DEN": [],
-    "LV": [],
-    "NO": [],
-    "IND": [],
-    "SEA": [],
-    "JAX": [],
-    "CIN": [],
-    "LAR": [],
-    "PIT": [],
-    "MIA": [],
-    "PHI": [],
-    "DAL": [],
-    "GB": [],
-    "TB": [],
-    "BUF": [],
-    "DET": [],
-    "BAL": [],
-    "SF": [],
-    "KC": [],
-    "CAR": [],
-    "CLE": [],
-    "HOU": []
-}
-
-#current_pick = 1
-
 
 @app.route('/')
 def big_board():
@@ -107,18 +70,33 @@ def big_board():
 def get_team():
     team_id = int(request.args.get("id"))
     team = NFLTeam.query.get(team_id)
-    return render_template("builds/teamControl.html", team=team, needs=needs.get(team.key), drafted=drafted.get(team.key))
+
+    drafted = []
+
+    for prospect in team.draftees:
+        if prospect.position in ['OG', 'C', 'IOL']:
+            drafted.append("IOL")
+
+        else:
+            drafted.append(prospect.position)
+
+    return render_template("builds/teamControl.html", team=team, needs=needs.get(team.key), drafted=drafted)
 
 
 @app.route('/prospectPosition', methods=['GET'])
 def get_prospects_by_position():
     pos = request.args.get("pos")
     pick_id = request.args.get("pick_id")
+    show_drafted = request.args.get("show_drafted")
+    show_drafted = True if show_drafted == 'true' else False
 
     selected = pos
 
     if pos == "ALL":
-        prospects = Prospect.query.filter_by(draft_pick_id=None).all()
+        if show_drafted:
+            prospects = Prospect.query.all()
+        else:
+            prospects = Prospect.query.filter_by(draft_pick_id=None).all()
 
     else:
         pos = [request.args.get("pos")]
@@ -131,11 +109,14 @@ def get_prospects_by_position():
 
         prospects = []
         for p in pos:
-            prospects.extend(Prospect.query.filter_by(position=p, draft_pick_id=None).all())
+            if show_drafted:
+                prospects.extend(Prospect.query.filter_by(position=p).all())
+            else:
+                prospects.extend(Prospect.query.filter_by(position=p, draft_pick_id=None).all())
 
     pick = DraftPick.query.get(pick_id)
 
-    return render_template("builds/bigBoard.html", prospects=prospects, current_pick=pick, selected=selected)
+    return render_template("builds/bigBoard.html", prospects=prospects, current_pick=pick, selected=selected, show_drafted=show_drafted)
 
 
 @app.route('/prospectModal', methods=['GET'])
@@ -224,12 +205,6 @@ def draft_prospect():
 
     prospect = Prospect.query.get(prospect_id)
     pick = DraftPick.query.get(pick_id)
-
-    position = prospect.position
-    if position in ['OG', 'C']:
-        position = "IOL"
-
-    drafted[pick.pick_owner.key].append(position)
 
     prospect.draft(pick)
 
