@@ -18,50 +18,12 @@ from NFLDraftTracker.lib.team import NFLTeam, NCAATeam
 from NFLDraftTracker.lib.prospect import Prospect, add_prospect
 from NFLDraftTracker.lib.draft_pick import DraftPick
 
-# Whoops, forgot to add this to the database, doing it here
-needs = {
-    "CHI": ['QB', 'WR', 'EDGE', 'OT', 'DT'],
-    "WSH": ['QB', 'OT', 'EDGE', 'CB', 'WR'],
-    "NE" : ['QB', 'OT', 'CB', 'WR', 'DT'],
-    "ARI": ['WR', 'CB', 'EDGE', 'RB', 'IOL'],
-    "LAC": ['WR', 'CB', 'IOL', 'OT', 'RB'],
-    "NYG": ['WR', 'CB', 'RB', 'S', 'QB'],
-    "TEN": ['OT', 'EDGE', 'DT', 'WR', 'LB'],
-    "ATL": ['EDGE', 'CB', 'DT', 'S', 'QB'],
-    "NYJ": ['TE', 'S', 'WR', 'LB', 'CB'],
-    "MIN": ['QB', 'IOL', 'EDGE', 'WR', 'DT'],
-    "DEN": ['QB', 'CB', 'DT', 'EDGE', 'OT'],
-    "LV" : ['QB', 'CB', 'OT', 'WR', 'IOL'],
-    "NO" : ['OT', 'WR', 'CB', 'DT', 'LB'],
-    "IND": ['CB', 'WR', 'IOL', 'S', 'RB'],
-    "SEA": ['DT', 'LB', 'IOL', 'EDGE', 'TE'],
-    "JAX": ['CB', 'DT', 'OT', 'IOL', 'EDGE'],
-    "CIN": ['OT', 'DT', 'CB', 'WR', 'TE'],
-    "LAR": ['DT', 'EDGE', 'CB', 'OT', 'K'],
-    "PIT": ['OT', 'IOL', 'WR', 'CB', 'DT'],
-    "MIA": ['IOL', 'DT', 'OT', 'EDGE', 'TE'],
-    "PHI": ['CB', 'IOL', 'OT', 'WR', 'S'],
-    "DAL": ['OT', 'RB', 'IOL', 'DT', 'WR'],
-    "GB" : ['DT', 'LB', 'OT', 'CB', 'S'],
-    "TB" : ['EDGE', 'IOL', 'CB', 'S', 'LB'],
-    "BUF": ['WR', 'EDGE', 'DT', 'S', 'RB'],
-    "DET": ['CB', 'EDGE', 'S', 'WR', 'OT'],
-    "BAL": ['IOL', 'OT', 'EDGE', 'WR', 'S'],
-    "SF" : ['CB', 'OT', 'IOL', 'WR', 'LB'],
-    "KC" : ['WR', 'OT', 'CB', 'RB', 'IOL'],
-    "CAR": ['WR', 'TE', 'CB', 'EDGE', 'DT'],
-    "CLE": ['OT', 'LB', 'DT', 'WR', 'TE'],
-    "HOU": ['CB', 'TE', 'LB', 'IOL', 'DT']
-}
-
 
 @app.route('/')
 def big_board():
     prospects = Prospect.query.all()
     picks = DraftPick.query.all()
     teams = NFLTeam.query.all()
-
-    #pick = DraftPick.query.get(current_pick)
 
     return render_template("draftboard.html", prospects=prospects, picks=picks, teams=teams)
 
@@ -80,7 +42,7 @@ def get_team():
         else:
             drafted.append(prospect.position)
 
-    return render_template("builds/teamControl.html", team=team, needs=needs.get(team.key), drafted=drafted)
+    return render_template("builds/teamControl.html", team=team, needs=team.get_needs(), drafted=drafted)
 
 
 @app.route('/prospectPosition', methods=['GET'])

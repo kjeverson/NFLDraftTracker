@@ -24,10 +24,17 @@ class NFLTeam(db.Model):
 	picks = db.relationship('DraftPick', backref='pick_owner',
 							foreign_keys="DraftPick.team_id", lazy=True)
 
-	needs = []
+	needs = db.Column(db.String(50))
 
 	def __repr__(self):
 		return "NFL({})".format(self.fullname)
+
+	def get_needs(self):
+		return self.needs.split()
+
+	def set_needs(self, needs_list):
+		self.needs = " ".join(needs_list)
+		db.session.commit()
 
 
 class NCAATeam(db.Model):
