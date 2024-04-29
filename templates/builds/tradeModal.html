@@ -126,12 +126,12 @@
                           </div>
                         </div>
                         {% for team in teams %}
-                        <div class="row p-1" id="team{{ team.ID }}TitleSend" hidden>
+                        <div class="team-title-send row p-1" id="team{{ team.ID }}TitleSend" hidden>
                             <div class="col align-self-center">
                                 <img src="{{ url_for('static', filename='img/NFL/'+ team.key +'.png') }}" height="40px"> {{ team.fullname }}
                             </div>
                         </div>
-                        <div class="row p-1 justify-content-center" id="team{{ team.ID }}Send" hidden>
+                        <div class="team-picks-send row p-1 justify-content-center" id="team{{ team.ID }}Send" hidden>
                             <div class="col-8 align-self-center">
                             {% for pick in team.picks %}
                             {% if pick.prospect %}
@@ -267,12 +267,12 @@
                                 </div>
                         </div>
                         {% for team in teams %}
-                        <div class="row p-1" id="team{{ team.ID }}TitleRec" hidden>
+                        <div class="team-title-rec row p-1" id="team{{ team.ID }}TitleRec" hidden>
                             <div class="col align-self-center">
                                 <img src="{{ url_for('static', filename='img/NFL/'+ team.key +'.png') }}" height="40px"> {{ team.fullname }}
                             </div>
                         </div>
-                        <div class="row p-1 justify-content-center" id="team{{ team.ID }}Rec" hidden>
+                        <div class="team-picks-rec row p-1 justify-content-center" id="team{{ team.ID }}Rec" hidden>
                             <div class="col-8 align-self-center">
                             {% for pick in team.picks %}
                             {% if pick.prospect %}

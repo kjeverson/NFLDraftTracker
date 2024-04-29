@@ -281,14 +281,29 @@ function submitTrade(send, rec, currentPick) {
     })
 }
 
-function showTeamPicks(id) {
-    var title = document.getElementById("team"+id+"Title");
-    var pickList = document.getElementById("team"+id);
-    title.removeAttribute("hidden");
-    pickList.removeAttribute("hidden");
-}
-
 function showTeamPicks(id, string) {
+    if (string == "Send") {
+        var teamTitleListSend = document.getElementsByClassName("team-title-send");
+        Array.prototype.forEach.call(teamTitleListSend, function(title) {
+            title.setAttribute("hidden", true);
+        });
+        var teamPicksListSend = document.getElementsByClassName("team-picks-send");
+        Array.prototype.forEach.call(teamPicksListSend, function(pickList) {
+            pickList.setAttribute("hidden", true);
+        });
+    };
+    
+    if (string == "Rec") {
+        var teamTitleListRec = document.getElementsByClassName("team-title-rec");
+        Array.prototype.forEach.call(teamTitleListRec, function(title) {
+            title.setAttribute("hidden", true);
+        });
+        var teamPicksListRec = document.getElementsByClassName("team-picks-rec");
+        Array.prototype.forEach.call(teamPicksListRec, function(pickList) {
+            pickList.setAttribute("hidden", true);
+        });
+    };
+
     var title = document.getElementById("team"+id+"Title"+string);
     var pickList = document.getElementById("team"+id+string);
     var submitBtn = document.getElementById("submitBtn");
