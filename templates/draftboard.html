@@ -6,6 +6,9 @@
 
 <script src="{{ url_for('static', filename='js/team.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bigBoard.js') }}"></script>
+<script>
+  onload({{data|tojson}})
+</script>
 
 <div id="mainContainer" class="container p-1">
   <div id="homePage" class="container p-2 text-white">

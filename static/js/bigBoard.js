@@ -1,6 +1,7 @@
-window.onload = function() {
-    getPosition("ALL", 1);
-    getDraftPicks(1);
+
+function onload(data) {
+    getPosition("ALL", data["current_pick"]);
+    getDraftPicks(data["current_pick"]);
 }
 
 function getPosition(pos, pick_id) {

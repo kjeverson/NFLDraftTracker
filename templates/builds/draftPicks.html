@@ -23,13 +23,15 @@
 </div>
 <div class="row p-1">
     <div class="col-10">
+        {% if current_pick %}
         <button id="draftStatusContainer" type="button" class="btn w-100 text-white" style="pointer-events: none; background:#{{ current_pick.pick_owner.primary_color }}; !important" >
-            {% if current_pick %}
             <small><span id="draftStatus">{{ current_pick.pick_owner.fullname }} Are On The Clock!</span></small>
-            {% else %}
-            <small>The 2024 NFL Draft Has Concluded!</small>
-            {% endif %}
         </button>
+        {% else %}
+        <button id="draftStatusContainer" type="button" class="btn w-100 text-white btn-secondary" style="pointer-events: none; !important" >
+            <small>The 2024 NFL Draft Has Concluded!</small>
+        </button>
+        {% endif %}
     </div>
     <div class="col-2">
         <button id="tradeBtn" class="btn btn-secondary w-100 text-white" data-current-pick="{{ current_pick.ID }}" onclick="tradeModal(this.getAttribute('data-current-pick'))">

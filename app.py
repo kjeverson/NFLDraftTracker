@@ -16,7 +16,7 @@ db = SQLAlchemy(app)
 
 from NFLDraftTracker.lib.team import NFLTeam, NCAATeam
 from NFLDraftTracker.lib.prospect import Prospect, add_prospect
-from NFLDraftTracker.lib.draft_pick import DraftPick
+from NFLDraftTracker.lib.draft_pick import DraftPick, get_current_pick
 
 
 @app.route('/')
@@ -25,7 +25,13 @@ def big_board():
     picks = DraftPick.query.all()
     teams = NFLTeam.query.all()
 
-    return render_template("draftboard.html", prospects=prospects, picks=picks, teams=teams)
+    current_pick = get_current_pick()
+    if current_pick:
+        data = {"current_pick": current_pick.pick}
+    else:
+        data = {"current_pick": None}
+
+    return render_template("draftboard.html", prospects=prospects, picks=picks, teams=teams, data=data)
 
 
 @app.route('/team', methods=['GET'])

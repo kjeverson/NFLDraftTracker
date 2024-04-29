@@ -43,3 +43,10 @@ def add_draft_picks(database):
             round=r,
             pick=ID,
         ))
+
+
+def get_current_pick():
+    picks = DraftPick.query.all()
+    for pick in picks:
+        if not pick.prospect:
+            return pick
