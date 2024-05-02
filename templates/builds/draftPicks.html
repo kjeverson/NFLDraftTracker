@@ -6,7 +6,7 @@
   {% else %}
   <div class="card bg-dark" id="pick{{ pick.ID }}" data-id="{{ pick.ID }}">
   {% endif %}
-  <h6 class="card-header" style="background:#{{ pick.pick_owner.primary_color }}">{{ pick.round }}.{{ pick.pick }}</h6>{% if pick.traded %}<i class="bi bi-arrow-repeat" style="position: absolute; top: 5px; right: 10px;"></i>{% endif %}
+  <h6 class="card-header" style="background:#{{ pick.pick_owner.primary_color }}">{{ pick.round }}.{{ pick.pick }}</h6>{% if pick.traded %}<i class="bi bi-arrow-repeat" style="position: absolute; top: 5px; right: 10px; color: gold;"></i>{% endif %}
       <div class="card-body" style="background:linear-gradient(to top, rgba(0,0,0,0) 50%, #{{ pick.pick_owner.primary_color }}">
         <img src="{{ url_for('static', filename='img/NFL/'+ pick.pick_owner.key +'.png') }}" height="60px">
           {% if pick.prospect %}
