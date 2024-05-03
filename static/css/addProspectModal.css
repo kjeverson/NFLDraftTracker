@@ -1,0 +1,41 @@
+/* Add this CSS to your existing stylesheet */
+
+.modal-dialog {
+    border-radius: 20px; /* Increased border radius for smoother edges */
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5); /* Larger and more pronounced shadow effect */
+}
+
+.modal-content {
+    background-color: #222; /* Darkened background color for depth */
+    border: none; /* Remove default border */
+}
+
+.modal-body {
+    padding: 40px; /* Increased padding for better spacing */
+}
+
+.modal-footer {
+    border-top: none; /* Remove default border */
+    background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background for a subtle effect */
+}
+
+.btn.active {
+    border-radius: 20px; /* Increased border radius for smoother edges */
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.3); /* Slightly lighter shadow effect */
+    transition: all 0.3s ease; /* Smooth transition on hover */
+}
+
+.btn.active:hover {
+    transform: translateY(-3px); /* Add a subtle lift effect on hover */
+}
+
+.modal-footer .btn-secondary {
+    background-color: #333; /* Darkened background color */
+    border-color: #333; /* Darkened border color */
+    transition: all 0.3s ease; /* Smooth transition on hover */
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #444; /* Darkened background color on hover */
+    border-color: #444; /* Darkened border color on hover */
+}
