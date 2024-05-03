@@ -1,0 +1,39 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}">
+<div id="editCollegeModal" class="modal" tabindex="-1">
+  <div class="modal-dialog modal-lg bg-dark text-white">
+    <div class="modal-content bg-dark">
+      <div class="modal-body" style="background: linear-gradient(to top, rgba(0,0,0,0) 40%, #{{ college.primary_color }})">
+        <div class="row p-1 m-1">
+          <h4 class="modal-title text-center">Edit {{ college.location }}</h4>
+        </div>
+        <div class="row p-1 m-1 justify-content-center">
+          <div class="col-2">Key:</div>
+          <div class="col-10">
+            <input class="form-control-sm w-100" value="{{ college.key }}" id="editCollegeKey">
+          </div>
+        </div>
+        <div class="row p-1 m-1 justify-content-center">
+          <div class="col-2">Name:</div>
+          <div class="col-10">
+            <input class="form-control-sm w-100" value="{{ college.location }}" id="editCollegeName">
+          </div>
+        </div>
+        <div class="row p-1 m-1 justify-content-center">
+          <div class="col-2 align-content-center">Mascot:</div>
+          <div class="col-10">
+            <input class="form-control-sm w-100" value="{{ college.name }}" id="editCollegeMascot">
+          </div>
+        </div>
+        <div class="row p-1 m-1">
+          <div class="col-2 align-content-center">Color:</div>
+          <div class="col-10">
+            <input class="form-control-sm w-100" value="{{ college.primary_color }}" id="editCollegeColor">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" data-id="{{ college.ID }}" onclick="editCollege(this.getAttribute('data-id'))">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

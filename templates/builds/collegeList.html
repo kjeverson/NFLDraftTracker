@@ -1,0 +1,52 @@
+<div class="col">
+  <div class="row p-2 text-white">
+    <div class="col-10">
+      <div class="row m-1">
+        <input id="collegeSearchBar" class="form-control w-100" type="search" placeholder="Search Colleges">
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="row m-1">
+        <button type="button" class="btn btn-secondary w-100" onclick="addCollegeModal()"><i class="bi bi-building-fill-add"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <!-- College List -->
+      <div class="col" id="collegeList">
+        <div class="row p-2 flex-row flex-nowrap overflow-scroll" style="height: 600px;">
+          <div class="card bg-dark">
+            <div class="card-body">
+              <div class="row text-white">
+                <table class="table table-dark table-hover">
+                  <tbody id="collegeTable">
+                    {% for college in colleges | sort(attribute='fullname', reverse=False) %}
+                      <tr data-college-name="{{ college.fullname|lower }}" class="player-btn">
+                        <td style="background:linear-gradient(to left, rgba(0,0,0,0) 65%, #{{ college.primary_color }})">
+                          <div class="row align-items-center">
+                            <div class="col-2">
+                              <div class="row text-center">
+                                <h6>{{ college.key }}</h6>
+                              </div>
+                            </div>
+                            <div class="col-1"><img src="{{ url_for('static', filename='img/NCAA/'+ college.ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/draft_logo.png') }}'" height="50px"></div>
+                            <div class="col-7">
+                              <div class="row"><h5>{{ college.location }}</h5></div>
+                              <div class="row"><small>{{ college.name }}</small></div>
+                            </div>
+                            <div class="col-2">
+                              <button class="btn w-100 btn-secondary" type="button" data-id="{{ college.ID }}" onclick="editCollegeModal(this.getAttribute('data-id'))">Edit</button>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>

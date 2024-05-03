@@ -14,7 +14,7 @@ log.setLevel(logging.ERROR)
 
 db = SQLAlchemy(app)
 
-from NFLDraftTracker.lib.team import NFLTeam, NCAATeam
+from NFLDraftTracker.lib.team import NFLTeam, NCAATeam, add_college_team
 from NFLDraftTracker.lib.prospect import Prospect, add_prospect
 from NFLDraftTracker.lib.draft_pick import DraftPick, get_current_pick
 
@@ -84,7 +84,7 @@ def get_prospects_by_position():
 
     pick = DraftPick.query.get(pick_id)
 
-    return render_template("builds/bigBoard.html", prospects=prospects, current_pick=pick, selected=selected, show_drafted=show_drafted)
+    return render_template("builds/prospectList.html", prospects=prospects, current_pick=pick, selected=selected, show_drafted=show_drafted)
 
 
 @app.route('/prospectModal', methods=['GET'])
@@ -220,5 +220,57 @@ def submit_trade():
     for pick in send_pick_ids:
         pick = DraftPick.query.get(int(pick))
         pick.trade(rec_team)
+
+    return jsonify()
+
+
+@app.route('/colleges', methods=['GET'])
+def colleges():
+    return render_template("colleges.html")
+
+
+@app.route('/collegesList', methods=['GET'])
+def colleges_list():
+    colleges = NCAATeam.query.all()
+    return render_template("builds/collegeList.html", colleges=colleges)
+
+
+@app.route('/addCollegeModal', methods=['GET'])
+def add_college_modal():
+    return render_template("builds/addCollegeModal.html")
+
+
+@app.route('/addCollege', methods=['POST'])
+def add_college():
+    name = request.form.get("name")
+    mascot = request.form.get("mascot")
+    key = request.form.get("key")
+    color = request.form.get("color")
+
+    add_college_team(db, name, mascot, key, color)
+
+    return jsonify()
+
+
+@app.route('/editCollegeModal', methods=['GET'])
+def edit_college_modal():
+    id = int(request.args.get("ID"))
+    college = NCAATeam.query.get(id)
+    return render_template("builds/editCollegeModal.html", college=college)
+
+
+@app.route('/editCollege', methods=['POST'])
+def edit_college():
+    id = int(request.form.get("ID"))
+    name = request.form.get("name")
+    mascot = request.form.get("mascot")
+    key = request.form.get("key")
+    color = request.form.get("color")
+
+    college = NCAATeam.query.get(id)
+    college.set_color(color)
+    college.set_key(key)
+    college.set_location(name)
+    college.set_name(mascot)
 
     return jsonify()

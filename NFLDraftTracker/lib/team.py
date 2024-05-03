@@ -1,6 +1,7 @@
 from app import db
 import requests
 import json
+import hashlib
 
 
 class NFLTeam(db.Model):
@@ -53,6 +54,24 @@ class NCAATeam(db.Model):
 
 	def __repr__(self):
 		return "College({})".format(self.fullname)
+
+	def set_color(self, color):
+		self.primary_color = color
+		db.session.commit()
+
+	def set_location(self, location):
+		self.location = location
+		self.fullname = "{} {}".format(self.location, self.name)
+		db.session.commit()
+
+	def set_name(self, name):
+		self.name = name
+		self.fullname = "{} {}".format(self.location, self.name)
+		db.session.commit()
+
+	def set_key(self, key):
+		self.key = key
+		db.session.commit()
 
 
 def get_all_team_data(college=False):
@@ -119,3 +138,18 @@ def add_ncaa_teams(database, teams):
 			name=team['name'],
 			fullname=team['displayName'],
 		))
+
+
+def add_college_team(database, name, mascot, key, color):
+	fullname = "{} {}".format(name, mascot)
+	id = int(hashlib.sha256(name.encode('utf-8')).hexdigest(), 16) % 10**8
+
+	database.session.add(NCAATeam(
+		ID=id,
+		key=key,
+		location=name,
+		name=mascot,
+		fullname=fullname,
+		primary_color=color,
+	))
+	db.session.commit()

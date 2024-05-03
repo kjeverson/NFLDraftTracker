@@ -1,0 +1,39 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}">
+<div id="addCollegeModal" class="modal" tabindex="-1">
+  <div class="modal-dialog modal-lg bg-dark text-white">
+    <div class="modal-content bg-dark">
+      <div class="modal-body">
+        <div class="row p-1 m-1">
+          <h4 class="modal-title text-center">Add College</h4>
+        </div>
+        <div class="row p-1 m-1 justify-content-center">
+          <div class="col-2">Key:</div>
+          <div class="col-10">
+            <input class="form-control-sm w-100" id="addCollegeKey">
+          </div>
+        </div>
+        <div class="row p-1 m-1 justify-content-center">
+          <div class="col-2">Name:</div>
+          <div class="col-10">
+            <input class="form-control-sm w-100" id="addCollegeName">
+          </div>
+        </div>
+        <div class="row p-1 m-1 justify-content-center">
+          <div class="col-2 align-content-center">Mascot:</div>
+          <div class="col-10">
+            <input class="form-control-sm w-100" id="addCollegeMascot">
+          </div>
+        </div>
+        <div class="row p-1 m-1">
+          <div class="col-2 align-content-center">Color:</div>
+          <div class="col-10">
+            <input class="form-control-sm w-100" id="addCollegeColor">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" onclick="addCollege()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
