@@ -29,7 +29,7 @@
                                 <h6>{{ college.key }}</h6>
                               </div>
                             </div>
-                            <div class="col-1"><img src="{{ url_for('static', filename='img/NCAA/'+ college.ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/draft_logo.png') }}'" height="50px"></div>
+                            <div class="col-1"><img src="{{ url_for('static', filename='img/NCAA/'+ college.ID|string +'.png') }}"  height="50px"></div>
                             <div class="col-7">
                               <div class="row"><h5>{{ college.location }}</h5></div>
                               <div class="row"><small>{{ college.name }}</small></div>

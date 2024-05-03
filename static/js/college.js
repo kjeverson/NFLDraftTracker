@@ -93,7 +93,7 @@ function editCollege(id) {
         data: {
             "ID": id,
             "name": name.value,
-            "mascot": name.value,
+            "mascot": mascot.value,
             "key": key.value,
             "color": color.value
         },
