@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prospectModal.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}">
 <div id="prospectModal" class="modal" tabindex="-1">
   <div class="modal-dialog modal-xl bg-dark text-white">
     <div class="modal-content bg-dark" >
@@ -30,8 +31,7 @@
                       <div class="row mt-4 text-center">
                         <button class="btn btn-dark text-white p-2 position-relative" style="pointer-events: none; background-color: rgba(0,0,0,0); !important">
                             <div class="row mt-2 align-items-center">
-                                <div class="col-1 justify-content-center"><img src="{{ url_for('static', filename='img/NFL/'+ prospect.drafted_team.key +'.png') }}" height="40px"></div>
-                                <div class="col-10 justify-content-center"><h5>{{ prospect.drafted_team.name }} - Round {{ prospect.draft_pick.round }}, Pick {{ prospect.draft_pick.pick }}</h5></div>
+                                <h5>{{ prospect.drafted_team.name }} - Round {{ prospect.draft_pick.round }}, Pick {{ prospect.draft_pick.pick }}</h5>
                             </div>
                           <span class="position-absolute top-0 start-50 translate-middle badge text-dark bg-light"><small>Drafted:</small></span>
                         </button>
