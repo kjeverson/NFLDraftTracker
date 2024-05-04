@@ -54,7 +54,6 @@ def get_team():
 @app.route('/prospectPosition', methods=['GET'])
 def get_prospects_by_position():
     pos = request.args.get("pos")
-    pick_id = request.args.get("pick_id")
     show_drafted = request.args.get("show_drafted")
     show_drafted = True if show_drafted == 'true' else False
 
@@ -82,7 +81,7 @@ def get_prospects_by_position():
             else:
                 prospects.extend(Prospect.query.filter_by(position=p, draft_pick_id=None).all())
 
-    pick = DraftPick.query.get(pick_id)
+    pick = get_current_pick()
 
     return render_template("builds/prospectList.html", prospects=prospects, current_pick=pick, selected=selected, show_drafted=show_drafted)
 
@@ -160,8 +159,7 @@ def add_prospect_from_modal():
 
 @app.route('/getDraftPicks', methods=['GET'])
 def get_draft_picks():
-    pick_id = request.args.get("current_pick")
-    pick = DraftPick.query.get(pick_id)
+    pick = get_current_pick()
     picks = DraftPick.query.all()
     return render_template("builds/draftPicks.html", picks=picks, current_pick=pick)
 
@@ -197,8 +195,7 @@ def draft_prospect():
 
 @app.route('/getTradeModal', methods=['GET'])
 def get_trade_modal():
-    current_pick_id = int(request.args.get("current_pick"))
-    current_pick = DraftPick.query.get(current_pick_id)
+    current_pick = get_current_pick()
     teams = NFLTeam.query.all()
     return render_template("builds/tradeModal.html", teams=teams, current_pick=current_pick)
 

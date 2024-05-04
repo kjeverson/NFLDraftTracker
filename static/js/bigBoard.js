@@ -1,10 +1,15 @@
 
 function onload(data) {
-    getPosition("ALL", data["current_pick"]);
+    getPosition("ALL");
     getDraftPicks(data["current_pick"]);
 }
 
-function getPosition(pos, pick_id) {
+function showDrafted(checkbox) {
+    var pos = $(".pos-btn:disabled")[0].getAttribute("data-pos");
+    getPosition(pos);
+}
+
+function getPosition(pos) {
     var showDraftedCheck = document.getElementById("showDraftedCheckBox")
     var showDrafted = (showDraftedCheck)? showDraftedCheck.checked: false;
 
@@ -13,7 +18,6 @@ function getPosition(pos, pick_id) {
         type: "GET",
         data: {
             pos: pos,
-            pick_id: pick_id,
             show_drafted: showDrafted
         },
         success: function(data) {
@@ -105,7 +109,7 @@ function addProspect() {
             $('#addProspectModal').modal("hide");
             var tradeBtn = document.getElementById("tradeBtn");
             var current_pick = tradeBtn.getAttribute("data-current-pick");
-            getPosition("ALL", current_pick);
+            getPosition("ALL");
         }
     })
 }
@@ -190,7 +194,7 @@ function draftProspect(pick_id, prospect_id) {
         },
         complete: function() {
             next_pick = parseInt(pick_id) + 1
-            getPosition("ALL", next_pick);
+            getPosition("ALL");
 
             var tradeBtn = document.getElementById("tradeBtn");
             tradeBtn.setAttribute("data-current-pick", next_pick);
