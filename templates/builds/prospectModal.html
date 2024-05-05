@@ -69,22 +69,22 @@
                 </div>
             </div>
           </div>
-          <div class="row pb-1 px-3">
-              <div class="btn active btn-secondary position-relative" style="pointer-events: none">
-                <div class="row mt-2">
-                    <div class="col"><div class="row"><h2><strong id="prospectCard40Yard">{{ prospect.forty if prospect.forty else ' -- ' }}</strong></h2></div><div class="row"><small>40-YD Dash</small></div></div>
-                    <div class="col"><div class="row"><h2><strong id="prospectCardVertical">{{ prospect.vertical if prospect.vertical else ' -- ' }}</strong></h2></div><div class="row"><small>Vertical Jump</small></div></div>
-                    <div class="col"><div class="row"><h2><strong id="prospectCardBroad">{{ prospect.broad if prospect.broad else ' -- ' }}</strong></h2></div><div class="row"><small>Broad Jump</small></div></div>
-                    <div class="col"><div class="row"><h2><strong id="prospectCardThreeCone">{{ prospect.three_cone if prospect.three_cone else ' -- ' }}</strong></h2></div><div class="row"><small>3-Cone</small></div></div>
-                    <div class="col"><div class="row"><h2><strong id="prospectCardTwentyShuttle">{{ prospect.twenty_shuttle if prospect.twenty_shuttle else ' -- ' }}</strong></h2></div><div class="row"><small>20-YD Shuttle</small></div></div>
-                    <div class="col"><div class="row"><h2><strong id="prospectCardBench">{{ prospect.bench if prospect.bench else ' -- ' }}</strong></h2></div><div class="row"><small>Bench Press</small></div></div>
-                    <div class="col"><div class="row"><h2><strong id="prospectCardRAS">{{ prospect.ras if prospect.ras else ' -- ' }}</strong></h2></div><div class="row"><small>RAS</small></div></div>
+          <div class="row combine-stats-row justify-content-center pb-1 px-3 position-relative">
+                <div class="col" style="pointer-events: none">
+                    <div class="row mt-2">
+                        <div class="col text-center"><div class="row"><h2><strong id="prospectCard40Yard">{{ prospect.forty if prospect.forty else ' -- ' }}</strong></h2></div><div class="row"><small>40-YD Dash</small></div></div>
+                        <div class="col text-center"><div class="row"><h2><strong id="prospectCardVertical">{{ prospect.vertical if prospect.vertical else ' -- ' }}</strong></h2></div><div class="row"><small>Vertical Jump</small></div></div>
+                        <div class="col text-center"><div class="row"><h2><strong id="prospectCardBroad">{{ prospect.broad if prospect.broad else ' -- ' }}</strong></h2></div><div class="row"><small>Broad Jump</small></div></div>
+                        <div class="col text-center"><div class="row"><h2><strong id="prospectCardThreeCone">{{ prospect.three_cone if prospect.three_cone else ' -- ' }}</strong></h2></div><div class="row"><small>3-Cone</small></div></div>
+                        <div class="col text-center"><div class="row"><h2><strong id="prospectCardTwentyShuttle">{{ prospect.twenty_shuttle if prospect.twenty_shuttle else ' -- ' }}</strong></h2></div><div class="row"><small>20-YD Shuttle</small></div></div>
+                        <div class="col text-center"><div class="row"><h2><strong id="prospectCardBench">{{ prospect.bench if prospect.bench else ' -- ' }}</strong></h2></div><div class="row"><small>Bench Press</small></div></div>
+                        <div class="col text-center"><div class="row" ><h2><strong id="prospectCardRAS">{{ prospect.ras if prospect.ras else ' -- ' }}</strong></h2></div><div class="row"><small>RAS</small></div></div>
+                    </div>
                 </div>
-                <span class="position-absolute top-0 start-50 translate-middle badge text-dark bg-light"><small id="statHeader">Combine Results</small></span>
-              </div>
-          </div>
+            </div>
+
           {% if prospect.overview %}
-          <div class="row p-1 text-center">
+          <div class="row p-1 mt-2 text-center">
               <h5>Overview:</h5>
           </div>
           <div class="row">
