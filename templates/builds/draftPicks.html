@@ -10,7 +10,7 @@
       <div class="card-body" style="background:linear-gradient(to top, rgba(0,0,0,0) 50%, #{{ pick.pick_owner.primary_color }}">
         <img src="{{ url_for('static', filename='img/NFL/'+ pick.pick_owner.key +'.png') }}" height="60px">
           {% if pick.prospect %}
-          <div class="row"><h6><span id="pick{{ pick.ID }}CardPlayerName">{{ pick.prospect[0].sname }}</span></h6></div>
+          <div class="row"><h6><strong><span id="pick{{ pick.ID }}CardPlayerName">{{ pick.prospect[0].sname }}</span></strong></h6></div>
           <div class="row"><small><span id="pick{{ pick.ID }}CardPlayerInfo">{{ pick.prospect[0].position }} | {{ pick.prospect[0].college_team.location if pick.prospect[0].college_team else "--" }} </span></small></div>
           {% else %}
           <div class="row"><h6><span id="pick{{ pick.ID }}CardPlayerName">--</span></h6></div>
