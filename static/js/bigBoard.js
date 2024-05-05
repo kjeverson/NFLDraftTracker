@@ -135,7 +135,6 @@ function saveProspect(id) {
     var ras = document.getElementById("prospectCardRAS");
 
     var favorite = document.getElementById("favoriteProspect");
-    console.log(favorite.checked);
 
     $.ajax({
         url: "/saveProspect",
@@ -216,24 +215,21 @@ function getDraftPicks(currentPick) {
     $.ajax({
         url: "/getDraftPicks",
         type: "get",
-        data: {current_pick: currentPick},
         success: function(data) {
             var object = document.getElementById("draftPickContainer");
             object.innerHTML=data;
         },
         complete: function () {
             var card = document.getElementById("pick"+currentPick);
-            card.classList.add("border-light");
             card.scrollIntoView({block:"nearest", behavior:"smooth", inline:"center"});
         }
     })
 }
 
-function tradeModal(currentPick) {
+function tradeModal() {
     $.ajax({
         url: "/getTradeModal",
         type: "get",
-        data: {current_pick: currentPick},
         success: function(data) {
             var object = document.getElementById("modalContainer");
             object.innerHTML=data;
