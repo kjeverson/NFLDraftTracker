@@ -177,7 +177,7 @@ function draftProspect(pick_id, prospect_id) {
         },
         success: function(data) {
             var pickCard = document.getElementById("pick"+pick_id);
-            pickCard.classList.remove("border-light");
+            pickCard.classList.remove("border-light", "border-3");
 
             var pickName = document.getElementById("pick"+pick_id+"CardPlayerName");
             pickName.innerText = data['sname'];
@@ -204,7 +204,7 @@ function draftProspect(pick_id, prospect_id) {
             }
 
             var card = document.getElementById("pick"+next_pick);
-            card.classList.add("border-light");
+            card.classList.add("border-light", "border-3");
 
             card.scrollIntoView({block:"nearest", behavior:"smooth", inline:"center"});
         }
