@@ -2,9 +2,9 @@
 {% for pick in picks | sort(attribute='pick', reverse=False) %}
 <div class="col-2 p-0">
   {% if current_pick.ID == pick.ID %}
-  <div class="card bg-dark border-3 border-light" id="pick{{ pick.ID }}" data-id="{{ pick.ID }}" style="border-radius: 20px;">
+  <div class="card bg-dark border-3 border-light" id="pick{{ pick.ID }}" data-id="{{ pick.ID }}" style="border-radius: 20px; cursor: pointer;" onclick="draftPickModal(this.getAttribute('data-id'))">
   {% else %}
-  <div class="card bg-dark" id="pick{{ pick.ID }}" data-id="{{ pick.ID }}" style="border-radius: 20px;">
+  <div class="card bg-dark" id="pick{{ pick.ID }}" data-id="{{ pick.ID }}" style="border-radius: 20px; cursor: pointer;" onclick="draftPickModal(this.getAttribute('data-id'))">
   {% endif %}
   <h6 class="card-header" style="border-top-right-radius: 20px; border-top-left-radius: 20px; background:#{{ pick.pick_owner.primary_color }}">{{ pick.round }}.{{ pick.pick }}</h6>{% if pick.traded %}<i class="bi bi-arrow-repeat" style="position: absolute; top: 5px; right: 10px;"></i>{% endif %}
       <div class="card-body" style="background:linear-gradient(to top, rgba(0,0,0,0) 50%, #{{ pick.pick_owner.primary_color }}">

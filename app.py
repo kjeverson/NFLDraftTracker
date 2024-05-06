@@ -157,6 +157,13 @@ def add_prospect_from_modal():
     return jsonify()
 
 
+@app.route('/draftPickModal', methods=['GET'])
+def draft_pick_modal():
+    draft_pick_id = int(request.args.get("ID"))
+    draft_pick = DraftPick.query.get(draft_pick_id)
+    return render_template("builds/draftPickModal.html", draft_pick=draft_pick)
+
+
 @app.route('/getDraftPicks', methods=['GET'])
 def get_draft_picks():
     pick = get_current_pick()
@@ -174,7 +181,7 @@ def draft_prospect():
 
     prospect.draft(pick)
 
-    next_pick = DraftPick.query.get(pick_id+1)
+    next_pick = get_current_pick()
     if next_pick:
         next_pick_msg = next_pick.pick_owner.fullname + " Are On The Clock!"
         next_pick_color = next_pick.pick_owner.primary_color
@@ -186,11 +193,23 @@ def draft_prospect():
         "sname": prospect.sname,
         "position": prospect.position,
         "college": prospect.college_team.location if prospect.college_team else "None",
+        "nextPick": next_pick.pick,
         "nextPickMsg": next_pick_msg,
         "nextPickColor": next_pick_color
     }
 
     return jsonify(draft_pick)
+
+
+@app.route('/undoDraftSelection', methods=['POST'])
+def undo_draft_selection():
+    draft_pick_id = int(request.form.get("ID"))
+    draft_pick = DraftPick.query.get(draft_pick_id)
+
+    prospect = draft_pick.prospect[0]
+
+    prospect.undo_selection()
+    return jsonify({"current_pick": draft_pick.pick})
 
 
 @app.route('/getTradeModal', methods=['GET'])
@@ -218,7 +237,7 @@ def submit_trade():
         pick = DraftPick.query.get(int(pick))
         pick.trade(rec_team)
 
-    return jsonify()
+    return jsonify({"current_pick": get_current_pick().pick})
 
 
 @app.route('/colleges', methods=['GET'])

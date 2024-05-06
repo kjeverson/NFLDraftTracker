@@ -107,8 +107,6 @@ function addProspect() {
         },
         complete: function() {
             $('#addProspectModal').modal("hide");
-            var tradeBtn = document.getElementById("tradeBtn");
-            var current_pick = tradeBtn.getAttribute("data-current-pick");
             getPosition("ALL");
         }
     })
@@ -191,12 +189,9 @@ function draftProspect(pick_id, prospect_id) {
             var draftStatusContainer = document.getElementById("draftStatusContainer");
             draftStatusContainer.style = "background-color: #" + data['nextPickColor'] +";pointer-events: none; !important";
         },
-        complete: function() {
-            next_pick = parseInt(pick_id) + 1
+        complete: function(data) {
+            next_pick = parseInt(data.responseJSON["nextPick"])
             getPosition("ALL");
-
-            var tradeBtn = document.getElementById("tradeBtn");
-            tradeBtn.setAttribute("data-current-pick", next_pick);
 
             if (viewingTeamId) {
                 var team_id = viewingTeamId.getAttribute("data-team-id");
@@ -226,6 +221,40 @@ function getDraftPicks(currentPick) {
     })
 }
 
+function draftPickModal(draft_pick_id) {
+    $.ajax({
+        url: "/draftPickModal",
+        type: "get",
+        data: {"ID": draft_pick_id},
+        success: function(data) {
+            var object = document.getElementById("modalContainer");
+            object.innerHTML=data;
+        },
+        complete: function() {
+            $('#draftPickModal').modal("show");
+        }
+    })
+}
+
+function undoSelection(draft_pick_id) {
+    var viewingTeamId = document.getElementById("teamCard");
+
+    $.ajax({
+        url: "/undoDraftSelection",
+        type: "post",
+        data: {"ID": draft_pick_id},
+        complete: function(data) {
+            $('#draftPickModal').modal("hide");
+            getDraftPicks(data.responseJSON["current_pick"]);
+            getPosition("ALL");
+            if (viewingTeamId) {
+                var team_id = viewingTeamId.getAttribute("data-team-id");
+                getTeam(team_id);
+            }
+        }
+    })
+}
+
 function tradeModal() {
     $.ajax({
         url: "/getTradeModal",
@@ -240,7 +269,7 @@ function tradeModal() {
     })
 }
 
-function submitTrade(send, rec, currentPick) {
+function submitTrade(send, rec) {
 
     var viewingTeamId = document.getElementById("teamCard");
 
@@ -270,8 +299,8 @@ function submitTrade(send, rec, currentPick) {
         success: function() {
             $('#tradeModal').modal("hide");
         },
-        complete: function() {
-            getDraftPicks(currentPick);
+        complete: function(data) {
+            getDraftPicks(data.responseJSON["current_pick"]);
 
             if (viewingTeamId) {
                 var team_id = viewingTeamId.getAttribute("data-team-id");

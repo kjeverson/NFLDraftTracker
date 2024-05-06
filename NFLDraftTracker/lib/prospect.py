@@ -77,6 +77,11 @@ class Prospect(db.Model):
 		self.draft_pick_id = pick.ID
 		db.session.commit()
 
+	def undo_selection(self):
+		self.drafted_id = None
+		self.draft_pick_id = None
+		db.session.commit()
+
 	def set_position(self, position):
 		self.position = position
 		db.session.commit()
