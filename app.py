@@ -193,7 +193,7 @@ def draft_prospect():
         "sname": prospect.sname,
         "position": prospect.position,
         "college": prospect.college_team.location if prospect.college_team else "None",
-        "nextPick": next_pick.pick,
+        "nextPick": next_pick.pick if next_pick else None,
         "nextPickMsg": next_pick_msg,
         "nextPickColor": next_pick_color
     }
