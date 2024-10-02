@@ -35,7 +35,7 @@
                     <div class="col-6 align-self-center">
                         <div class="row">
                             {% if draft_pick.prospect %}
-                            <img src="{{ url_for('static', filename='img/headshots/'+ draft_pick.prospect[0].ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/headshots/default.png') }}'" class="img-fluid">
+                            <img src="{{ url_for('static', filename='img/headshots/'+ draft_pick.prospect[0].prospect_year|string+ '/' + draft_pick.prospect[0].ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/headshots/default.png') }}'" class="img-fluid">
                             {% else %}
                             <img src="{{ url_for('static', filename='img/headshots/default.png') }}" class="img-fluid">
                             {% endif %}
