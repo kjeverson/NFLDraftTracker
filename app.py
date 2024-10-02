@@ -186,7 +186,7 @@ def draft_prospect():
         next_pick_msg = next_pick.pick_owner.fullname + " Are On The Clock!"
         next_pick_color = next_pick.pick_owner.primary_color
     else:
-        next_pick_msg = "The 2024 NFL Draft Has Concluded!"
+        next_pick_msg = "The NFL Draft Has Concluded!"
         next_pick_color = "6c757d"
 
     draft_pick = {

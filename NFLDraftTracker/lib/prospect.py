@@ -6,12 +6,16 @@ import re
 from NFLDraftTracker.lib.team import NCAATeam
 import sys
 import hashlib
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 
 class Prospect(db.Model):
 	__tablename__ = "prospect"
 	ID = db.Column(db.Integer, primary_key=True)
 	athlete_id = db.Column(db.Integer)
+
+	prospect_year = db.Column(db.Integer)
 	
 	name = db.Column(db.String(50), nullable=False)
 	fname = db.Column(db.String(25), nullable=False)
@@ -64,7 +68,8 @@ class Prospect(db.Model):
 		image = data.get('headshot')
 		if image:
 			image = image['href']
-			img_path = Path("/Users/everson/NFLDraftTracker/NFLDraftTracker/static/headshots/{}.png".format(self.ID))
+			img_path = Path("/Users/everson/NFLDraftTracker/static/img/headshots/{}/{}.png".format(self.prospect_year, self.ID))
+			img_path.parent.mkdir(parents=True, exist_ok=True)
 			if img_path.exists():
 				return
 			image_data = requests.get(image, stream=True)
@@ -169,8 +174,9 @@ def add_prospect(database, fname, lname, position, college_id):
 	db.session.commit()
 
 
-def get_all_prospects():
-	draft_prospects_url = "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2024/draft/athletes?limit=1000"
+def get_all_prospects(year):
+	draft_prospects_url = "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/" \
+						  "seasons/{}/draft/athletes?limit=1000".format(year)
 	response = requests.get(draft_prospects_url)
 	prospect_list = response.json()['items']
 
@@ -181,7 +187,7 @@ def get_all_prospects():
 	return prospects_data
 
 
-def add_prospects(database, prospects):
+def add_prospects(database, prospects, year):
 	for i in range(len(prospects)):
 		print(i, prospects[i]['displayName'])
 		prospect = prospects[i]
@@ -229,6 +235,7 @@ def add_prospects(database, prospects):
 			fname=prospect['firstName'],
 			lname=prospect['lastName'],
 			sname=prospect['shortName'],
+			prospect_year=year,
 			college_team=college,
 			height=height,
 			weight=prospect['weight'],
@@ -237,4 +244,15 @@ def add_prospects(database, prospects):
 			grade=grade,
 			overview=analysis,
 		))
+
+
+def remove_all_prospects():
+	engine = create_engine('sqlite:///database.db')
+	Session = sessionmaker(bind=engine)
+	session = Session()
+
+	session.query(Prospect).delete()
+	session.commit()
+	session.close()
+
 
