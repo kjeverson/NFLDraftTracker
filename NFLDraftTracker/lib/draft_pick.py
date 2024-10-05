@@ -1,5 +1,7 @@
 from app import db
 import json
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 
 class DraftPick(db.Model):
@@ -15,6 +17,16 @@ class DraftPick(db.Model):
         self.traded = True
         self.team_id = new_owner.ID
         db.session.commit()
+
+
+def add_draft_pick(round, pick, team_id):
+    db.session.add(DraftPick(
+        ID=pick,
+        round=round,
+        pick=pick,
+        team_id=team_id
+    ))
+    db.session.commit()
 
 
 def add_draft_picks(database):
@@ -45,8 +57,37 @@ def add_draft_picks(database):
         ))
 
 
+def remove_all():
+    engine = create_engine('sqlite:///database.db')
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    session.query(DraftPick).delete()
+    session.commit()
+    session.close()
+
+
+def remove_draft_pick(ID):
+    DraftPick.query.filter_by(ID=ID).delete()
+    db.session.commit()
+
+
 def get_current_pick():
     picks = DraftPick.query.all()
     for pick in picks:
         if not pick.prospect:
             return pick
+
+
+def get_current_highest_pick_entered():
+    picks = DraftPick.query.all()
+    if picks:
+        current_pick = max(picks, key=lambda pick: pick.pick)
+        current_round = current_pick.round
+        current_pick = current_pick.pick
+
+    else:
+        current_pick = 0
+        current_round = 1
+
+    return current_round, current_pick

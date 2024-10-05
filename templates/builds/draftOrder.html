@@ -1,7 +1,8 @@
 <div class="row p-1 flex-row flex-nowrap text-center overflow-scroll">
+{% if picks %}
 {% for pick in picks | sort(attribute='pick', reverse=False) %}
 <div class="col-2 p-0">
-  {% if current_pick.ID == pick.ID %}
+  {% if current_pick == pick.ID %}
   <div class="card bg-dark border-3 border-light" id="pick{{ pick.ID }}" data-id="{{ pick.ID }}" style="border-radius: 20px; cursor: pointer;" onclick="draftPickModal(this.getAttribute('data-id'))">
   {% else %}
   <div class="card bg-dark" id="pick{{ pick.ID }}" data-id="{{ pick.ID }}" style="border-radius: 20px; cursor: pointer;" onclick="draftPickModal(this.getAttribute('data-id'))">
@@ -20,27 +21,16 @@
   </div>
 </div>
 {% endfor %}
+{% else %}
+<div class="col-2 p-0">
+  <div class="card bg-dark border-3 border-light" id="1" data-id="1" style="border-radius: 20px; cursor: pointer;" onclick="">
+  <h6 class="card-header" style="border-top-right-radius: 20px; border-top-left-radius: 20px; background:#4c8bc6">1.1</h6>
+      <div class="card-body" style="background:linear-gradient(to top, rgba(0,0,0,0) 50%, #4c8bc6">
+        <img src="{{ url_for('static', filename='img/draft_logo.png') }}" height="60px">
+          <div class="row"><h6><span id="pick1CardPlayerName">--</span></h6></div>
+          <div class="row"><small><span id="pick1CardPlayerInfo">--</span></small></div>
+      </div>
+  </div>
 </div>
-
-<div class="row p-1">
-    <div class="col-10">
-        {% if current_pick and picks%}
-        <button id="draftStatusContainer" type="button" class="btn w-100 text-white" style="pointer-events: none; background:#{{ current_pick.pick_owner.primary_color }}; !important" >
-            <small><span id="draftStatus">{{ current_pick.pick_owner.fullname }} Are On The Clock!</span></small>
-        </button>
-        {% elif picks %}
-        <button id="draftStatusContainer" type="button" class="btn w-100 text-white btn-secondary" style="pointer-events: none; !important" >
-            <small>The NFL Draft Has Concluded!</small>
-        </button>
-        {% else %}
-        <button id="draftStatusContainer" type="button" class="btn w-100 text-white btn-secondary" style="pointer-events: none; !important" >
-            <small>The NFL Draft Has Not Been Initialized!</small>
-        </button>
-        {% endif %}
-    </div>
-    <div class="col-2">
-        <button id="tradeBtn" class="btn btn-secondary w-100 text-white" onclick="tradeModal()">
-            <i class="bi bi-arrow-repeat"></i> Trade Picks
-        </button>
-    </div>
+{% endif %}
 </div>

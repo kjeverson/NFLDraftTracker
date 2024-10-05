@@ -55,7 +55,7 @@
             </div>
             <div class="col-6 align-self-center">
                 <div class="row">
-                    <img src="{{ url_for('static', filename='img/headshots/'+ prospect.ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/headshots/default.png') }}'" class="img-fluid">
+                    <img src="{{ url_for('static', filename='img/headshots/'+ prospect.prospect_year|string + '/' + prospect.ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/headshots/default.png') }}'" class="img-fluid">
                 </div>
             </div>
         </div>

@@ -228,6 +228,16 @@ def add_prospects(database, prospects, year):
 			player_id = None
 			pass
 
+		position = prospect['position']['abbreviation']
+		if position == "PK":
+			position = "K"
+
+		if position in ["DE", "OLB"]:
+			position = "EDGE"
+
+		if position == "ILB":
+			position = "LB"
+
 		database.session.add(Prospect(
 			ID=prospect['id'],
 			athlete_id=player_id,
@@ -240,13 +250,13 @@ def add_prospects(database, prospects, year):
 			height=height,
 			weight=prospect['weight'],
 			rank=rank,
-			position=prospect['position']['abbreviation'],
+			position=position,
 			grade=grade,
 			overview=analysis,
 		))
 
 
-def remove_all_prospects():
+def remove_all():
 	engine = create_engine('sqlite:///database.db')
 	Session = sessionmaker(bind=engine)
 	session = Session()

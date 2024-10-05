@@ -16,7 +16,7 @@ db = SQLAlchemy(app)
 
 from NFLDraftTracker.lib.team import NFLTeam, NCAATeam, add_college_team
 from NFLDraftTracker.lib.prospect import Prospect, add_prospect
-from NFLDraftTracker.lib.draft_pick import DraftPick, get_current_pick
+from NFLDraftTracker.lib.draft_pick import DraftPick, get_current_pick, add_draft_pick, get_current_highest_pick_entered, remove_draft_pick
 
 
 @app.route('/')
@@ -171,6 +171,13 @@ def get_draft_picks():
     return render_template("builds/draftPicks.html", picks=picks, current_pick=pick)
 
 
+@app.route('/getDraftOrder', methods=['GET'])
+def get_draft_order():
+    picks = DraftPick.query.all()
+    current_round, current_pick = get_current_highest_pick_entered()
+    return render_template("builds/draftOrder.html", picks=picks, current_round=current_round, current_pick=current_pick)
+
+
 @app.route('/draftProspect', methods=['POST'])
 def draft_prospect():
     prospect_id = request.form.get("prospect_id")
@@ -290,3 +297,41 @@ def edit_college():
     college.set_name(mascot)
 
     return jsonify()
+
+
+@app.route('/draftOrder', methods=['GET'])
+def draft_order():
+    current_round, current_pick = get_current_highest_pick_entered()
+    teams = NFLTeam.query.all()
+    if current_pick:
+        data = {"current_pick": current_pick,
+                "current_round": current_round
+                }
+    else:
+        data = {"current_pick": None,
+                "current_round": 1
+                }
+    return render_template("draftOrder.html", data=data, teams=teams)
+
+
+@app.route('/assignDraftPick', methods=['POST'])
+def assign_draft_order():
+    team_id = int(request.form.get("team_id"))
+    rd = int(request.form.get("round"))
+    current_round, current_pick = get_current_highest_pick_entered()
+    add_draft_pick(rd, current_pick+1, team_id)
+
+    return jsonify({'round': rd,
+                    'pick': current_pick+1})
+
+
+@app.route('/undoDraftPick', methods=['POST'])
+def undo_draft_pick():
+    rd = int(request.form.get("round"))
+    current_round, current_pick = get_current_highest_pick_entered()
+    remove_draft_pick(current_pick)
+
+    return jsonify({
+        'round': rd,
+        'pick': current_pick
+    })
