@@ -181,16 +181,39 @@ def get_all_prospects(year):
 	prospect_list = response.json()['items']
 
 	prospects_data = []
+
+	counter = 0
+	counter_final = len(prospect_list)
+	breaker = round(counter_final / 25)
+	space = " "
+	hash = "#"
+	hash_count = 0
+	print("\rGetting Prospect Data [{}{}] {}"
+		  .format(space*25, hash*0, "{:.1f}%".format(0) ), end="", flush=True)
+
 	for prospect in prospect_list:
+
 		prospects_data.append(requests.get(prospect['$ref']).json())
+		counter += 1
+		if counter % breaker == 0:
+			hash_count += 1
+		print("\rGetting Prospect Data [{}{}] {}"
+			  .format(hash*hash_count, space*(25-hash_count),
+					  "{:.1f}%".format((counter/len(prospect_list)*100))), end="",
+			  flush=True)
+
+	print("\rGetting Prospect Data [{}{}] {}"
+		  .format(space*0, hash*25, "{:.1f}%".format(100)) + '\033[92m' + " DONE" + '\033[0m',
+		  flush=True)
 
 	return prospects_data
 
 
 def add_prospects(database, prospects, year):
+
 	for i in range(len(prospects)):
-		print(i, prospects[i]['displayName'])
 		prospect = prospects[i]
+
 		rank = i+1
 
 		college = ""
