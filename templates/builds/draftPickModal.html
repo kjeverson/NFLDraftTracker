@@ -6,27 +6,30 @@
                 <div class="row prospect-row" style="background: linear-gradient(to top, rgba(0,0,0,0) 40%, #{{ draft_pick.pick_owner.primary_color }})">
                     <div class="col-6 align-self-center">
                         <div class="row text-center">
-                            <h4>{{draft_pick.pick_owner.name}} Selection</h4>
+                            <img class="img-fluid" src="{{ url_for('static', filename='img/NFL/'+ draft_pick.pick_owner.key +'.png') }}" style="height: 60px;  object-fit: contain;">
+                        </div>
+                        <div class="row text-center">
+                            <small>{{draft_pick.pick_owner.name}} Selection</small>
                         </div>
                         {% if draft_pick.prospect %}
                         <div class="row mt-1 p-1 text-center">
-                            <small>{{ draft_pick.prospect[0].name }}</small>
+                            <h3>{{ draft_pick.prospect[0].name }}</h3>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-8 align-self-center">
                                 <div class="row p-1 text-center">
-                                    <small>{{ draft_pick.prospect[0].position }}{% if draft_pick.prospect[0].college_team %} | <img src="{{ url_for('static', filename='img/NCAA/'+ draft_pick.prospect[0].college_team.ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/NCAA/default.png') }}'" height="30px"> {{ draft_pick.prospect[0].college_team.fullname if draft_pick.prospect[0].college_team else "None" }} {% endif %}</small>
+                                    <p>{{ draft_pick.prospect[0].position }}{% if draft_pick.prospect[0].college_team %} | <img src="{{ url_for('static', filename='img/NCAA/'+ draft_pick.prospect[0].college_team.ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/NCAA/default.png') }}'" height="30px"> {{ draft_pick.prospect[0].college_team.location if draft_pick.prospect[0].college_team else "None" }} {% endif %}</p>
                                 </div>
                             </div>
                         </div>
                         {% else %}
                         <div class="row mt-1 p-1 text-center">
-                            <small>--</small>
+                            <h3>--</h3>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-8 align-self-center">
                                 <div class="row p-1 text-center">
-                                    <small>--</small>
+                                    <p>--</p>
                                 </div>
                             </div>
                         </div>
