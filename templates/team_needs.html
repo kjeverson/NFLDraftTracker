@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}
+  NFL Draft Tracker
+{% endblock %}
+{% block content %}
+
+<script src="{{ url_for('static', filename='js/needs.js') }}"></script>
+
+<div id="mainContainer" class="container p-1 text-white">
+    <div class="row">
+        <div class="col" id="teamList">
+            <div class="row p-2 flex-row flex-nowrap overflow-scroll" style="height: 600px;">
+                <div class="card bg-dark">
+                    <div class="card-body">
+                        <div class="row text-white">
+                            <table class="table table-dark table-hover">
+                                <tbody id="teamNeedsTable">
+                                {% for team in teams | sort(attribute='fullname', reverse=False) %}
+                                  <tr data-team-name="{{ team.fullname|lower }}" class="player-btn">
+                                    <td style="background:linear-gradient(to left, rgba(0,0,0,0) 65%, #{{ team.primary_color }})">
+                                      <div class="row align-items-center">
+                                        <div class="col-1">
+                                        </div>
+                                        <div class="col-1"><img src="{{ url_for('static', filename='img/NFL/'+ team.key +'.png') }}"  height="50px"></div>
+                                        <div class="col-2">
+                                          <div class="row"><small>{{ team.location }}</small></div>
+                                          <div class="row"><h5>{{ team.name }}</h5></div>
+                                        </div>
+                                        {% for need in team.get_needs() %}
+                                          <div class="col-1">
+                                              <button id="{{ team.ID }}Need{{ loop.index }}" class="btn w-100 btn-secondary" disabled>{{ need }}</button>
+                                          </div>
+                                        {% endfor %}
+                                          <div class="col-1">
+
+                                          </div>
+                                        <div class="col-2">
+                                          <button class="btn w-100 btn-secondary" type="button" data-id="{{ team.ID }}" onclick="editTeamNeeds(this)">Edit</button>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalContainer" class="container">
+
+</div>
+{% endblock %}

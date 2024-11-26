@@ -45,8 +45,13 @@ def get_team():
         if prospect.position in ['OG', 'C', 'IOL']:
             drafted.append("IOL")
 
-        else:
-            drafted.append(prospect.position)
+        if prospect.position in ['DE', 'DT', 'EDGE']:
+            drafted.append("DL")
+
+        if prospect.position in ['OG', 'C', 'IOL', 'OT']:
+            drafted.append("OL")
+
+        drafted.append(prospect.position)
 
     return render_template("builds/teamControl.html", team=team, needs=team.get_needs(), drafted=drafted)
 
@@ -335,3 +340,22 @@ def undo_draft_pick():
         'round': rd,
         'pick': current_pick
     })
+
+
+@app.route('/team_needs', methods=['GET'])
+def get_team_needs():
+    teams = NFLTeam.query.all()
+    return render_template("team_needs.html", teams=teams)
+
+
+@app.route('/setTeamNeeds', methods=['POST'])
+def set_team_needs():
+    data = request.json
+
+    team_id = data.get("id")
+    needs = data.get("needs")
+    print(team_id, needs, file=sys.stderr)
+
+    team = NFLTeam.query.get(team_id)
+    team.set_needs(needs)
+    return jsonify()
