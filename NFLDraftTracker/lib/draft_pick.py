@@ -57,7 +57,7 @@ def add_draft_picks(database):
         ))
 
 
-def remove_all():
+def remove_all_draft_picks():
     engine = create_engine('sqlite:///database.db')
     Session = sessionmaker(bind=engine)
     session = Session()

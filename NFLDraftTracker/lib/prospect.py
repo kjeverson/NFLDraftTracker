@@ -212,6 +212,7 @@ def get_all_prospects(year):
 def add_prospects(database, prospects, year):
 
 	for i in range(len(prospects)):
+
 		prospect = prospects[i]
 
 		rank = i+1
@@ -279,7 +280,7 @@ def add_prospects(database, prospects, year):
 		))
 
 
-def remove_all():
+def remove_all_prospects():
 	engine = create_engine('sqlite:///database.db')
 	Session = sessionmaker(bind=engine)
 	session = Session()

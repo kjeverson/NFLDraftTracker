@@ -1,0 +1,16 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}">
+<div id="confirmDropProspectsModal" class="modal" tabindex="-1">
+    <div class="modal-dialog bg-dark text-white">
+        <div class="modal-content bg-dark" >
+            <div class="modal-header">
+                <h4 class="modal-title">Drop Prospect Database?</h4>
+            </div>
+            <div class="modal-body bg-dark">
+                <p class="card-text">This will drop the entire Prospect database table, <b>this CANNOT be undone</b>. Are you sure you want to continue?</p>
+            </div>
+            <div class="modal-footer">
+                  <button type="button" class="btn btn-sm btn-danger" onclick="dropProspects()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>

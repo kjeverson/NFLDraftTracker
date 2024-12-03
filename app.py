@@ -15,8 +15,8 @@ log.setLevel(logging.ERROR)
 db = SQLAlchemy(app)
 
 from NFLDraftTracker.lib.team import NFLTeam, NCAATeam, add_college_team
-from NFLDraftTracker.lib.prospect import Prospect, add_prospect
-from NFLDraftTracker.lib.draft_pick import DraftPick, get_current_pick, add_draft_pick, get_current_highest_pick_entered, remove_draft_pick
+from NFLDraftTracker.lib.prospect import Prospect, add_prospect, remove_all_prospects, get_all_prospects, add_prospects
+from NFLDraftTracker.lib.draft_pick import DraftPick, get_current_pick, add_draft_pick, get_current_highest_pick_entered, remove_draft_pick, remove_all_draft_picks
 
 
 @app.route('/')
@@ -358,4 +358,51 @@ def set_team_needs():
 
     team = NFLTeam.query.get(team_id)
     team.set_needs(needs)
+    return jsonify()
+
+
+@app.route('/databaseControl', methods=['GET'])
+def database():
+    return render_template("database.html")
+
+
+@app.route('/getDropProspectsConfirm', methods=['GET'])
+def get_drop_prospect_confirm():
+    return render_template("builds/db/dropProspectConfirmModal.html")
+
+
+@app.route('/dropProspects', methods=['GET'])
+def drop_prospects_table():
+    remove_all_prospects()
+    return jsonify()
+
+
+@app.route('/getDropDraftPicksConfirm', methods=['GET'])
+def get_drop_draft_picks_confirm():
+    return render_template("builds/db/dropDraftPicksConfirmModal.html")
+
+
+@app.route('/dropDraftPicks', methods=['GET'])
+def drop_draft_picks_table():
+    remove_all_draft_picks()
+    return jsonify()
+
+
+@app.route("/addProspectsTable", methods=['POST'])
+def add_prospects_table():
+    draft_year = int(request.form.get("year"))
+    print(draft_year, file=sys.stderr)
+    prospects = get_all_prospects(draft_year)
+    add_prospects(db, prospects, draft_year)
+    db.session.commit()
+
+    return jsonify()
+
+
+@app.route("/getHeadshots", methods=['GET'])
+def get_headshots():
+    prospects = Prospect.query.all()
+    for prospect in prospects:
+        prospect.get_headshot()
+
     return jsonify()
