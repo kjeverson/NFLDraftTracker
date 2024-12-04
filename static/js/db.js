@@ -59,15 +59,14 @@ function dropDraftPicks() {
 }
 
 function addProspects() {
-
-    $('#progressTitle').text("Adding Prospects...")
-    $('#progressModal').modal("show");
-
     let draftClass = $('#addProspectsClassInput')[0];
     if (!parseInt(draftClass.value)) {
         packNewToast("bg-danger", "bi bi-exclamation-diamond-fill", "Draft Class Error!", "Draft Class Must Be a Year.");
     } else {
         console.log("Before AJAX");
+        $('#progressTitle').text("Adding Prospects...")
+        $('#progressModal').modal({backdrop: 'static', keyboard: false})
+        $('#progressModal').modal("show");
         $.ajax({
             url:"/addProspectsTable",
             type: "post",
@@ -76,6 +75,7 @@ function addProspects() {
             },
             success: function() {
                 packNewToast("bg-success", "bi bi-check-square-fill", "Success!", "Draft Class Added.");
+                $('#progressModal').modal("hide");
             }
         });
     }
@@ -83,11 +83,17 @@ function addProspects() {
 
 
 function getHeadshots() {
+
+    $('#progressTitle').text("Getting Headshots...")
+    $('#progressModal').modal({backdrop: 'static', keyboard: false})
+    $('#progressModal').modal("show");
+
     $.ajax({
         url:"/getHeadshots",
         type: "get",
         success: function() {
             packNewToast("bg-success", "bi bi-check-square-fill", "Success!", "Headshots Added.");
+            $('#progressModal').modal("hide");
         }
     });
 }
