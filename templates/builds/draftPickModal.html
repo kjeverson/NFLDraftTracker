@@ -9,7 +9,10 @@
                             <img class="img-fluid" src="{{ url_for('static', filename='img/NFL/'+ draft_pick.pick_owner.key +'.png') }}" style="height: 60px;  object-fit: contain;">
                         </div>
                         <div class="row text-center">
-                            <small>{{draft_pick.pick_owner.name}} Selection</small>
+                            <small><i>Round {{ draft_pick.round }}, Pick {{ draft_pick.pick }}</i></small>
+                        </div>
+                        <div class="row text-center">
+                            <small>{{draft_pick.pick_owner.name}} Select:</small>
                         </div>
                         {% if draft_pick.prospect %}
                         <div class="row mt-1 p-1 text-center">
@@ -18,7 +21,7 @@
                         <div class="row justify-content-center">
                             <div class="col-8 align-self-center">
                                 <div class="row p-1 text-center">
-                                    <p>{{ draft_pick.prospect[0].position }}{% if draft_pick.prospect[0].college_team %} | <img src="{{ url_for('static', filename='img/NCAA/'+ draft_pick.prospect[0].college_team.ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/NCAA/default.png') }}'" height="30px"> {{ draft_pick.prospect[0].college_team.location if draft_pick.prospect[0].college_team else "None" }} {% endif %}</p>
+                                    <small>{{ draft_pick.prospect[0].position }}{% if draft_pick.prospect[0].college_team %} | {{ draft_pick.prospect[0].college_team.location if draft_pick.prospect[0].college_team else "None" }} {% endif %}</small>
                                 </div>
                             </div>
                         </div>
@@ -29,7 +32,7 @@
                         <div class="row justify-content-center">
                             <div class="col-8 align-self-center">
                                 <div class="row p-1 text-center">
-                                    <p>--</p>
+                                    <small>--</small>
                                 </div>
                             </div>
                         </div>
