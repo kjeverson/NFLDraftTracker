@@ -166,7 +166,8 @@ def add_prospect_from_modal():
 def draft_pick_modal():
     draft_pick_id = int(request.args.get("ID"))
     draft_pick = DraftPick.query.get(draft_pick_id)
-    return render_template("builds/draftPickModal.html", draft_pick=draft_pick)
+    team = draft_pick.pick_owner
+    return render_template("builds/draftPickModal.html", draft_pick=draft_pick, team=team)
 
 
 @app.route('/getDraftPicks', methods=['GET'])
@@ -202,9 +203,12 @@ def draft_prospect():
         next_pick_color = "6c757d"
 
     draft_pick = {
+        "id": prospect.ID,
+        "year": prospect.prospect_year,
         "sname": prospect.sname,
         "position": prospect.position,
         "college": prospect.college_team.location if prospect.college_team else "None",
+        "team_key": pick.pick_owner.key,
         "nextPick": next_pick.pick if next_pick else None,
         "nextPickMsg": next_pick_msg,
         "nextPickColor": next_pick_color

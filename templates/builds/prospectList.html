@@ -54,7 +54,7 @@
                       </div>
                       <div class="col-1"><img src="{{ url_for('static', filename='img/NFL/'+ prospect.drafted_team.key +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/draft_logo.png') }}'" height="40px"></div>
                       <div class="col-7" data-id="{{ prospect.ID }}" onclick="getProspect(this.getAttribute('data-id'))">
-                        <div class="row"><h5>{% if prospect.favorite %}<i class="bi bi-star-fill"></i> {% else %}<i class="bi bi-star"></i> {% endif %}{{ prospect.name }}</h5></div>
+                        <div class="row"><h5>{% if prospect.favorite %}<i class="bi bi-star-fill text-warning"></i> {% else %}<i class="bi bi-star"></i> {% endif %}{{ prospect.name }}</h5></div>
                         <div class="row"><small>{{ prospect.position }}{% if prospect.college_team %} | {{ prospect.college_team.location }} {% endif %}</small></div>
                       </div>
                     </div>
@@ -71,7 +71,7 @@
                       </div>
                       <div class="col-1"><img src="{{ url_for('static', filename='img/NCAA/'+ prospect.college_team.ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/draft_logo.png') }}'" height="40px"></div>
                       <div class="col-7" data-id="{{ prospect.ID }}" onclick="getProspect(this.getAttribute('data-id'))">
-                        <div class="row"><h5>{% if prospect.favorite %}<i class="bi bi-star-fill"></i> {% else %}<i class="bi bi-star"></i> {% endif %}{{ prospect.name }}</h5></div>
+                        <div class="row"><h5>{% if prospect.favorite %}<i class="bi bi-star-fill text-warning"></i> {% else %}<i class="bi bi-star"></i> {% endif %}{{ prospect.name }}</h5></div>
                         <div class="row"><small>{{ prospect.position }}{% if prospect.college_team %} | {{ prospect.college_team.location }} {% endif %}</small></div>
                       </div>
                       <div class="col-2">

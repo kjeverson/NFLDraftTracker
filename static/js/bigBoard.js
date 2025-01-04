@@ -162,6 +162,63 @@ function saveProspect(id) {
     })
 }
 
+function createDraftPickRow(pick) {
+    const row = document.createElement("div");
+    row.className = "row";
+
+    // Left Column
+    const leftCol = document.createElement("div");
+    leftCol.className = "col-6";
+
+    const teamImg = document.createElement("img");
+    teamImg.src = `/static/img/NFL/${pick['team_key']}.png`; // Adjust path as necessary
+    teamImg.height = 60;
+    leftCol.appendChild(teamImg);
+
+    const playerNameRow = document.createElement("div");
+    playerNameRow.className = "row";
+
+    const playerName = document.createElement("h6");
+    playerName.innerHTML = `<strong><span id="pick${pick.ID}CardPlayerName">${pick['sname']}</span></strong>`;
+    playerNameRow.appendChild(playerName);
+    leftCol.appendChild(playerNameRow);
+
+    const playerInfoRow = document.createElement("div");
+    playerInfoRow.className = "row";
+
+    const playerInfo = document.createElement("small");
+    const collegeTeam = pick['college']
+        ? pick['college']
+        : "--";
+    playerInfo.innerHTML = `<small><span id="pick${pick.ID}CardPlayerInfo">${pick['position']} | ${collegeTeam}</span></small>`;
+    playerInfoRow.appendChild(playerInfo);
+    leftCol.appendChild(playerInfoRow);
+
+    // Right Column
+    const rightCol = document.createElement("div");
+    rightCol.className = "col-6";
+
+    const playerImg = document.createElement("img");
+    playerImg.src = `/static/img/headshots/${pick['year']}/${pick['id']}.png`; // Adjust path as necessary
+    playerImg.onerror = function () {
+        this.src = `/static/img/headshots/default.png`; // Default image
+    };
+    playerImg.style.width = "100%";
+    playerImg.style.height = "100%";
+    playerImg.style.objectFit = "cover";
+    playerImg.style.borderRadius = "10px";
+    rightCol.appendChild(playerImg);
+
+    // Append columns to row
+    row.appendChild(leftCol);
+    row.appendChild(rightCol);
+
+    return row;
+}
+
+
+
+
 function draftProspect(pick_id, prospect_id) {
 
     var viewingTeamId = document.getElementById("teamCard");
@@ -177,11 +234,13 @@ function draftProspect(pick_id, prospect_id) {
             var pickCard = document.getElementById("pick"+pick_id);
             pickCard.classList.remove("border-light", "border-3");
 
-            var pickName = document.getElementById("pick"+pick_id+"CardPlayerName");
-            pickName.innerText = data['sname'];
+            var pickContainer = document.getElementById("pick"+pick_id+"Container");
+            pickContainer.classList.remove("col-2");
+            pickContainer.classList.add("col-3");
 
-            var pickDetails = document.getElementById("pick"+pick_id+"CardPlayerInfo");
-            pickDetails.innerText = data['position'] + " | " + data['college'];
+            var pickCardBody = document.getElementById("pick"+pick_id+"CardBody");
+            pickCardBody.innerHTML = "";
+            pickCardBody.appendChild(createDraftPickRow(data));
 
             var draftStatus = document.getElementById("draftStatus");
             draftStatus.innerText = data['nextPickMsg'];
