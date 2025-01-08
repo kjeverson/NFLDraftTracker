@@ -178,6 +178,56 @@ function deleteProspect(id) {
     })
 }
 
+function createPlaceholder(team_name, team_key, team_color, status) {
+    // Add placeholder
+    const placeholder = document.createElement("div");
+    placeholder.className = "row placeholder";
+    placeholder.style.padding = "20px";
+    placeholder.style.borderRadius = "10px";
+    placeholder.style.backgroundColor = "#" + team_color;
+    placeholder.style.transition = "opacity 1s ease"; // Add transition effect
+
+    // Left Column (Team Logo)
+    const leftCol = document.createElement("div");
+    leftCol.className = "col-6 d-flex align-items-center justify-content-center"; // Center-align the logo
+
+    const teamImg = document.createElement("img");
+    teamImg.src = `/static/img/NFL/${team_key}.png`;
+    teamImg.alt = "Team Logo";
+    teamImg.height = 80;
+    leftCol.appendChild(teamImg);
+
+    // Right Column (Team Name and "The Pick is In!" Message)
+    const rightCol = document.createElement("div");
+    rightCol.className = "col-6 align-items-center justify-content-center";
+
+    // Team Name
+    const teamName = document.createElement("h6");
+    teamName.textContent = team_name;
+    teamName.style.color = "#fff";
+    teamName.style.fontWeight = "light";
+    teamName.style.fontStyle = "italic";
+
+    // Status Message
+    const placeholderText = document.createElement("h4");
+    placeholderText.textContent = status;
+    placeholderText.style.color = "#fff";
+    placeholderText.style.fontWeight = "bold";
+    placeholderText.style.fontStyle = "italic";
+
+
+    // Append team name and message to right column
+    rightCol.appendChild(teamName);
+    rightCol.appendChild(placeholderText);
+
+    // Append both columns to the placeholder
+    placeholder.appendChild(leftCol);
+    placeholder.appendChild(rightCol);
+
+    return placeholder;
+
+}
+
 
 function createDraftPickRow(pick) {
     const row = document.createElement("div");
@@ -258,51 +308,7 @@ function draftProspect(pick_id, prospect_id) {
             pickCardBody.innerHTML = "";
             pickCardBody.style.height = "140px";
 
-            // Add "The Pick is In" placeholder
-            const placeholder = document.createElement("div");
-            placeholder.className = "row placeholder";
-            placeholder.style.padding = "20px";
-            placeholder.style.borderRadius = "10px";
-            placeholder.style.backgroundColor = "#" + data['teamColor']; // Use team's color from backend data
-            placeholder.style.transition = "opacity 1s ease"; // Add transition effect
-
-            // Left Column (Team Logo)
-            const leftCol = document.createElement("div");
-            leftCol.className = "col-6 d-flex align-items-center justify-content-center"; // Center-align the logo
-
-            const teamImg = document.createElement("img");
-            teamImg.src = `/static/img/NFL/${data['team_key']}.png`;
-            teamImg.alt = "Team Logo";
-            teamImg.height = 60; // Matches the original height
-            leftCol.appendChild(teamImg);
-
-            // Right Column (Team Name and "The Pick is In!" Message)
-            const rightCol = document.createElement("div");
-            rightCol.className = "col-6";
-
-            // Team Name
-            const teamName = document.createElement("h6");
-            teamName.textContent = data['team_name']; // Assuming teamName is provided by the backend
-            teamName.style.color = "#fff"; // White text for contrast
-            teamName.style.fontWeight = "light";
-            teamName.style.fontStyle = "italic";
-
-            // "The Pick is In" Message
-            const placeholderText = document.createElement("h4");
-            placeholderText.textContent = "Pick Is In!";
-            placeholderText.style.color = "#fff"; // White text for contrast
-            placeholderText.style.fontWeight = "bold";
-            placeholderText.style.fontStyle = "italic";
-
-
-            // Append team name and message to right column
-            rightCol.appendChild(teamName);
-            rightCol.appendChild(placeholderText);
-
-            // Append both columns to the placeholder
-            placeholder.appendChild(leftCol);
-            placeholder.appendChild(rightCol);
-
+            var placeholder = createPlaceholder(data["team_name"], data["team_key"], data["team_color"], "Pick Is In!");
             pickCardBody.appendChild(placeholder);
 
             // Update the draft status message
