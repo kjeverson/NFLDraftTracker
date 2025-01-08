@@ -37,6 +37,24 @@ class NFLTeam(db.Model):
 		self.needs = " ".join(needs_list)
 		db.session.commit()
 
+	def get_drafted_positions(self):
+
+		drafted = []
+
+		for prospect in self.draftees:
+			if prospect.position in ['OG', 'C', 'IOL']:
+				drafted.append("IOL")
+
+			if prospect.position in ['DE', 'DT', 'EDGE']:
+				drafted.append("DL")
+
+			if prospect.position in ['OG', 'C', 'IOL', 'OT']:
+				drafted.append("OL")
+
+			drafted.append(prospect.position)
+
+		return drafted
+
 
 class NCAATeam(db.Model):
 	__tablename__ = "ncaa_team"
