@@ -1,4 +1,5 @@
 from app import db
+import sqlite3
 import requests
 from PIL import Image, UnidentifiedImageError
 from pathlib import Path
@@ -6,7 +7,7 @@ import re
 from NFLDraftTracker.lib.team import NCAATeam
 import sys
 import hashlib
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, select, exists
 from sqlalchemy.orm import sessionmaker
 
 
@@ -56,6 +57,10 @@ class Prospect(db.Model):
 
 	def __gt__(self, prospect):
 		return self.rank > prospect.rank
+
+	def delete(self):
+		Prospect.query.filter(Prospect.ID == self.ID).delete()
+		db.session.commit()
 
 	def get_headshot(self):
 		prospect_url = "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/athletes/{}"
@@ -261,6 +266,11 @@ def add_prospects(database, prospects, year):
 
 		if position == "ILB":
 			position = "LB"
+
+		stmt = select(exists().where(Prospect.ID == prospect['id']))
+		result = database.session.execute(stmt).scalar()
+		if result:
+			continue
 
 		database.session.add(Prospect(
 			ID=prospect['id'],
