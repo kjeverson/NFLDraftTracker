@@ -162,6 +162,23 @@ function saveProspect(id) {
     })
 }
 
+function deleteProspect(id) {
+    console.log(id);
+
+    $.ajax({
+        url: "/deleteProspect",
+        type: "post",
+        data: {
+            id: id,
+        },
+        success: function() {
+            $('#editProspectModal').modal("hide");
+            getPosition("ALL");
+        }
+    })
+}
+
+
 function createDraftPickRow(pick) {
     const row = document.createElement("div");
     row.className = "row";
@@ -216,11 +233,7 @@ function createDraftPickRow(pick) {
     return row;
 }
 
-
-
-
 function draftProspect(pick_id, prospect_id) {
-
     var viewingTeamId = document.getElementById("teamCard");
 
     $.ajax({
@@ -231,25 +244,97 @@ function draftProspect(pick_id, prospect_id) {
             pick_id: pick_id
         },
         success: function(data) {
-            var pickCard = document.getElementById("pick"+pick_id);
+            const audio = document.getElementById('draftChime');
+            audio.play();
+
+            var pickCard = document.getElementById("pick" + pick_id);
             pickCard.classList.remove("border-light", "border-3");
 
-            var pickContainer = document.getElementById("pick"+pick_id+"Container");
+            var pickContainer = document.getElementById("pick" + pick_id + "Container");
             pickContainer.classList.remove("col-2");
             pickContainer.classList.add("col-3");
 
-            var pickCardBody = document.getElementById("pick"+pick_id+"CardBody");
+            var pickCardBody = document.getElementById("pick" + pick_id + "CardBody");
             pickCardBody.innerHTML = "";
-            pickCardBody.appendChild(createDraftPickRow(data));
+            pickCardBody.style.height = "140px";
 
+            // Add "The Pick is In" placeholder
+            const placeholder = document.createElement("div");
+            placeholder.className = "row placeholder";
+            placeholder.style.padding = "20px";
+            placeholder.style.borderRadius = "10px";
+            placeholder.style.backgroundColor = "#" + data['teamColor']; // Use team's color from backend data
+            placeholder.style.transition = "opacity 1s ease"; // Add transition effect
+
+            // Left Column (Team Logo)
+            const leftCol = document.createElement("div");
+            leftCol.className = "col-6 d-flex align-items-center justify-content-center"; // Center-align the logo
+
+            const teamImg = document.createElement("img");
+            teamImg.src = `/static/img/NFL/${data['team_key']}.png`;
+            teamImg.alt = "Team Logo";
+            teamImg.height = 60; // Matches the original height
+            leftCol.appendChild(teamImg);
+
+            // Right Column (Team Name and "The Pick is In!" Message)
+            const rightCol = document.createElement("div");
+            rightCol.className = "col-6";
+
+            // Team Name
+            const teamName = document.createElement("h6");
+            teamName.textContent = data['team_name']; // Assuming teamName is provided by the backend
+            teamName.style.color = "#fff"; // White text for contrast
+            teamName.style.fontWeight = "light";
+            teamName.style.fontStyle = "italic";
+
+            // "The Pick is In" Message
+            const placeholderText = document.createElement("h4");
+            placeholderText.textContent = "Pick Is In!";
+            placeholderText.style.color = "#fff"; // White text for contrast
+            placeholderText.style.fontWeight = "bold";
+            placeholderText.style.fontStyle = "italic";
+
+
+            // Append team name and message to right column
+            rightCol.appendChild(teamName);
+            rightCol.appendChild(placeholderText);
+
+            // Append both columns to the placeholder
+            placeholder.appendChild(leftCol);
+            placeholder.appendChild(rightCol);
+
+            pickCardBody.appendChild(placeholder);
+
+            // Update the draft status message
             var draftStatus = document.getElementById("draftStatus");
-            draftStatus.innerText = data['nextPickMsg'];
+            draftStatus.innerText = data["team_full_name"] + " Pick Is In!"; // Update the draft status text
+            draftStatus.style.transition = "opacity 1s ease"; // Ensure smooth transition
 
-            var draftStatusContainer = document.getElementById("draftStatusContainer");
-            draftStatusContainer.style = "background-color: #" + data['nextPickColor'] +";pointer-events: none; !important";
+            // After 5 seconds, replace the placeholder with the draft pick row
+            setTimeout(() => {
+                placeholder.style.opacity = "0"; // Fade out
+
+                setTimeout(() => {
+                    pickCardBody.innerHTML = ""; // Remove placeholder
+                    const draftPickRow = createDraftPickRow(data);
+                    draftPickRow.style.opacity = "0"; // Start hidden
+                    draftPickRow.style.transition = "opacity 1s ease"; // Add transition effect
+                    pickCardBody.appendChild(draftPickRow);
+
+                    draftStatus.innerText = data['nextPickMsg'];
+                    draftStatus.style.opacity = "0";
+                    draftStatusContainer.style = "background-color: #" + data['nextPickColor'] + ";pointer-events: none; !important";
+
+                    // Fade in the new draft pick row
+                    setTimeout(() => {
+                        draftPickRow.style.opacity = "1";
+                        draftStatus.style.opacity = "1"; // Ensure draft status fades in smoothly
+                    }, 10);
+                }, 500); // Wait for fade-out to complete
+            }, 5000); // 5 seconds before switching
         },
         complete: function(data) {
-            next_pick = parseInt(data.responseJSON["nextPick"])
+            next_pick = parseInt(data.responseJSON["nextPick"]);
             getPosition("ALL");
 
             if (viewingTeamId) {
@@ -257,13 +342,13 @@ function draftProspect(pick_id, prospect_id) {
                 getTeam(team_id);
             }
 
-            var card = document.getElementById("pick"+next_pick);
+            var card = document.getElementById("pick" + next_pick);
             card.classList.add("border-light", "border-3");
-
-            card.scrollIntoView({block:"nearest", behavior:"smooth", inline:"center"});
+            card.scrollIntoView({ block: "nearest", behavior: "smooth", inline: "center" });
         }
-    })
+    });
 }
+
 
 function getDraftPicks(currentPick) {
     $.ajax({
@@ -360,6 +445,9 @@ function submitTrade(send, rec) {
         },
         complete: function(data) {
             getDraftPicks(data.responseJSON["current_pick"]);
+
+            const audio = document.getElementById('tradeChime');
+            audio.play();
 
             if (viewingTeamId) {
                 var team_id = viewingTeamId.getAttribute("data-team-id");

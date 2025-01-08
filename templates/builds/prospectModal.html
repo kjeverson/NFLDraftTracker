@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}">
 <div id="prospectModal" class="modal" tabindex="-1">
-  <div class="modal-dialog modal-xl bg-dark text-white">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl bg-dark text-white">
     <div class="modal-content bg-dark" >
       <div class="modal-body bg-dark">
           {% if prospect.drafted_team %}
@@ -15,7 +15,7 @@
                 <div class="row justify-content-center">
                     <div class="col-8 align-self-center">
                         <div class="row p-1 text-center">
-                            <small>{{ prospect.position }}{% if prospect.college_team %} | <img src="{{ url_for('static', filename='img/NCAA/'+ prospect.college_team.ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/NCAA/default.png') }}'" height="30px"> {{ prospect.college_team.fullname if prospect.college_team else "None" }} {% endif %}</small>
+                            <small>{{ prospect.position }}{% if prospect.college_team %} | {{ prospect.college_team.fullname if prospect.college_team else "None" }} {% endif %}</small>
                         </div>
                         {% if prospect.height and prospect.weight %}
                         <div class="row p-1 text-center">
@@ -98,7 +98,7 @@
               <small>
               <ul>
                 {% for strength in strengths %}
-                <li>{{ strength }}</li>
+                  <li><small>{{ strength }}</small></li>
                 {% endfor %}
               </ul>
               </small>
@@ -110,7 +110,7 @@
               <small>
               <ul>
                 {% for weakness in weaknesses %}
-                <li>{{ weakness }}</li>
+                <li><small>{{ weakness }}</small></li>
                 {% endfor %}
               </ul>
               </small>

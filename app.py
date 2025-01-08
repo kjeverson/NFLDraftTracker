@@ -39,21 +39,8 @@ def get_team():
     team_id = int(request.args.get("id"))
     team = NFLTeam.query.get(team_id)
 
-    drafted = []
-
-    for prospect in team.draftees:
-        if prospect.position in ['OG', 'C', 'IOL']:
-            drafted.append("IOL")
-
-        if prospect.position in ['DE', 'DT', 'EDGE']:
-            drafted.append("DL")
-
-        if prospect.position in ['OG', 'C', 'IOL', 'OT']:
-            drafted.append("OL")
-
-        drafted.append(prospect.position)
-
-    return render_template("builds/teamControl.html", team=team, needs=team.get_needs(), drafted=drafted)
+    return render_template("builds/teamControl.html", team=team, needs=team.get_needs(),
+                           drafted=team.get_drafted_positions())
 
 
 @app.route('/prospectPosition', methods=['GET'])
@@ -61,6 +48,8 @@ def get_prospects_by_position():
     pos = request.args.get("pos")
     show_drafted = request.args.get("show_drafted")
     show_drafted = True if show_drafted == 'true' else False
+
+    editPage = True if request.args.get("editPage") else False
 
     selected = pos
 
@@ -88,7 +77,7 @@ def get_prospects_by_position():
 
     pick = get_current_pick()
 
-    return render_template("builds/prospectList.html", prospects=prospects, current_pick=pick, selected=selected, show_drafted=show_drafted)
+    return render_template("builds/prospectList.html", prospects=prospects, current_pick=pick, selected=selected, show_drafted=show_drafted, editPage=editPage)
 
 
 @app.route('/prospectModal', methods=['GET'])
@@ -139,6 +128,14 @@ def save_prospect():
     return jsonify()
 
 
+@app.route('/deleteProspect', methods=['POST'])
+def delete_prospect():
+    id = int(request.form.get("id"))
+    prospect = Prospect.query.get(id)
+    prospect.delete()
+    return jsonify()
+
+
 @app.route('/addProspectModal', methods=['GET'])
 def add_prospect_modal():
     colleges = NCAATeam.query.all()
@@ -167,6 +164,7 @@ def draft_pick_modal():
     draft_pick_id = int(request.args.get("ID"))
     draft_pick = DraftPick.query.get(draft_pick_id)
     team = draft_pick.pick_owner
+
     return render_template("builds/draftPickModal.html", draft_pick=draft_pick, team=team)
 
 
@@ -209,6 +207,8 @@ def draft_prospect():
         "position": prospect.position,
         "college": prospect.college_team.location if prospect.college_team else "None",
         "team_key": pick.pick_owner.key,
+        "team_name": pick.pick_owner.name,
+        "team_full_name": pick.pick_owner.fullname,
         "nextPick": next_pick.pick if next_pick else None,
         "nextPickMsg": next_pick_msg,
         "nextPickColor": next_pick_color
@@ -253,12 +253,25 @@ def submit_trade():
         pick = DraftPick.query.get(int(pick))
         pick.trade(rec_team)
 
-    return jsonify({"current_pick": get_current_pick().pick})
+    data = {
+        "current_pick": get_current_pick().pick,
+        "send_team_key": send_team.key,
+        "rec_team_key": rec_team.key,
+        "send_team_color": send_team.primary_color,
+        "rec_team_color": rec_team.primary_color,
+    }
+
+    return jsonify(data)
 
 
 @app.route('/colleges', methods=['GET'])
 def colleges():
     return render_template("colleges.html")
+
+
+@app.route('/prospects', methods=['GET'])
+def prospects():
+    return render_template("prospects.html")
 
 
 @app.route('/collegesList', methods=['GET'])

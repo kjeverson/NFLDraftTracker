@@ -1,9 +1,12 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prospect.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}">
 <div id="draftPickModal" class="modal" tabindex="-1">
-    <div class="modal-dialog modal-lg bg-dark text-white">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg bg-dark text-white">
         <div class="modal-content bg-dark" >
             <div class="modal-body bg-dark" style="background: rgba(0,0,0,0.5);">
-                <div class="row prospect-row" style="background: linear-gradient(to top, rgba(0,0,0,0) 40%, #{{ draft_pick.pick_owner.primary_color }})">
+
+                        <!-- SELECTED PROSPECT -->
+                        <div class="row prospect-row" style="background: linear-gradient(to top, rgba(0,0,0,0) 40%, #{{ draft_pick.pick_owner.primary_color }})">
                     <div class="col-6 align-self-center">
                         <div class="row text-center">
                             <img class="img-fluid" src="{{ url_for('static', filename='img/NFL/'+ draft_pick.pick_owner.key +'.png') }}" style="height: 60px;  object-fit: contain;">
@@ -47,6 +50,54 @@
                             {% endif %}
                         </div>
                     </div>
+                </div>
+                        <!-- PICK OWNER NEEDS -->
+                        <div class="row p-2 justify-content-center">
+                    <div class="col-2 align-self-center">Needs:</div>
+                  <div class="row p-1 justify-content-center">
+                    {% set drafted = team.get_drafted_positions() %}
+                    {% for need in team.get_needs() %}
+                    <div class="col-2">
+                      <button class="btn w-100 {% if need in drafted %}btn-outline-secondary{% else %}btn-secondary{% endif %}"disabled>{{ need }}</button>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+
+
+                        <!-- PICK OWNER DRAFTCLASS -->
+                        <div class="row p-2 ">
+                    <table class="table table-dark">
+                      <tbody>
+                          {% for team_pick in team.picks | sort(attribute='pick', reverse=False) %}
+                            <tr data-id="{{ team_pick.ID }}">
+                              <td style="background:linear-gradient(to left, rgba(0,0,0,0) 65%, #{{ team.primary_color }})">
+                                <div class="row align-items-center">
+                                  <div class="col-2 justify-content-center">
+                                    <div class="row text-center">
+                                      <h4>{{ team_pick.pick }}</h4>
+                                    </div>
+                                  </div>
+                                  <div class="col-1 justify-content-center"><img src="{{ url_for('static', filename='img/NFL/'+ team.key +'.png') }}" height="40px"></div>
+                                  {% if team_pick.prospect %}
+                                  <div class="col-7" data-id="{{ team_pick.prospect[0].ID }}">
+                                    <div class="row"><h5>{% if team_pick.prospect[0].favorite %}<i class="bi bi-star-fill text-warning"></i> {% else %}<i class="bi bi-star"></i> {% endif %}{{ team_pick.prospect[0].name }}</h5></div>
+                                    <div class="row"><small>{{ team_pick.prospect[0].position }}{% if team_pick.prospect[0].college_team %} | {{ team_pick.prospect[0].college_team.location }} {% endif %}</small></div>
+                                  </div>
+                                  {% else %}
+                                  <div class="col-7">
+
+                                  </div>
+                                  {% endif %}
+                                  <div class="col-1 justify-content-center">
+                                    {% if team_pick.traded %}<i class="bi bi-arrow-repeat text-warning"></i>{% endif %}
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          {% endfor %}
+                      </tbody>
+                    </table>
                 </div>
             </div>
             {% if draft_pick.prospect %}

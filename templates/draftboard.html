@@ -6,23 +6,22 @@
 
 <script src="{{ url_for('static', filename='js/team.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bigBoard.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prospect.css') }}">
 <script>
   onload({{data|tojson}})
 </script>
 
 <div id="mainContainer" class="container p-1">
+  <audio id="draftChime" src="{{ url_for('static', filename='sound/chime.mp3') }}"></audio>
+  <audio id="tradeChime" src="{{ url_for('static', filename='sound/tradeChime.mp3') }}"></audio>
   <div id="homePage" class="container p-2 text-white">
     <!-- DRAFT PICKS -->
     <div class="container-fluid" id="draftPickContainer">
 
 
     </div>
-    <!-- DRAFT STATUS -->
-    <div class="row p-1 text-center">
-
-    </div>
     <!-- MAIN CONTENT -->
-    <div class="row">
+    <div class="row p-2">
       <!-- BIG BOARD -->
       <div class="col-6" id="bigBoard">
 

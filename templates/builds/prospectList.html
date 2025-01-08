@@ -53,10 +53,20 @@
                         </div>
                       </div>
                       <div class="col-1"><img src="{{ url_for('static', filename='img/NFL/'+ prospect.drafted_team.key +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/draft_logo.png') }}'" height="40px"></div>
+                      {% if editPage %}
+                      <div class="col-4" data-id="{{ prospect.ID }}" onclick="getProspect(this.getAttribute('data-id'))">
+                        <div class="row"><h5>{% if prospect.favorite %}<i class="bi bi-star-fill text-warning"></i> {% else %}<i class="bi bi-star"></i> {% endif %}{{ prospect.name }}</h5></div>
+                        <div class="row"><small>{{ prospect.position }}{% if prospect.college_team %} | {{ prospect.college_team.location }} {% endif %}</small></div>
+                      </div>
+                      <div class="col-3 justify-content-center">
+                        <div class="row"><h6>Round {{ prospect.draft_pick.round }}, Pick {{ prospect.draft_pick.pick }}</h6></div>
+                      </div>
+                      {% else %}
                       <div class="col-7" data-id="{{ prospect.ID }}" onclick="getProspect(this.getAttribute('data-id'))">
                         <div class="row"><h5>{% if prospect.favorite %}<i class="bi bi-star-fill text-warning"></i> {% else %}<i class="bi bi-star"></i> {% endif %}{{ prospect.name }}</h5></div>
                         <div class="row"><small>{{ prospect.position }}{% if prospect.college_team %} | {{ prospect.college_team.location }} {% endif %}</small></div>
                       </div>
+                      {% endif %}
                     </div>
                   </td>
                 </tr>
@@ -75,8 +85,11 @@
                         <div class="row"><small>{{ prospect.position }}{% if prospect.college_team %} | {{ prospect.college_team.location }} {% endif %}</small></div>
                       </div>
                       <div class="col-2">
-                        {% if current_pick %}
+                        {% if current_pick and not editPage%}
                         <button class="btn w-100 btn-secondary" type="button" data-pick-id="{{ current_pick.ID }}" data-id="{{ prospect.ID }}" onclick="draftProspect(this.getAttribute('data-pick-id'), this.getAttribute('data-id'))">DRAFT</button>
+                        {% elif editPage %}
+                        {% else %}
+
                         {% endif %}
                       </div>
                     </div>

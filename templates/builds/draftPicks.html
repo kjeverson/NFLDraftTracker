@@ -23,9 +23,9 @@
             {% else %}
             <div class="card bg-dark" id="pick{{ pick.ID }}" data-id="{{ pick.ID }}" style="border-radius: 20px; cursor: pointer;" onclick="draftPickModal(this.getAttribute('data-id'))">
             {% endif %}
-            <h6 class="card-header" style="border-top-right-radius: 20px; border-top-left-radius: 20px; background:#{{ pick.pick_owner.primary_color }}">{{ pick.round }}.{{ pick.pick }}</h6>{% if pick.traded %}<i class="bi bi-arrow-repeat text-warning" style="position: absolute; top: 5px; right: 10px;"></i>{% endif %}
+            <h6 id="pick{{ pick.ID }}CardHeader" class="card-header" style="border-top-right-radius: 20px; border-top-left-radius: 20px; background:#{{ pick.pick_owner.primary_color }}">{{ pick.round }}.{{ pick.pick }}</h6>{% if pick.traded %}<i class="bi bi-arrow-repeat text-warning" style="position: absolute; top: 5px; right: 10px;"></i>{% endif %}
               <div id="pick{{ pick.ID }}CardBody" class="card-body" style="background:linear-gradient(to top, rgba(0,0,0,0) 50%, #{{ pick.pick_owner.primary_color }}">
-                <img src="{{ url_for('static', filename='img/NFL/'+ pick.pick_owner.key +'.png') }}" height="60px">
+                <img id="pick{{ pick.ID }}CardImg" src="{{ url_for('static', filename='img/NFL/'+ pick.pick_owner.key +'.png') }}" height="60px">
                 <div class="row"><h6><span id="pick{{ pick.ID }}CardPlayerName">--</span></h6></div>
                 <div class="row"><small><span id="pick{{ pick.ID }}CardPlayerInfo">--</span></small></div>
               </div>
