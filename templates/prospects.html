@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}
+  NFL Draft Tracker
+{% endblock %}
+{% block content %}
+
+<script src="{{ url_for('static', filename='js/prospects.js') }}"></script>
+<script>
+  onload()
+</script>
+
+<div id="mainContainer" class="container p-1">
+
+</div>
+
+<div id="modalContainer" class="container">
+
+</div>
+{% endblock %}
