@@ -182,34 +182,34 @@ function createPlaceholder(team_name, team_key, team_color, status) {
     // Add placeholder
     const placeholder = document.createElement("div");
     placeholder.className = "row placeholder";
-    placeholder.style.padding = "20px";
-    placeholder.style.borderRadius = "10px";
-    placeholder.style.backgroundColor = "#" + team_color;
+    //placeholder.style.padding = "20px";
+    //placeholder.style.borderRadius = "10px";
+    //placeholder.style.backgroundColor = "#" + team_color;
     placeholder.style.transition = "opacity 1s ease"; // Add transition effect
 
     // Left Column (Team Logo)
     const leftCol = document.createElement("div");
-    leftCol.className = "col-6 d-flex align-items-center justify-content-center"; // Center-align the logo
+    leftCol.className = "d-flex align-items-center justify-content-center"; // Center-align the logo
 
     const teamImg = document.createElement("img");
     teamImg.src = `/static/img/NFL/${team_key}.png`;
     teamImg.alt = "Team Logo";
-    teamImg.height = 80;
+    teamImg.height = 60;
     leftCol.appendChild(teamImg);
 
     // Right Column (Team Name and "The Pick is In!" Message)
     const rightCol = document.createElement("div");
-    rightCol.className = "col-6 align-items-center justify-content-center";
+    rightCol.className = "d-flex flex-column align-items-center justify-content-center";
 
     // Team Name
-    const teamName = document.createElement("h6");
+    const teamName = document.createElement("small");
     teamName.textContent = team_name;
     teamName.style.color = "#fff";
     teamName.style.fontWeight = "light";
     teamName.style.fontStyle = "italic";
 
     // Status Message
-    const placeholderText = document.createElement("h4");
+    const placeholderText = document.createElement("h5");
     placeholderText.textContent = status;
     placeholderText.style.color = "#fff";
     placeholderText.style.fontWeight = "bold";
@@ -227,7 +227,6 @@ function createPlaceholder(team_name, team_key, team_color, status) {
     return placeholder;
 
 }
-
 
 function createDraftPickRow(pick) {
     const row = document.createElement("div");
@@ -308,7 +307,7 @@ function draftProspect(pick_id, prospect_id) {
             pickCardBody.innerHTML = "";
             pickCardBody.style.height = "140px";
 
-            var placeholder = createPlaceholder(data["team_name"], data["team_key"], data["team_color"], "Pick Is In!");
+            var placeholder = createPlaceholder(data["team_name"], data["team_key"], data["team_color"], "Pick is In!");
             pickCardBody.appendChild(placeholder);
 
             // Update the draft status message
@@ -350,6 +349,12 @@ function draftProspect(pick_id, prospect_id) {
 
             var card = document.getElementById("pick" + next_pick);
             card.classList.add("border-light", "border-3");
+
+            var pickCardBody = document.getElementById(`pick${next_pick}CardBody`);
+            pickCardBody.innerHTML = "";
+            pickCardBody.style.height = "140px";
+            pickCardBody.appendChild(createPlaceholder(data.responseJSON["next_pick_team_name"], data.responseJSON["next_pick_team_key"], data.responseJSON["next_pick_team_color"], "On the Clock!"));
+
             card.scrollIntoView({ block: "nearest", behavior: "smooth", inline: "center" });
         }
     });

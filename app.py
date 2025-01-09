@@ -210,6 +210,9 @@ def draft_prospect():
         "team_name": pick.pick_owner.name,
         "team_full_name": pick.pick_owner.fullname,
         "nextPick": next_pick.pick if next_pick else None,
+        "next_pick_team_name": next_pick.pick_owner.name,
+        "next_pick_team_key": next_pick.pick_owner.key,
+        "next_pick_team_color": next_pick.pick_owner.primary_color,
         "nextPickMsg": next_pick_msg,
         "nextPickColor": next_pick_color
     }
