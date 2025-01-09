@@ -244,8 +244,13 @@ function createDraftPickRow(pick) {
     const playerNameRow = document.createElement("div");
     playerNameRow.className = "row";
 
-    const playerName = document.createElement("h6");
-    playerName.innerHTML = `<strong><span id="pick${pick.ID}CardPlayerName">${pick['sname']}</span></strong>`;
+    const playerName = document.createElement("small");
+    if (pick['sname'].length > 17) {
+        playerName.innerHTML = `<small><small><strong><i><span id="pick${pick.ID}CardPlayerName">${pick['sname']}</span></i></strong></small></small>`;
+    }
+    else {
+        playerName.innerHTML = `<strong><i><span id="pick${pick.ID}CardPlayerName">${pick['sname']}</span></i></strong>`;
+    }
     playerNameRow.appendChild(playerName);
     leftCol.appendChild(playerNameRow);
 
@@ -256,7 +261,14 @@ function createDraftPickRow(pick) {
     const collegeTeam = pick['college']
         ? pick['college']
         : "--";
-    playerInfo.innerHTML = `<small><span id="pick${pick.ID}CardPlayerInfo">${pick['position']} | ${collegeTeam}</span></small>`;
+    var playerInfoString = `${pick['position']} | ${collegeTeam}`;
+    if (playerInfoString.length > 22) {
+        playerInfo.innerHTML = `<small><small><small><i><span id="pick${pick.ID}CardPlayerInfo">${playerInfoString}</span></i></small></small></small>`
+    }
+    else {
+        playerInfo.innerHTML = `<small><i><span id="pick${pick.ID}CardPlayerInfo">${playerInfoString}</span></i></small>`
+    }
+    //playerInfo.innerHTML = `<small><i><span id="pick${pick.ID}CardPlayerInfo">${pick['position']} | ${collegeTeam}</span></i></small>`;
     playerInfoRow.appendChild(playerInfo);
     leftCol.appendChild(playerInfoRow);
 
