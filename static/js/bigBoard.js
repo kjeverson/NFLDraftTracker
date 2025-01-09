@@ -404,11 +404,6 @@ function draftProspect(pick_id, prospect_id) {
             var placeholder = createPlaceholder(pick_id, data["team_name"], data["team_key"], data["team_color"], "Pick is In!");
             pickCardBody.appendChild(placeholder);
 
-            // Update the draft status message
-            var draftStatus = document.getElementById("draftStatus");
-            draftStatus.innerText = data["team_full_name"] + " Pick Is In!"; // Update the draft status text
-            draftStatus.style.transition = "opacity 1s ease"; // Ensure smooth transition
-
             // After 5 seconds, replace the placeholder with the draft pick row
             setTimeout(() => {
                 placeholder.style.opacity = "0"; // Fade out
@@ -420,14 +415,9 @@ function draftProspect(pick_id, prospect_id) {
                     draftPickRow.style.transition = "opacity 1s ease"; // Add transition effect
                     pickCardBody.appendChild(draftPickRow);
 
-                    draftStatus.innerText = data['nextPickMsg'];
-                    draftStatus.style.opacity = "0";
-                    draftStatusContainer.style = "background-color: #" + data['nextPickColor'] + ";pointer-events: none; !important";
-
                     // Fade in the new draft pick row
                     setTimeout(() => {
                         draftPickRow.style.opacity = "1";
-                        draftStatus.style.opacity = "1"; // Ensure draft status fades in smoothly
                     }, 10);
                 }, 500); // Wait for fade-out to complete
             }, 5000); // 5 seconds before switching

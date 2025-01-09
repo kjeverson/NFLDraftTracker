@@ -58,26 +58,3 @@
 </div>
 {% endfor %}
 </div>
-
-<div class="row p-1">
-    <div class="col-10">
-        {% if current_pick and picks%}
-        <button id="draftStatusContainer" type="button" class="btn w-100 text-white" style="pointer-events: none; background:#{{ current_pick.pick_owner.primary_color }}; !important" >
-            <small><span id="draftStatus">{{ current_pick.pick_owner.fullname }} Are On The Clock!</span></small>
-        </button>
-        {% elif picks %}
-        <button id="draftStatusContainer" type="button" class="btn w-100 text-white btn-secondary" style="pointer-events: none; !important" >
-            <small>The NFL Draft Has Concluded!</small>
-        </button>
-        {% else %}
-        <button id="draftStatusContainer" type="button" class="btn w-100 text-white btn-secondary" style="pointer-events: none; !important" >
-            <small>The NFL Draft Has Not Been Initialized!</small>
-        </button>
-        {% endif %}
-    </div>
-    <div class="col-2">
-        <button id="tradeBtn" class="btn btn-secondary w-100 text-white" onclick="tradeModal()">
-            <i class="bi bi-arrow-repeat"></i> Trade Picks
-        </button>
-    </div>
-</div>

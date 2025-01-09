@@ -213,8 +213,6 @@ def draft_prospect():
         "next_pick_team_name": next_pick.pick_owner.name,
         "next_pick_team_key": next_pick.pick_owner.key,
         "next_pick_team_color": next_pick.pick_owner.primary_color,
-        "nextPickMsg": next_pick_msg,
-        "nextPickColor": next_pick_color
     }
 
     return jsonify(draft_pick)

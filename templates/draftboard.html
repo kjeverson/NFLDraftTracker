@@ -29,8 +29,8 @@
       <!-- TEAM CONTROL -->
       <div class="col-6">
         <!-- TEAM SELECTION -->
-        <div class="row p-2">
-          <div class="col">
+        <div class="row pt-2">
+          <div class="col-9">
             <div class="dropdown">
               <button class="btn w-100 btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 Select Team
@@ -44,7 +44,7 @@
                       {% if team.conference == "AFC" and team.division == "North" %}
                       <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
                       <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
                         <div class="col-8 text-start align-self-center">{{ team.key }}</div>
                       </div>
                       </button>
@@ -58,7 +58,7 @@
                       {% if team.conference == "AFC" and team.division == "East" %}
                       <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
                       <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
                         <div class="col-8 text-start align-self-center">{{ team.key }}</div>
                       </div>
                       </button>
@@ -72,7 +72,7 @@
                       {% if team.conference == "AFC" and team.division == "South" %}
                       <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
                       <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
                         <div class="col-8 text-start align-self-center">{{ team.key }}</div>
                       </div>
                       </button>
@@ -86,7 +86,7 @@
                       {% if team.conference == "AFC" and team.division == "West" %}
                       <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
                       <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
                         <div class="col-8 text-start align-self-center">{{ team.key }}</div>
                       </div>
                       </button>
@@ -103,7 +103,7 @@
                       {% if team.conference == "NFC" and team.division == "North" %}
                       <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
                       <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
                         <div class="col-8 text-start align-self-center">{{ team.key }}</div>
                       </div>
                       </button>
@@ -117,7 +117,7 @@
                       {% if team.conference == "NFC" and team.division == "East" %}
                       <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
                       <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
                         <div class="col-8 text-start align-self-center">{{ team.key }}</div>
                       </div>
                       </button>
@@ -131,7 +131,7 @@
                       {% if team.conference == "NFC" and team.division == "South" %}
                       <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
                       <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
                         <div class="col-8 text-start align-self-center">{{ team.key }}</div>
                       </div>
                       </button>
@@ -145,7 +145,7 @@
                       {% if team.conference == "NFC" and team.division == "West" %}
                       <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
                       <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" class="img-fluid"></div>
+                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
                         <div class="col-8 text-start align-self-center">{{ team.key }}</div>
                       </div>
                       </button>
@@ -156,6 +156,11 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="col-3">
+              <button id="tradeBtn" class=" btn btn-secondary w-100 text-white" onclick="tradeModal()">
+                  <i class="bi bi-arrow-repeat"></i> Trade
+              </button>
           </div>
         </div>
         <!-- TEAM PICKS -->
