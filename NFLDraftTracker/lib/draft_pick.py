@@ -18,6 +18,16 @@ class DraftPick(db.Model):
         self.team_id = new_owner.ID
         db.session.commit()
 
+    def serialize(self):
+        data = {
+            "ID": self.ID,
+            "round": self.round,
+            "pick": self.pick,
+            "pick_owner": self.pick_owner.serialize()
+        }
+
+        return data
+
 
 def add_draft_pick(round, pick, team_id):
     db.session.add(DraftPick(

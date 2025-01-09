@@ -248,20 +248,21 @@ def submit_trade():
     send_team = NFLTeam.query.get(send_team_id)
     rec_team = NFLTeam.query.get(rec_team_id)
 
+    picks = {}
+
     for pick in rec_pick_ids:
         pick = DraftPick.query.get(int(pick))
         pick.trade(send_team)
+        picks.update({pick.ID: pick.serialize()})
 
     for pick in send_pick_ids:
         pick = DraftPick.query.get(int(pick))
         pick.trade(rec_team)
+        picks.update({pick.ID: pick.serialize()})
 
     data = {
         "current_pick": get_current_pick().pick,
-        "send_team_key": send_team.key,
-        "rec_team_key": rec_team.key,
-        "send_team_color": send_team.primary_color,
-        "rec_team_color": rec_team.primary_color,
+        "picks": picks
     }
 
     return jsonify(data)

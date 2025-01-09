@@ -30,6 +30,16 @@ class NFLTeam(db.Model):
 	def __repr__(self):
 		return "NFL({})".format(self.fullname)
 
+	def serialize(self):
+		data = {
+			"key": self.key,
+			"name": self.name,
+			"fullname": self.fullname,
+			"primary_color": self.primary_color
+		}
+
+		return data
+
 	def get_needs(self):
 		return self.needs.split()
 
