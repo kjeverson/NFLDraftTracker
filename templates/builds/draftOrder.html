@@ -26,8 +26,8 @@
             <h6 class="card-header" style="border-top-right-radius: 20px; border-top-left-radius: 20px; background:#{{ pick.pick_owner.primary_color }}">{{ pick.round }}.{{ pick.pick }}</h6>{% if pick.traded %}<i class="bi bi-arrow-repeat" style="position: absolute; top: 5px; right: 10px;"></i>{% endif %}
               <div class="card-body" style="background:linear-gradient(to top, rgba(0,0,0,0) 50%, #{{ pick.pick_owner.primary_color }}">
                 <img src="{{ url_for('static', filename='img/NFL/'+ pick.pick_owner.key +'.png') }}" height="60px">
-                <div class="row"><h6><span id="pick{{ pick.ID }}CardPlayerName">--</span></h6></div>
-                <div class="row"><small><span id="pick{{ pick.ID }}CardPlayerInfo">--</span></small></div>
+                <div class="row"><small><i><span id="pick{{ pick.ID }}CardPlayerName">{{ pick.pick_owner.name }}</span></i></small></div>
+                <div class="row"><h5><strong><i><span id="pick{{ pick.ID }}CardPlayerInfo">--</span></i></strong></h5></div>
               </div>
     {% endif %}
   </div>
