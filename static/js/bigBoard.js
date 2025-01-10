@@ -368,6 +368,9 @@ function createPickCard(pick, currentPick) {
     if (pick['ID'] == currentPick) {
         card.className = 'card bg-dark border-3 border-light';
         statusLine.textContent = "On the Clock!"
+        const audio = document.getElementById('onTheClockAudio');
+                audio.src = `/static/sound/otc/${pick['pick_owner']['key']}.mp3`;
+                audio.play();
     } else {
         card.className = 'card bg-dark';
     }
@@ -423,25 +426,32 @@ function draftProspect(pick_id, prospect_id) {
                     }, 10);
                 }, 500); // Wait for fade-out to complete
             }, 5000); // 5 seconds before switching
+
+            pickCard.scrollIntoView({ block: "nearest", behavior: "smooth", inline: "start" });
+
         },
         complete: function(data) {
-            next_pick = parseInt(data.responseJSON["nextPick"]);
+            console.log(data.responseJSON);
+
             getPosition("ALL");
+
+            if (data.responseJSON['nextPick'] != null){
+                next_pick = parseInt(data.responseJSON["nextPick"]);
+
+                var card = document.getElementById("pick" + next_pick);
+                card.classList.add("border-light", "border-3");
+
+                var pickCardBody = document.getElementById(`pick${next_pick}CardBody`);
+                pickCardBody.innerHTML = "";
+                pickCardBody.style.height = "140px";
+                pickCardBody.appendChild(createPlaceholder(next_pick, data.responseJSON["next_pick_team_name"], data.responseJSON["next_pick_team_key"], data.responseJSON["next_pick_team_color"], "On the Clock!"));
+            }
 
             if (viewingTeamId) {
                 var team_id = viewingTeamId.getAttribute("data-team-id");
                 getTeam(team_id);
             }
-
-            var card = document.getElementById("pick" + next_pick);
-            card.classList.add("border-light", "border-3");
-
-            var pickCardBody = document.getElementById(`pick${next_pick}CardBody`);
-            pickCardBody.innerHTML = "";
-            pickCardBody.style.height = "140px";
-            pickCardBody.appendChild(createPlaceholder(next_pick, data.responseJSON["next_pick_team_name"], data.responseJSON["next_pick_team_key"], data.responseJSON["next_pick_team_color"], "On the Clock!"));
-
-            card.scrollIntoView({ block: "nearest", behavior: "smooth", inline: "center" });
+            //card.scrollIntoView({ block: "nearest", behavior: "smooth", inline: "end" });
         }
     });
 }
@@ -565,7 +575,7 @@ function submitTrade(send, rec) {
 
                         // Add fade-in transition to the new card
                         var newPickCardBody = document.getElementById(`pick${ID}CardBody`);
-                        pickCardBody.style.height = "140px";
+                        newPickCardBody.style.height = "140px";
 
                         // Add fade-in transition to the new card
                         var newPickCardContainer = document.getElementById(`pick${ID}Container`);

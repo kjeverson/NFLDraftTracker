@@ -229,8 +229,6 @@ def add_prospects(database, prospects, year):
 
 		prospect = prospects[i]
 
-		rank = i+1
-
 		college = ""
 		try:
 			college_string = prospect['college']['$ref']
@@ -292,7 +290,7 @@ def add_prospects(database, prospects, year):
 			college_team=college,
 			height=height,
 			weight=prospect['weight'],
-			rank=rank,
+			rank=0,
 			position=position,
 			grade=grade,
 			overview=analysis,
