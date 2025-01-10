@@ -132,6 +132,7 @@ function saveProspect(id) {
     var ras = document.getElementById("prospectCardRAS");
 
     var favorite = document.getElementById("favoriteProspect");
+    var concern = document.getElementById("concernProspect");
 
     $.ajax({
         url: "/saveProspect",
@@ -153,7 +154,8 @@ function saveProspect(id) {
             twenty_shuttle: twenty_shuttle.value,
             bench: bench.value,
             ras: ras.value,
-            favorite: favorite.checked
+            favorite: favorite.checked,
+            concern: concern.checked
         },
         success: function() {
             $('#editProspectModal').modal("hide");

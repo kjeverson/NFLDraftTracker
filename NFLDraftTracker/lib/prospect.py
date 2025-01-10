@@ -51,6 +51,7 @@ class Prospect(db.Model):
 	weaknesses = db.Column(db.Text())
 
 	favorite = db.Column(db.Boolean)
+	concern = db.Column(db.Boolean)
 
 	def __repr__(self):
 		return "Player({}-{})".format(self.name, self.position)
@@ -154,6 +155,14 @@ class Prospect(db.Model):
 			self.favorite = True
 		else:
 			self.favorite = False
+
+		db.session.commit()
+
+	def set_concern(self, concern_string):
+		if concern_string == 'true':
+			self.concern = True
+		else:
+			self.concern = False
 
 		db.session.commit()
 

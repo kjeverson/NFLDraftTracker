@@ -133,6 +133,7 @@ function saveProspect(id) {
     var ras = document.getElementById("prospectCardRAS");
 
     var favorite = document.getElementById("favoriteProspect");
+    var concern = document.getElementById("concernProspect");
 
     $.ajax({
         url: "/saveProspect",
@@ -154,7 +155,8 @@ function saveProspect(id) {
             twenty_shuttle: twenty_shuttle.value,
             bench: bench.value,
             ras: ras.value,
-            favorite: favorite.checked
+            favorite: favorite.checked,
+            concern: concern.checked
         },
         success: function() {
             $('#editProspectModal').modal("hide");
@@ -509,11 +511,10 @@ function tradeModal() {
 }
 
 function submitTrade(send, rec) {
-
     var viewingTeamId = document.getElementById("teamCard");
 
-    var recPickList = document.getElementById("team"+rec+"Rec").querySelectorAll('input[type="checkbox"]:checked');
-    var sendPickList = document.getElementById("team"+send+"Send").querySelectorAll('input[type="checkbox"]:checked');
+    var recPickList = document.getElementById("team" + rec + "Rec").querySelectorAll('input[type="checkbox"]:checked');
+    var sendPickList = document.getElementById("team" + send + "Send").querySelectorAll('input[type="checkbox"]:checked');
 
     var sendPickIDs = [];
     var recPickIDs = [];
@@ -539,8 +540,6 @@ function submitTrade(send, rec) {
             $('#tradeModal').modal("hide");
         },
         complete: function(data) {
-            //getDraftPicks(data.responseJSON["current_pick"]);
-
             const audio = document.getElementById('tradeChime');
             audio.play();
 
@@ -548,24 +547,44 @@ function submitTrade(send, rec) {
             var picks = sendPickIDs.concat(recPickIDs);
 
             picks.forEach(function(ID) {
-                console.log(ID);
-                console.log(pickData[ID]);
-
                 var pickCardStatus = document.getElementById(`pick${ID}CardStatus`);
-                pickCardStatus.innerText = "Traded the Pick!"
+                pickCardStatus.innerText = "Traded the Pick!";
+
+                var pickCardContainer = document.getElementById(`pick${ID}Container`);
+
+                // Add fade-out transition to the entire card
+                pickCardContainer.style.opacity = "1";
+                pickCardContainer.style.transition = "opacity 1s ease";
 
                 setTimeout(() => {
-                    var pickCardContainer = document.getElementById(`pick${ID}Container`);
-                    pickCardContainer.replaceWith(createPickCard(pickData[ID], data.responseJSON['current_pick']))
-                }, 2000);
-            })
+                    pickCardContainer.style.opacity = "0"; // Fade out the card
+
+                    setTimeout(() => {
+                        // Replace the card with the new pick card
+                        pickCardContainer.replaceWith(createPickCard(pickData[ID], data.responseJSON['current_pick']));
+
+                        // Add fade-in transition to the new card
+                        var newPickCardBody = document.getElementById(`pick${ID}CardBody`);
+                        pickCardBody.style.height = "140px";
+
+                        // Add fade-in transition to the new card
+                        var newPickCardContainer = document.getElementById(`pick${ID}Container`);
+                        newPickCardContainer.style.opacity = "0"; // Start hidden
+                        newPickCardContainer.style.transition = "opacity 1s ease";
+
+                        setTimeout(() => {
+                            newPickCardContainer.style.opacity = "1"; // Fade in the new card
+                        }, 10);
+                    }, 1000); // Wait for fade-out to complete
+                }, 2000); // Display "Traded the Pick!" for 2 seconds
+            });
 
             if (viewingTeamId) {
                 var team_id = viewingTeamId.getAttribute("data-team-id");
                 getTeam(team_id);
             }
         }
-    })
+    });
 }
 
 function showTeamPicks(id, string) {

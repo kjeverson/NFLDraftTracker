@@ -81,7 +81,7 @@
                                   <div class="col-1 justify-content-center"><img src="{{ url_for('static', filename='img/NFL/'+ team.key +'.png') }}" height="40px"></div>
                                   {% if team_pick.prospect %}
                                   <div class="col-7" data-id="{{ team_pick.prospect[0].ID }}">
-                                    <div class="row"><h5>{% if team_pick.prospect[0].favorite %}<i class="bi bi-star-fill text-warning"></i> {% else %}<i class="bi bi-star"></i> {% endif %}{{ team_pick.prospect[0].name }}</h5></div>
+                                    <div class="row"><h5>{% if team_pick.prospect[0].favorite %}<i class="bi bi-star-fill text-warning"></i> {% else %}<i class="bi bi-star"></i> {% endif %}{{ team_pick.prospect[0].name }} {% if team_pick.prospect[0].concern %} <span class="text-danger">*</span>{% endif %}</h5></div>
                                     <div class="row"><small>{{ team_pick.prospect[0].position }}{% if team_pick.prospect[0].college_team %} | {{ team_pick.prospect[0].college_team.location }} {% endif %}</small></div>
                                   </div>
                                   {% else %}
