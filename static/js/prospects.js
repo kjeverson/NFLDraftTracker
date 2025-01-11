@@ -7,6 +7,10 @@ function showDrafted(checkbox) {
     getPosition(pos);
 }
 
+function getPositionBtn() {
+    return $(".pos-btn:disabled")[0].getAttribute("data-pos")
+}
+
 function getPosition(pos) {
     var showDraftedCheck = document.getElementById("showDraftedCheckBox")
     var showDrafted = (showDraftedCheck)? showDraftedCheck.checked: false;
@@ -75,7 +79,7 @@ function addProspect() {
         },
         complete: function() {
             $('#addProspectModal').modal("hide");
-            getPosition("ALL");
+            getPosition(getPositionBtn());
         }
     })
 }
@@ -174,7 +178,7 @@ function deleteProspect(id) {
         },
         success: function() {
             $('#editProspectModal').modal("hide");
-            getPosition("ALL");
+            getPosition(getPositionBtn());
         }
     })
 }

@@ -9,6 +9,11 @@ function showDrafted(checkbox) {
     getPosition(pos);
 }
 
+function getPositionBtn() {
+    return $(".pos-btn:disabled")[0].getAttribute("data-pos")
+}
+
+
 function getPosition(pos) {
     var showDraftedCheck = document.getElementById("showDraftedCheckBox")
     var showDrafted = (showDraftedCheck)? showDraftedCheck.checked: false;
@@ -107,7 +112,7 @@ function addProspect() {
         },
         complete: function() {
             $('#addProspectModal').modal("hide");
-            getPosition("ALL");
+            getPosition(getPositionBtn());
         }
     })
 }
@@ -175,7 +180,7 @@ function deleteProspect(id) {
         },
         success: function() {
             $('#editProspectModal').modal("hide");
-            getPosition("ALL");
+            getPosition(getPositionBtn());
         }
     })
 }
@@ -431,9 +436,8 @@ function draftProspect(pick_id, prospect_id) {
 
         },
         complete: function(data) {
-            console.log(data.responseJSON);
 
-            getPosition("ALL");
+            getPosition(getPositionBtn());
 
             if (data.responseJSON['nextPick'] != null){
                 next_pick = parseInt(data.responseJSON["nextPick"]);
@@ -497,7 +501,7 @@ function undoSelection(draft_pick_id) {
         complete: function(data) {
             $('#draftPickModal').modal("hide");
             getDraftPicks(data.responseJSON["current_pick"]);
-            getPosition("ALL");
+            getPosition(getPositionBtn());
             if (viewingTeamId) {
                 var team_id = viewingTeamId.getAttribute("data-team-id");
                 getTeam(team_id);
