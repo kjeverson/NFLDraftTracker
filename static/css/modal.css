@@ -1,3 +1,30 @@
+.prospect-row {
+    border-radius: 20px; /* Increased border radius for smoother edges */
+    overflow: hidden; /* Hide overflow for rounded corners */
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5); /* Larger and more pronounced shadow effect */
+}
+
+/* Ensure the player image is above the team logo */
+.col-3.position-relative {
+    position: relative; /* Position this container relative to the rest of the layout */
+}
+
+.player-img {
+    z-index: 2; /* Ensure the player image is above the logo */
+    position: relative;
+}
+
+/* Style the team logo */
+.team-logo {
+    position: absolute; /* Position the logo absolutely within the column */
+    top: 10%; /* Adjust the vertical position as needed */
+    left: 65%; /* Center the logo horizontally */
+    z-index: 0; /* Put the logo behind the player image */
+    opacity: 0.85; /* Optional: Adjust opacity for a faded look */
+    width: auto; /* Set width of the logo */
+    height: 100px; /* Maintain aspect ratio */
+}
+
 .combine-stats-row{
     background-color: grey;
     border-radius: 20px;

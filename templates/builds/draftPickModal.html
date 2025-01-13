@@ -1,56 +1,48 @@
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prospect.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}">
 <div id="draftPickModal" class="modal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg bg-dark text-white">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl bg-dark text-white">
         <div class="modal-content bg-dark" >
             <div class="modal-body bg-dark" style="background: rgba(0,0,0,0.5);">
-
-                        <!-- SELECTED PROSPECT -->
-                        <div class="row prospect-row" style="background: linear-gradient(to top, rgba(0,0,0,0) 40%, #{{ draft_pick.pick_owner.primary_color }})">
-                    <div class="col-6 align-self-center">
-                        <div class="row text-center">
-                            <img class="img-fluid" src="{{ url_for('static', filename='img/NFL/'+ draft_pick.pick_owner.key +'.png') }}" style="height: 60px;  object-fit: contain;">
+                <!-- SELECTED PROSPECT -->
+                {% if draft_pick.prospect[0] %}
+                <div class="row prospect-row" style="background:linear-gradient(to top, rgba(0,0,0,0) 30%, #{{ draft_pick.pick_owner.primary_color }})">
+                    <div class="col-3 position-relative">
+                        <div class="img-container">
+                            <img src="{{ url_for('static', filename='img/headshots/'+ draft_pick.prospect[0].prospect_year|string + '/' + draft_pick.prospect[0].ID|string +'.png') }}"
+                                 onerror="this.src='{{ url_for('static', filename='img/headshots/default.png') }}'"
+                                 class="img-fluid player-img"
+                            >
+                            <img class="team-logo"
+                                 src="{{ url_for('static', filename='img/NFL/'+ draft_pick.pick_owner.key +'.png') }}"
+                            >
                         </div>
-                        <div class="row text-center">
-                            <small><i>Round {{ draft_pick.round }}, Pick {{ draft_pick.pick }}</i></small>
-                        </div>
-                        <div class="row text-center">
-                            <small>{{draft_pick.pick_owner.name}} Select:</small>
-                        </div>
-                        {% if draft_pick.prospect %}
-                        <div class="row mt-1 p-1 text-center">
-                            <h3>{{ draft_pick.prospect[0].name }}</h3>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-8 align-self-center">
-                                <div class="row p-1 text-center">
-                                    <small>{{ draft_pick.prospect[0].position }}{% if draft_pick.prospect[0].college_team %} | {{ draft_pick.prospect[0].college_team.location if draft_pick.prospect[0].college_team else "None" }} {% endif %}</small>
-                                </div>
-                            </div>
-                        </div>
-                        {% else %}
-                        <div class="row mt-1 p-1 text-center">
-                            <h3>--</h3>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-8 align-self-center">
-                                <div class="row p-1 text-center">
-                                    <small>--</small>
-                                </div>
-                            </div>
-                        </div>
-                        {% endif %}
                     </div>
-                    <div class="col-6 align-self-center">
-                        <div class="row">
-                            {% if draft_pick.prospect %}
-                            <img src="{{ url_for('static', filename='img/headshots/'+ draft_pick.prospect[0].prospect_year|string+ '/' + draft_pick.prospect[0].ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/headshots/default.png') }}'" class="img-fluid">
-                            {% else %}
-                            <img src="{{ url_for('static', filename='img/headshots/default.png') }}" class="img-fluid">
-                            {% endif %}
+                    <div class="col-4 d-flex align-items-center">
+                        <div>
+                            <h4 style="font-weight: 200; text-transform: uppercase;  margin-bottom: 0;"><i>{{ draft_pick.prospect[0].fname }}</i></h4>
+                            <h1 style="text-transform: uppercase; margin-top: 0;"><i>{{ draft_pick.prospect[0].lname }}</i></h1>
+                            <h6 style="font-weight: 200; margin-bottom: 0;">{{ draft_pick.prospect[0].position }} • {{ draft_pick.pick_owner.fullname }}</h6>
+                            <small style="font-weight: 200; margin-top: 0;">Height: {{ draft_pick.prospect[0].height }} • Weight: {{ draft_pick.prospect[0].weight }} lbs</small>
+                        </div>
+                    </div>
+                    <div class="col-2 d-flex justify-content-end align-items-center">
+                        <div>
+                            <h6 style="font-weight: 200; text-transform: uppercase;"><i>Rank:</i></h6>
+                            <h6 style="font-weight: 200; text-transform: uppercase;"><i>Draft Status: </i></h6>
+                            <h6 style="font-weight: 200; text-transform: uppercase;"><i>Comparison: </i></h6>
+                            <h6 style="font-weight: 200; text-transform: uppercase;"><i>Role: </i></h6>
+                        </div>
+                    </div>
+                    <div class="col-3 d-flex justify-content-start align-items-center">
+                        <div>
+                            <h6 style="text-transform: uppercase;"><i>{{ draft_pick.prospect[0].rank if draft_pick.prospect[0].rank else "--" }}</i></h6>
+                            <h6 style="text-transform: uppercase;"><i>{{ draft_pick.prospect[0].prospect_year }}: Rd {{ draft_pick.round }}, Pk {{ draft_pick.pick }} </i></h6>
+                            <h6 style="text-transform: uppercase;"><i>{{ draft_pick.prospect[0].comparison if draft_pick.prospect[0].comparison else "--" }}</i></h6>
+                            <h6 style="text-transform: uppercase;"><i>{{ draft_pick.prospect[0].role if draft_pick.prospect[0].role else "--" }}</i></h6>
                         </div>
                     </div>
                 </div>
+                {% endif %}
                         <!-- PICK OWNER NEEDS -->
                         <div class="row p-2 justify-content-center">
                     <div class="col-2 align-self-center">Needs:</div>
