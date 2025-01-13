@@ -216,8 +216,9 @@ function createPlaceholder(pick, team_name, team_key, team_color, status) {
     const teamName = document.createElement("small");
     teamName.textContent = team_name;
     teamName.style.color = "#fff";
-    teamName.style.fontWeight = "light";
+    teamName.style.fontWeight = "200";
     teamName.style.fontStyle = "italic";
+    teamName.style.margin.bottom = 0;
 
     // Status Message
     const placeholderText = document.createElement("h5");
