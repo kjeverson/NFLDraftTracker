@@ -55,40 +55,58 @@
                     {% endfor %}
                   </div>
                 </div>
-
-
-                        <!-- PICK OWNER DRAFTCLASS -->
-                        <div class="row p-2 ">
+                <!-- PICK OWNER DRAFTCLASS -->
+                <div class="row p-2 ">
                     <table class="table table-dark">
-                      <tbody>
-                          {% for team_pick in team.picks | sort(attribute='pick', reverse=False) %}
-                            <tr data-id="{{ team_pick.ID }}">
-                              <td style="background:linear-gradient(to left, rgba(0,0,0,0) 65%, #{{ team.primary_color }})">
+                        <tbody>
+                        {% for team_pick in team.picks | sort(attribute='pick', reverse=False) %}
+                        <tr data-id="{{ team_pick.ID }}">
+                            <td style="background:linear-gradient(to left, rgba(0,0,0,0) 35%, #{{ team.primary_color }})">
                                 <div class="row align-items-center">
-                                  <div class="col-2 justify-content-center">
-                                    <div class="row text-center">
-                                      <h4>{{ team_pick.pick }}</h4>
+                                    <div class="col-1">
+                                        <div class="row text-center justify-content-center">
+                                            <h4><i>{{ team_pick.pick }}</i></h4>
+                                        </div>
                                     </div>
-                                  </div>
-                                  <div class="col-1 justify-content-center"><img src="{{ url_for('static', filename='img/NFL/'+ team.key +'.png') }}" height="40px"></div>
-                                  {% if team_pick.prospect %}
-                                  <div class="col-7" data-id="{{ team_pick.prospect[0].ID }}">
-                                    <div class="row"><h5>{% if team_pick.prospect[0].favorite %}<i class="bi bi-star-fill text-warning"></i> {% else %}<i class="bi bi-star"></i> {% endif %}{{ team_pick.prospect[0].name }} {% if team_pick.prospect[0].concern %} <span class="text-danger">*</span>{% endif %}</h5></div>
-                                    <div class="row"><small>{{ team_pick.prospect[0].position }}{% if team_pick.prospect[0].college_team %} | {{ team_pick.prospect[0].college_team.location }} {% endif %}</small></div>
-                                  </div>
-                                  {% else %}
-                                  <div class="col-7">
-
-                                  </div>
-                                  {% endif %}
-                                  <div class="col-1 justify-content-center">
-                                    {% if team_pick.traded %}<i class="bi bi-arrow-repeat text-warning"></i>{% endif %}
-                                  </div>
+                                    <div class="col-1">
+                                        <img src="{{ url_for('static', filename='img/NFL/'+ team.key +'.png') }}"
+                                             height="40px">
+                                    </div>
+                                    {% if team_pick.prospect[0] %}
+                                    <div class="col-8" data-id="{{ team_pick.prospect[0].ID }}" onclick="getProspect(this.getAttribute('data-id'))">
+                        <div class="row">
+                          <h6 style="text-transform: uppercase;  margin-bottom: 0;">
+                            {% if team_pick.prospect[0].favorite %}
+                            <i class="bi bi-star-fill text-warning"></i>
+                            {% else %}
+                            <i class="bi bi-star"></i>
+                            {% endif %}
+                            <i>{{ team_pick.prospect[0].name }}
+                              {% if team_pick.prospect[0].concern %}
+                              <span class="text-danger">*</span>
+                              {% endif %}
+                            </i>
+                          </h6>
+                        </div>
+                        <div class="row">
+                          <small style="font-weight: 200; text-transform: uppercase;  margin-top: 0;">
+                            {{ team_pick.prospect[0].position }}{% if team_pick.prospect[0].college_team %} | {{ team_pick.prospect[0].college_team.location }} {% endif %}
+                          </small>
+                        </div>
+                      </div>
+                                    {% else %}
+                                    <div class="col-8"></div>
+                                    {% endif %}
+                                    <div class="col-1">
+                                        {% if team_pick.traded %}
+                                        <i class="bi bi-arrow-repeat text-warning"></i>
+                                        {% endif %}
+                                    </div>
                                 </div>
-                              </td>
-                            </tr>
-                          {% endfor %}
-                      </tbody>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
                     </table>
                 </div>
             </div>
