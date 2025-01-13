@@ -46,6 +46,8 @@ class Prospect(db.Model):
 	position = db.Column(db.String(5))
 	
 	comparison = db.Column(db.String(50))
+	projection = db.Column(db.String(30))
+	role = db.Column(db.String(30))
 	overview = db.Column(db.Text())
 	strengths = db.Column(db.Text())
 	weaknesses = db.Column(db.Text())
@@ -103,6 +105,14 @@ class Prospect(db.Model):
 
 	def set_comparison(self, comparison):
 		self.comparison = comparison
+		db.session.commit()
+
+	def set_projection(self, projection):
+		self.projection = projection
+		db.session.commit()
+
+	def set_role(self, role):
+		self.role = role
 		db.session.commit()
 
 	def set_write_ups(self, overview, strengths, weaknesses):
@@ -292,6 +302,8 @@ def add_prospects(database, prospects, year):
 			weight=prospect['weight'],
 			rank=0,
 			position=position,
+			projection=None,
+			role=None,
 			grade=grade,
 			overview=analysis,
 		))

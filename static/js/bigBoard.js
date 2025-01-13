@@ -123,6 +123,8 @@ function saveProspect(id) {
     var weaknesses = document.getElementById("weaknessesForm");
     var rank = document.getElementById("rankForm");
     var comparison = document.getElementById("comparisonForm");
+    var projection = document.getElementById("projectionForm");
+    var role = document.getElementById("roleForm");
 
     var position = document.getElementById("positionForm");
 
@@ -150,6 +152,8 @@ function saveProspect(id) {
             weaknesses: weaknesses.value,
             rank: rank.value,
             comparison: comparison.value,
+            role: role.value,
+            projection: projection.value,
             position: position.value,
             height: height.value,
             weight: weight.value,

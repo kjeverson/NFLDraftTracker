@@ -44,11 +44,19 @@
                           Rank:
                         <input id="rankForm" class="form-control p-2 position-relative" value="{{ prospect.rank }}">
                       </div>
+                        <div class="row p-1 mt-4 text-center">
+                          Projection:
+                        <input id="projectionForm" class="form-control p-2 position-relative" value="{{ prospect.projection if prospect.projection else '' }}">
+                      </div>
                     </div>
                     <div class="col-6">
                       <div class="row p-1 mt-4 text-center">
                           NFL Comparison:
                         <input id="comparisonForm" class="form-control p-2 position-relative" value="{{ prospect.comparison if prospect.comparison else '' }}">
+                      </div>
+                        <div class="row p-1 mt-4 text-center">
+                          Role:
+                        <input id="roleForm" class="form-control p-2 position-relative" value="{{ prospect.role if prospect.role else '' }}">
                       </div>
                     </div>
                 </div>
