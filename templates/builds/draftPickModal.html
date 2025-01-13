@@ -36,7 +36,7 @@
                     <div class="col-3 d-flex justify-content-start align-items-center">
                         <div>
                             <h6 style="text-transform: uppercase;"><i>{{ draft_pick.prospect[0].rank if draft_pick.prospect[0].rank else "--" }}</i></h6>
-                            <h6 style="text-transform: uppercase;"><i>{{ draft_pick.prospect[0].prospect_year }}: Rd {{ draft_pick.round }}, Pk {{ draft_pick.pick }} </i></h6>
+                            <h6 style="text-transform: uppercase;"><i>Round {{ draft_pick.round }}, Pick {{ draft_pick.pick }} </i></h6>
                             <h6 style="text-transform: uppercase;"><i>{{ draft_pick.prospect[0].comparison if draft_pick.prospect[0].comparison else "--" }}</i></h6>
                             <h6 style="text-transform: uppercase;"><i>{{ draft_pick.prospect[0].role if draft_pick.prospect[0].role else "--" }}</i></h6>
                         </div>
@@ -73,7 +73,7 @@
                                              height="40px">
                                     </div>
                                     {% if team_pick.prospect[0] %}
-                                    <div class="col-8" data-id="{{ team_pick.prospect[0].ID }}" onclick="getProspect(this.getAttribute('data-id'))">
+                                    <div class="col-8">
                         <div class="row">
                           <h6 style="text-transform: uppercase;  margin-bottom: 0;">
                             {% if team_pick.prospect[0].favorite %}

@@ -35,7 +35,7 @@
                 <div class="col-3 d-flex justify-content-start align-items-center">
                     <div>
                         <h6 style="text-transform: uppercase;"><i>{{ prospect.rank if prospect.rank else "--" }}</i></h6>
-                        <h6 style="text-transform: uppercase;"><i>{{ prospect.prospect_year }}: Rd {{ prospect.draft_pick.round }}, Pk {{ prospect.draft_pick.pick }} </i></h6>
+                        <h6 style="text-transform: uppercase;"><i>Round {{ prospect.draft_pick.round }}, Pick {{ prospect.draft_pick.pick }} </i></h6>
                         <h6 style="text-transform: uppercase;"><i>{{ prospect.comparison if prospect.comparison else "--" }}</i></h6>
                         <h6 style="text-transform: uppercase;"><i>{{ prospect.role if prospect.role else "--" }}</i></h6>
                     </div>
