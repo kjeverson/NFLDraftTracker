@@ -300,7 +300,7 @@ def add_prospects(database, prospects, year):
 			college_team=college,
 			height=height,
 			weight=prospect['weight'],
-			rank=0,
+			rank=i+1,
 			position=position,
 			projection=None,
 			role=None,

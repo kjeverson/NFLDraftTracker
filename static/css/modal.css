@@ -68,3 +68,37 @@
     background-color: #444; /* Darkened background color on hover */
     border-color: #444; /* Darkened border color on hover */
 }
+
+.playerInformation h4 {
+    font-weight: 200;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    font-style: italic;
+}
+
+.playerInformation h1 {
+    text-transform: uppercase;
+    margin-top: 0;
+    font-style: italic;
+}
+
+.playerInformation h6 {
+    font-weight: 200;
+    margin-bottom: 0;
+}
+
+.playerInformation small {
+    font-weight: 200;
+    margin-top: 0;
+}
+
+.light-caps{
+    font-weight: 200;
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+.caps {
+    text-transform: uppercase;
+    font-style: italic;
+}

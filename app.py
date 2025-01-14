@@ -129,7 +129,6 @@ def save_prospect():
     prospect.set_height_weight(height, weight)
     prospect.set_combine_result(forty, vertical, broad, three_cone, twenty_shuttle, bench, ras)
     prospect.favorite_prospect(favorite)
-    print(concern, file=sys.stderr)
     prospect.set_concern(concern)
 
     return jsonify()
