@@ -1,5 +1,5 @@
 <!-- Jinja Macros -->
-{% from '/macros/draftPicksCard.html' import draft_picks_card %}
+{% from '/macros/draftSelectionsCard.html' import draft_selections_card %}
 
 <div class="row p-2">
   <div class="row p-1">
@@ -13,5 +13,5 @@
 </div>
 <!-- TEAM PICKS -->
 <div class="row p-2 flex-row flex-nowrap overflow-scroll" style="height: 385px">
-  {{ draft_picks_card(team, True) }}
+  {{ draft_selections_card(team, True) }}
 </div>

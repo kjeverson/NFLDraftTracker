@@ -1,12 +1,12 @@
 <!-- Jinja Macros -->
 {% from '/macros/prospectInfoCard.html' import player_card %}
-{% from '/macros/draftPicksCard.html' import draft_picks_card %}
+{% from '/macros/draftSelectionsCard.html' import draft_selections_card %}
 
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}">
 <div id="draftPickModal" class="modal" tabindex="-1">
     <div class="modal-dialog modal-dialog-scrollable modal-xl bg-dark text-white">
         <div class="modal-content bg-dark" >
-            <div class="modal-body bg-dark" style="background: rgba(0,0,0,0.5);">
+            <div class="modal-body bg-dark">
                 <!-- SELECTED PROSPECT -->
                 {% if draft_pick.prospect[0] %}
                 {{ player_card(draft_pick.prospect[0]) }}
@@ -30,7 +30,7 @@
                 <!-- PICK OWNER DRAFT CLASS -->
                 <div class="row p-2 justify-content-start">
                     <div class="col-6">
-                        {{ draft_picks_card(draft_pick.pick_owner, False) }}
+                        {{ draft_selections_card(draft_pick.pick_owner, False) }}
                     </div>
                 </div>
             </div>
