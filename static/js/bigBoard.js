@@ -497,8 +497,6 @@ function draftPickModal(draft_pick_id) {
 }
 
 function undoSelection(draft_pick_id) {
-    var viewingTeamId = document.getElementById("teamCard");
-
     $.ajax({
         url: "/undoDraftSelection",
         type: "post",
@@ -507,6 +505,7 @@ function undoSelection(draft_pick_id) {
             $('#draftPickModal').modal("hide");
             getDraftPicks(data.responseJSON["current_pick"]);
             getPosition(getPositionBtn());
+            var viewingTeamId = document.getElementById("draftPicksCard");
             if (viewingTeamId) {
                 var team_id = viewingTeamId.getAttribute("data-team-id");
                 getTeam(team_id);
