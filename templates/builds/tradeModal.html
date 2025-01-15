@@ -1,3 +1,6 @@
+<!-- Jinja Macros -->
+{% from '/macros/draftSelectionsCard.html' import draft_selections_card %}
+
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}">
 <div id="tradeModal" class="modal" tabindex="-1">
     <div class="modal-dialog modal-xl bg-dark text-white">
@@ -128,50 +131,9 @@
                         </div>
                         {% for team in teams %}
                         <div class="team-title-send row p-1 text-center" id="team{{ team.ID }}TitleSend" hidden>
-                            <div class="col align-self-center">
-                                <img src="{{ url_for('static', filename='img/NFL/'+ team.key +'.png') }}" height="40px"> {{ team.fullname }}
-                            </div>
                         </div>
                         <div class="team-picks-send row p-1 justify-content-center" id="team{{ team.ID }}Send" hidden>
-                            <table class="table table-sm table-dark">
-                              <tbody>
-                                  {% for pick in team.picks | sort(attribute='pick', reverse=False) %}
-                                    <tr data-id="{{ pick.ID }}">
-                                      <td style="background:linear-gradient(to left, rgba(0,0,0,0) 45%, #{{ team.primary_color }})">
-                                        <div class="row align-items-center">
-                                          {% if pick.prospect %}
-                                          <div class="col-1"></div>
-                                          <div class="col-2 justify-content-center">
-                                            <div class="row text-center">
-                                              <h5>{{ pick.pick }}</h5>
-                                            </div>
-                                          </div>
-                                          <div class="col-1 justify-content-center"><img src="{{ url_for('static', filename='img/NFL/'+ team.key +'.png') }}" height="40px"></div>
-                                          <div class="col-7" data-id="{{ pick.prospect[0].ID }}">
-                                            <div class="row"><h6>{% if pick.prospect[0].favorite %}<i class="bi bi-star-fill text-warning"></i> {% else %}<i class="bi bi-star"></i> {% endif %}{{ pick.prospect[0].name }}</h6></div>
-                                            <div class="row"><small>{{ pick.prospect[0].position }}{% if pick.prospect[0].college_team %} | {{ pick.prospect[0].college_team.location }} {% endif %}</small></div>
-                                          </div>
-                                          <div class="col-1 justify-content-center">
-                                            {% if pick.traded %}<i class="bi bi-arrow-repeat text-warning"></i>{% endif %}
-                                          </div>
-                                          {% else %}
-                                          <div class="col-1 justify-content-center">
-                                            <input class="form-check-input" type="checkbox" value="" id="{{ pick.ID }}">
-                                          </div>
-                                          <div class="col-1 justify-content-center"><img src="{{ url_for('static', filename='img/NFL/'+ team.key +'.png') }}" height="40px"></div>
-                                          <div class="col-9 align-self-center justify-content-center">
-                                            <div class="row"><h6><i>Round {{ pick.round }}, Pick {{ pick.pick }}</i></h6></div>
-                                          </div>
-                                          <div class="col-1 justify-content-center">
-                                            {% if pick.traded %}<i class="bi bi-arrow-repeat text-warning"></i>{% endif %}
-                                          </div>
-                                          {% endif %}
-                                        </div>
-                                      </td>
-                                    </tr>
-                                  {% endfor %}
-                              </tbody>
-                            </table>
+                            {{ draft_selections_card(team, True) }}
                         </div>
                         {% endfor %}
                     </div>
@@ -295,50 +257,9 @@
                         </div>
                         {% for team in teams %}
                         <div class="team-title-rec row p-1 text-center" id="team{{ team.ID }}TitleRec" hidden>
-                            <div class="col align-self-center">
-                                <img src="{{ url_for('static', filename='img/NFL/'+ team.key +'.png') }}" height="40px"> {{ team.fullname }}
-                            </div>
                         </div>
                         <div class="team-picks-rec row p-1 justify-content-center" id="team{{ team.ID }}Rec" hidden>
-                            <table class="table table-sm table-dark">
-                              <tbody>
-                                  {% for pick in team.picks | sort(attribute='pick', reverse=False) %}
-                                    <tr data-id="{{ pick.ID }}">
-                                      <td style="background:linear-gradient(to left, rgba(0,0,0,0) 45%, #{{ team.primary_color }})">
-                                        <div class="row align-items-center">
-                                          {% if pick.prospect %}
-                                          <div class="col-1"></div>
-                                          <div class="col-2 justify-content-center">
-                                            <div class="row text-center">
-                                              <h5>{{ pick.pick }}</h5>
-                                            </div>
-                                          </div>
-                                          <div class="col-1 justify-content-center"><img src="{{ url_for('static', filename='img/NFL/'+ team.key +'.png') }}" height="40px"></div>
-                                          <div class="col-7" data-id="{{ pick.prospect[0].ID }}">
-                                            <div class="row"><h6>{% if pick.prospect[0].favorite %}<i class="bi bi-star-fill text-warning"></i> {% else %}<i class="bi bi-star"></i> {% endif %}{{ pick.prospect[0].name }}</h6></div>
-                                            <div class="row"><small>{{ pick.prospect[0].position }}{% if pick.prospect[0].college_team %} | {{ pick.prospect[0].college_team.location }} {% endif %}</small></div>
-                                          </div>
-                                          <div class="col-1 justify-content-center">
-                                            {% if pick.traded %}<i class="bi bi-arrow-repeat text-warning"></i>{% endif %}
-                                          </div>
-                                          {% else %}
-                                          <div class="col-1 justify-content-center">
-                                            <input class="form-check-input" type="checkbox" value="" id="{{ pick.ID }}">
-                                          </div>
-                                          <div class="col-1 justify-content-center"><img src="{{ url_for('static', filename='img/NFL/'+ team.key +'.png') }}" height="40px"></div>
-                                          <div class="col-9 justify-content-center">
-                                            <div class="row"><h6><i>Round {{ pick.round }}, Pick {{ pick.pick }}</i></h6></div>
-                                          </div>
-                                          <div class="col-1 justify-content-center">
-                                            {% if pick.traded %}<i class="bi bi-arrow-repeat text-warning"></i>{% endif %}
-                                          </div>
-                                          {% endif %}
-                                        </div>
-                                      </td>
-                                    </tr>
-                                  {% endfor %}
-                              </tbody>
-                            </table>
+                            {{ draft_selections_card(team, True) }}
                         </div>
                         {% endfor %}
                     </div>

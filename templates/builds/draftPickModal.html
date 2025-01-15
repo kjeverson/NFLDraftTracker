@@ -30,7 +30,11 @@
                 <!-- PICK OWNER DRAFT CLASS -->
                 <div class="row p-2 justify-content-start">
                     <div class="col-6">
-                        {{ draft_selections_card(draft_pick.pick_owner, False) }}
+                        <div class="card bg-dark" data-team-id="{{ team.ID }}">
+                            <div class="row text-white">
+                                {{ draft_selections_card(draft_pick.pick_owner, False) }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

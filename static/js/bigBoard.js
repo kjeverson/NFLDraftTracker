@@ -419,6 +419,7 @@ function draftProspect(pick_id, prospect_id) {
                     pickCardBody.innerHTML = ""; // Remove placeholder
                     const draftPickRow = createDraftPickRow(data);
                     // Reinforce the overflow-hidden style!!!
+                    pickContainer.style.borderRadius = "20px";
                     pickContainer.style.overflow = "hidden";
                     draftPickRow.style.opacity = "0"; // Start hidden
                     draftPickRow.style.transition = "opacity 1s ease"; // Add transition effect
@@ -525,8 +526,6 @@ function tradeModal() {
 }
 
 function submitTrade(send, rec) {
-    var viewingTeamId = document.getElementById("teamCard");
-
     var recPickList = document.getElementById("team" + rec + "Rec").querySelectorAll('input[type="checkbox"]:checked');
     var sendPickList = document.getElementById("team" + send + "Send").querySelectorAll('input[type="checkbox"]:checked');
 
@@ -593,6 +592,7 @@ function submitTrade(send, rec) {
                 }, 2000); // Display "Traded the Pick!" for 2 seconds
             });
 
+            var viewingTeamId = document.getElementById("draftPicksCard");
             if (viewingTeamId) {
                 var team_id = viewingTeamId.getAttribute("data-team-id");
                 getTeam(team_id);
