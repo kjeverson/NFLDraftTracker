@@ -318,6 +318,7 @@ function createPickCard(pick, currentPick) {
     header.className = 'card-header';
     header.style.borderTopRightRadius = '20px';
     header.style.borderTopLeftRadius = '20px';
+    header.style.borderBottom = 'none';
     header.style.background = `#${pick['pick_owner']['primary_color']}`;
     header.textContent = `${pick['round']}.${pick['pick']}`;
 
