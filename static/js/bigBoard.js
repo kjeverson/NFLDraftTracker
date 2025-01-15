@@ -392,8 +392,6 @@ function createPickCard(pick, currentPick) {
 }
 
 function draftProspect(pick_id, prospect_id) {
-    var viewingTeamId = document.getElementById("teamCard");
-
     $.ajax({
         url: "/draftProspect",
         type: "post",
@@ -456,8 +454,10 @@ function draftProspect(pick_id, prospect_id) {
                 pickCardBody.appendChild(createPlaceholder(next_pick, data.responseJSON["next_pick_team_name"], data.responseJSON["next_pick_team_key"], data.responseJSON["next_pick_team_color"], "On the Clock!"));
             }
 
+            var viewingTeamId = document.getElementById("draftPicksCard");
             if (viewingTeamId) {
                 var team_id = viewingTeamId.getAttribute("data-team-id");
+                console.log(team_id);
                 getTeam(team_id);
             }
             //card.scrollIntoView({ block: "nearest", behavior: "smooth", inline: "end" });
