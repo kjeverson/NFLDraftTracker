@@ -3,7 +3,7 @@
 <div id="pick{{ pick.ID }}Container" class="col-3 p-0">
     <div class="dc-card card bg-dark" id="pick{{ pick.ID }}" data-id="{{ pick.ID }}" onclick="draftPickModal(this.getAttribute('data-id'))">
         <h6 class="dc-card-header card-header"
-            style="background:#{{ pick.pick_owner.primary_color }}">
+            style="border-bottom: none; background:#{{ pick.pick_owner.primary_color }}">
             {{ pick.round }}.{{ pick.pick }}
         </h6>
         {% if pick.traded %}
@@ -40,7 +40,7 @@
 <div id="pick{{ pick.ID }}Container" class="col-2 p-0">
     {% if current_pick.ID == pick.ID %}
     <div class="card bg-dark border-3 border-light" id="pick{{ pick.ID }}" data-id="{{ pick.ID }}" style="border-radius: 20px; cursor: pointer; height:180px;" onclick="draftPickModal(this.getAttribute('data-id'))">
-        <h6 id="pick{{ pick.ID }}CardHeader" class="card-header" style="border-top-right-radius: 20px; border-top-left-radius: 20px; background:#{{ pick.pick_owner.primary_color }}">{{ pick.round }}.{{ pick.pick }}</h6>{% if pick.traded %}<i class="bi bi-arrow-repeat text-warning" style="position: absolute; top: 5px; right: 10px;"></i>{% endif %}
+        <h6 id="pick{{ pick.ID }}CardHeader" class="card-header" style="border-bottom: none; border-top-right-radius: 20px; border-top-left-radius: 20px; background:#{{ pick.pick_owner.primary_color }}">{{ pick.round }}.{{ pick.pick }}</h6>{% if pick.traded %}<i class="bi bi-arrow-repeat text-warning" style="position: absolute; top: 5px; right: 10px;"></i>{% endif %}
         <div id="pick{{ pick.ID }}CardBody" class="card-body" style="background:linear-gradient(to top, rgba(0,0,0,0) 30%, #{{ pick.pick_owner.primary_color }}">
             <div class="d-flex align-items-center justify-content-center">
                 <img src="/static/img/NFL/{{ pick.pick_owner.key }}.png" alt="Team Logo" height="60">
@@ -53,7 +53,7 @@
     </div>
     {% else %}
     <div class="card bg-dark" id="pick{{ pick.ID }}" data-id="{{ pick.ID }}" style="border-radius: 20px; cursor: pointer; height: 180px;" onclick="draftPickModal(this.getAttribute('data-id'))">
-        <h6 id="pick{{ pick.ID }}CardHeader" class="card-header" style="border-top-right-radius: 20px; border-top-left-radius: 20px; background:#{{ pick.pick_owner.primary_color }}">{{ pick.round }}.{{ pick.pick }}</h6>{% if pick.traded %}<i class="bi bi-arrow-repeat text-warning" style="position: absolute; top: 5px; right: 10px;"></i>{% endif %}
+        <h6 id="pick{{ pick.ID }}CardHeader" class="card-header" style="border-bottom: none; border-top-right-radius: 20px; border-top-left-radius: 20px; background:#{{ pick.pick_owner.primary_color }}">{{ pick.round }}.{{ pick.pick }}</h6>{% if pick.traded %}<i class="bi bi-arrow-repeat text-warning" style="position: absolute; top: 5px; right: 10px;"></i>{% endif %}
         <div id="pick{{ pick.ID }}CardBody" class="card-body" style="background:linear-gradient(to top, rgba(0,0,0,0) 30%, #{{ pick.pick_owner.primary_color }}">
             <div class="d-flex align-items-center justify-content-center">
                 <img src="/static/img/NFL/{{ pick.pick_owner.key }}.png" alt="Team Logo" height="60">

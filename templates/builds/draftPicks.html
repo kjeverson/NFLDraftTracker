@@ -1,7 +1,7 @@
 <!-- Jinja Macros -->
 {% from '/macros/draftPickCard.html' import draft_pick_card %}
 
-<div class="row p-1 flex-row flex-nowrap text-center overflow-scroll">
+<div class="row p-1 flex-row flex-nowrap text-center overflow-scroll" style="scrollbar-width: none;">
 {% for pick in picks | sort(attribute='pick', reverse=False) %}
     {{ draft_pick_card(pick, current_pick) }}
 {% endfor %}
