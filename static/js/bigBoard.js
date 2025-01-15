@@ -246,58 +246,52 @@ function createDraftPickRow(pick) {
 
     // Left Column
     const leftCol = document.createElement("div");
-    leftCol.className = "col-6";
-
-    const teamImg = document.createElement("img");
-    teamImg.src = `/static/img/NFL/${pick['team_key']}.png`; // Adjust path as necessary
-    teamImg.height = 60;
-    leftCol.appendChild(teamImg);
-
-    const playerNameRow = document.createElement("div");
-    playerNameRow.className = "row";
-
-    const playerName = document.createElement("small");
-    if (pick['sname'].length > 17) {
-        playerName.innerHTML = `<small><small><strong><i><span id="pick${pick.ID}CardPlayerName">${pick['sname']}</span></i></strong></small></small>`;
-    }
-    else {
-        playerName.innerHTML = `<strong><i><span id="pick${pick.ID}CardPlayerName">${pick['sname']}</span></i></strong>`;
-    }
-    playerNameRow.appendChild(playerName);
-    leftCol.appendChild(playerNameRow);
-
-    const playerInfoRow = document.createElement("div");
-    playerInfoRow.className = "row";
-
-    const playerInfo = document.createElement("small");
-    const collegeTeam = pick['college']
-        ? pick['college']
-        : "--";
-    var playerInfoString = `${pick['position']} | ${collegeTeam}`;
-    if (playerInfoString.length > 22) {
-        playerInfo.innerHTML = `<small><small><small><i><span id="pick${pick.ID}CardPlayerInfo">${playerInfoString}</span></i></small></small></small>`
-    }
-    else {
-        playerInfo.innerHTML = `<small><i><span id="pick${pick.ID}CardPlayerInfo">${playerInfoString}</span></i></small>`
-    }
-    //playerInfo.innerHTML = `<small><i><span id="pick${pick.ID}CardPlayerInfo">${pick['position']} | ${collegeTeam}</span></i></small>`;
-    playerInfoRow.appendChild(playerInfo);
-    leftCol.appendChild(playerInfoRow);
-
-    // Right Column
-    const rightCol = document.createElement("div");
-    rightCol.className = "col-6";
+    leftCol.className = "col-6 dc-player-img-container";
 
     const playerImg = document.createElement("img");
     playerImg.src = `/static/img/headshots/${pick['year']}/${pick['id']}.png`; // Adjust path as necessary
     playerImg.onerror = function () {
         this.src = `/static/img/headshots/default.png`; // Default image
     };
-    playerImg.style.width = "100%";
-    playerImg.style.height = "100%";
-    playerImg.style.objectFit = "cover";
-    playerImg.style.borderRadius = "10px";
-    rightCol.appendChild(playerImg);
+    playerImg.className = "dc-player-img";
+
+    leftCol.appendChild(playerImg);
+
+    // Right Column
+    const rightCol = document.createElement("div");
+    rightCol.className = "col-6";
+
+    const teamImg = document.createElement("img");
+    teamImg.src = `/static/img/NFL/${pick['team_key']}.png`; // Adjust path as necessary
+    teamImg.height = 60;
+
+    rightCol.appendChild(teamImg);
+
+    const prospectInfoCont = document.createElement("div");
+    prospectInfoCont.className = "dc-prospect-info-container";
+
+    const prospectNameRow = document.createElement("div");
+    prospectNameRow.className = "row pb-0";
+
+    const prospectName = document.createElement("small");
+    prospectName.className = "dc-prospect-name";
+    prospectName.innerHTML = pick['sname'];
+
+    prospectNameRow.appendChild(prospectName);
+
+    prospectInfoRow = document.createElement("div");
+    prospectInfoRow.className = "row pt-0";
+
+    prospectInfo = document.createElement("small");
+    prospectInfo.className = "dc-prospect-info";
+    prospectInfo.innerHTML = pick["position"] + " | " + pick["college"]
+
+    prospectInfoRow.appendChild(prospectInfo);
+
+    prospectInfoCont.append(prospectNameRow);
+    prospectInfoCont.append(prospectInfoRow);
+
+    rightCol.appendChild(prospectInfoCont);
 
     // Append columns to row
     row.appendChild(leftCol);
@@ -377,7 +371,7 @@ function createPickCard(pick, currentPick) {
      // Add conditional classes for current pick
     if (pick['ID'] == currentPick) {
         card.className = 'card bg-dark border-3 border-light';
-        statusLine.textContent = "On the Clock!"
+        statusLine.textContent = "ON THE CLOCK!"
         const audio = document.getElementById('onTheClockAudio');
                 audio.src = `/static/sound/otc/${pick['pick_owner']['key']}.mp3`;
                 audio.play();
@@ -414,7 +408,7 @@ function draftProspect(pick_id, prospect_id) {
             pickCardBody.innerHTML = "";
             pickCardBody.style.height = "140px";
 
-            var placeholder = createPlaceholder(pick_id, data["team_name"], data["team_key"], data["team_color"], "Pick is In!");
+            var placeholder = createPlaceholder(pick_id, data["team_name"], data["team_key"], data["team_color"], "PICK IS IN!");
             pickCardBody.appendChild(placeholder);
 
             // After 5 seconds, replace the placeholder with the draft pick row
@@ -424,6 +418,8 @@ function draftProspect(pick_id, prospect_id) {
                 setTimeout(() => {
                     pickCardBody.innerHTML = ""; // Remove placeholder
                     const draftPickRow = createDraftPickRow(data);
+                    // Reinforce the overflow-hidden style!!!
+                    pickContainer.style.overflow = "hidden";
                     draftPickRow.style.opacity = "0"; // Start hidden
                     draftPickRow.style.transition = "opacity 1s ease"; // Add transition effect
                     pickCardBody.appendChild(draftPickRow);
@@ -451,7 +447,7 @@ function draftProspect(pick_id, prospect_id) {
                 var pickCardBody = document.getElementById(`pick${next_pick}CardBody`);
                 pickCardBody.innerHTML = "";
                 pickCardBody.style.height = "140px";
-                pickCardBody.appendChild(createPlaceholder(next_pick, data.responseJSON["next_pick_team_name"], data.responseJSON["next_pick_team_key"], data.responseJSON["next_pick_team_color"], "On the Clock!"));
+                pickCardBody.appendChild(createPlaceholder(next_pick, data.responseJSON["next_pick_team_name"], data.responseJSON["next_pick_team_key"], data.responseJSON["next_pick_team_color"], "ON THE CLOCK!"));
             }
 
             var viewingTeamId = document.getElementById("draftPicksCard");
@@ -566,7 +562,7 @@ function submitTrade(send, rec) {
 
             picks.forEach(function(ID) {
                 var pickCardStatus = document.getElementById(`pick${ID}CardStatus`);
-                pickCardStatus.innerText = "Traded the Pick!";
+                pickCardStatus.innerText = "TRADE THE PICK!";
 
                 var pickCardContainer = document.getElementById(`pick${ID}Container`);
 

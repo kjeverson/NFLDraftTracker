@@ -1,0 +1,46 @@
+.dc-card {
+    border-radius: 20px;
+    cursor: pointer;
+    height: 180px;
+    overflow: hidden;
+}
+
+.dc-card-header {
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+.dc-trade {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.dc-player-img-container {
+    position: relative;
+}
+
+.dc-player-img {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    z-index: 2;
+    height: 200px;
+}
+
+.dc-prospect-info-container {
+    text-align: center;
+}
+
+.dc-prospect-name {
+    text-transform: uppercase;
+    margin-bottom: 0;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.dc-prospect-info {
+    font-weight: 200;
+    margin-top: 0;
+    margin-bottom: 0;
+}

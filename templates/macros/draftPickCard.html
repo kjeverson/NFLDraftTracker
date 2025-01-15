@@ -1,25 +1,36 @@
 {% macro draft_pick_card(pick, current_pick) %}
-{% if pick.prospect %}
+{% if pick.prospect[0] %}
 <div id="pick{{ pick.ID }}Container" class="col-3 p-0">
-    <div class="card bg-dark" id="pick{{ pick.ID }}" data-id="{{ pick.ID }}" style="border-radius: 20px; cursor: pointer; height: 180px;" onclick="draftPickModal(this.getAttribute('data-id'))">
-        <h6 class="card-header" style="border-top-right-radius: 20px; border-top-left-radius: 20px; background:#{{ pick.pick_owner.primary_color }}">{{ pick.round }}.{{ pick.pick }}</h6>{% if pick.traded %}<i class="bi bi-arrow-repeat text-warning" style="position: absolute; top: 5px; right: 10px;"></i>{% endif %}
+    <div class="dc-card card bg-dark" id="pick{{ pick.ID }}" data-id="{{ pick.ID }}" onclick="draftPickModal(this.getAttribute('data-id'))">
+        <h6 class="dc-card-header card-header"
+            style="background:#{{ pick.pick_owner.primary_color }}">
+            {{ pick.round }}.{{ pick.pick }}
+        </h6>
+        {% if pick.traded %}
+        <i class="dc-trade bi bi-arrow-repeat text-warning"></i>
+        {% endif %}
         <div class="card-body" style="background:linear-gradient(to top, rgba(0,0,0,0) 30%, #{{ pick.pick_owner.primary_color }}">
             <div class="row">
-                <div class="col-6">
-                    <img src="{{ url_for('static', filename='img/NFL/'+ pick.pick_owner.key +'.png') }}" height="60px">
-                    {% if pick.prospect[0].sname|length > 17 %}
-                    <div class="row"><small><small><small><strong><i><span id="pick{{ pick.ID }}CardPlayerName">{{ pick.prospect[0].sname }}</span></i></strong></small></small></small></div>
-                    {% else %}
-                    <div class="row"><small><strong><i><span id="pick{{ pick.ID }}CardPlayerName">{{ pick.prospect[0].sname }}</span></i></strong></small></div>
-                    {% endif %}
-                    {% if pick.prospect[0].position|length + pick.prospect[0].college_team.location|length > 19 %}
-                    <div class="row"><small><small><small><small><i><span id="pick{{ pick.ID }}CardPlayerInfo">{{ pick.prospect[0].position }} | {{ pick.prospect[0].college_team.location if pick.prospect[0].college_team else "--" }} </span></i></small></small></small></small></div>
-                    {% else %}
-                    <div class="row"><small><small><i><span id="pick{{ pick.ID }}CardPlayerInfo">{{ pick.prospect[0].position }} | {{ pick.prospect[0].college_team.location if pick.prospect[0].college_team else "--" }} </span></i></small></small></div>
-                    {% endif %}
+                <div class="col-6 dc-player-img-container">
+                    <img src="{{ url_for('static', filename='img/headshots/'+ pick.prospect[0].prospect_year|string+ '/' + pick.prospect[0].ID|string +'.png') }}"
+                         onerror="this.src='{{ url_for('static', filename='img/headshots/default.png') }}'"
+                         class="dc-player-img">
                 </div>
                 <div class="col-6">
-                    <img src="{{ url_for('static', filename='img/headshots/'+ pick.prospect[0].prospect_year|string+ '/' + pick.prospect[0].ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/headshots/default.png') }}'" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                    <img src="{{ url_for('static', filename='img/NFL/'+ pick.pick_owner.key +'.png') }}"
+                         height="60px">
+                    <div class="dc-prospect-info-container">
+                        <div class="row pb-0">
+                            <small class="dc-prospect-name">
+                                {{ pick.prospect[0].sname }}
+                            </small>
+                        </div>
+                        <div class="row pt-0">
+                            <small class="dc-prospect-info">
+                                {{ pick.prospect[0].position }} | {{ pick.prospect[0].college_team.location }}
+                            </small>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -36,7 +47,7 @@
             </div>
             <div class="d-flex flex-column align-items-center justify-content-center">
                 <small style="font-style: italic; font-weight: 200; margin-bottom: 0;">{{ pick.pick_owner.name }}</small>
-                <h5 id="pick{{ pick.ID }}CardStatus" style="color: rgb(255, 255, 255); font-weight: bold; font-style: italic;">On the Clock!</h5>
+                <h5 id="pick{{ pick.ID }}CardStatus" style="color: rgb(255, 255, 255); font-weight: bold; font-style: italic;">ON THE CLOCK!</h5>
             </div>
         </div>
     </div>
