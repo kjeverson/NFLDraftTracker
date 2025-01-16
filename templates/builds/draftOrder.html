@@ -1,4 +1,4 @@
-<div class="row p-1 flex-row flex-nowrap text-center overflow-scroll">
+<div class="row p-1 flex-row flex-nowrap text-center overflow-scroll" style="scrollbar-width: none;">
 {% for pick in picks | sort(attribute='pick', reverse=False) %}
     {% if pick.prospect %}
         <div class="col-3 p-0">
