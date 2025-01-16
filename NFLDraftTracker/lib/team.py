@@ -1,6 +1,5 @@
 from app import db
 import requests
-import json
 import hashlib
 
 

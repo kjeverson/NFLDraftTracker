@@ -1,5 +1,4 @@
 from app import db
-import json
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 

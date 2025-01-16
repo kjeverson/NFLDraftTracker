@@ -1,11 +1,9 @@
 from app import db
-import sqlite3
 import requests
 from PIL import Image, UnidentifiedImageError
 from pathlib import Path
 import re
 from NFLDraftTracker.lib.team import NCAATeam
-import sys
 import hashlib
 from sqlalchemy import create_engine, select, exists
 from sqlalchemy.orm import sessionmaker

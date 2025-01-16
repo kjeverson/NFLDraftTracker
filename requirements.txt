@@ -1,0 +1,7 @@
+beautifulsoup4==4.9.3
+Flask==2.0.1
+Flask_SQLAlchemy==2.5.1
+Pillow==8.2.0
+Pillow==11.1.0
+Requests==2.32.3
+SQLAlchemy==1.4.15
