@@ -9,6 +9,7 @@ import sys
 import hashlib
 from sqlalchemy import create_engine, select, exists
 from sqlalchemy.orm import sessionmaker
+from bs4 import BeautifulSoup
 
 
 class Prospect(db.Model):
@@ -251,6 +252,10 @@ def add_prospects(database, prospects, year):
 		analysis = ""
 		try:
 			analysis = prospect['analysis'][0]['text']
+			soup = BeautifulSoup(analysis, "html.parser")
+			analysis = soup.get_text()
+			if analysis.isdigit():
+				analysis = ""
 		except (KeyError, IndexError):
 			pass
 
