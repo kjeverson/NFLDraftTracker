@@ -9,12 +9,12 @@
                 </div>
             </div>
             <div class="col-1"><img src="{{ url_for('static', filename='img/NFL/'+ prospect.drafted_team.key|string +'.png') }}" height="40px"></div>
-            <div class="col-7" data-id="{{ prospect.ID }}" onclick="getProspect(this.getAttribute('data-id'))">
+            <div class="col-6" data-id="{{ prospect.ID }}" onclick="getProspect(this.getAttribute('data-id'))">
                 <div class="row"><h6 style="text-transform: uppercase;  margin-bottom: 0;">{% if prospect.favorite %}<i class="bi bi-star-fill text-warning"></i> {% else %}<i class="bi bi-star"></i> {% endif %}<i>{{ prospect.name }}  {% if prospect.concern %} <span class="text-danger">*</span>{% endif %}</i></h6></div>
                 <div class="row"><small style="font-weight: 200; text-transform: uppercase;  margin-top: 0;">{{ prospect.position }} | {{ prospect.drafted_team.fullname }}</small></div>
             </div>
-            <div class="col-2">
-
+            <div class="col-3">
+                <h6 style="text-transform: uppercase;">Rd: {{ prospect.draft_pick.round }}, Pk: {{ prospect.draft_pick.pick }}</h6>
             </div>
         </div>
     </td>
