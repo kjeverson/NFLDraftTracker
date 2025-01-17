@@ -331,3 +331,23 @@ def remove_all_prospects():
 	session.close()
 
 
+def get_top_available_prospects(team, limit):
+	team_needs = team.get_needs()
+	team_drafted = team.get_drafted_positions()
+	remaining_needs = list(set(team_needs)-set(team_drafted))
+
+	if len(remaining_needs) > 2:
+		prospects = (
+			db.session.query(Prospect).filter(
+				Prospect.drafted_team ==None,
+				Prospect.position.in_(remaining_needs)
+			).order_by(Prospect.rank.asc()).limit(limit).all()
+		)
+	else:
+		prospects = (
+			db.session.query(Prospect).filter(
+				Prospect.drafted_team == None
+			).order_by(Prospect.rank.asc()).limit(limit).all()
+		)
+	return prospects
+

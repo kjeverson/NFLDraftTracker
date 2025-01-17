@@ -15,7 +15,7 @@ log.setLevel(logging.ERROR)
 db = SQLAlchemy(app)
 
 from NFLDraftTracker.lib.team import NFLTeam, NCAATeam, add_college_team
-from NFLDraftTracker.lib.prospect import Prospect, add_prospect, remove_all_prospects, get_all_prospects, add_prospects
+from NFLDraftTracker.lib.prospect import Prospect, add_prospect, remove_all_prospects, get_all_prospects, add_prospects, get_top_available_prospects
 from NFLDraftTracker.lib.draft_pick import DraftPick, get_current_pick, add_draft_pick, get_current_highest_pick_entered, remove_draft_pick, remove_all_draft_picks
 
 
@@ -99,6 +99,8 @@ def edit_prospect_modal():
 @app.route('/saveProspect', methods=['POST'])
 def save_prospect():
     prospect_id = request.form.get("id")
+    fname = request.form.get("fname")
+    lname = request.form.get("lname")
     overview = request.form.get("overview")
     strengths = request.form.get("strengths")
     weaknesses = request.form.get("weaknesses")
@@ -120,6 +122,7 @@ def save_prospect():
     concern = request.form.get("concern")
 
     prospect = Prospect.query.get(prospect_id)
+    prospect.set_name(fname, lname)
     prospect.set_position(position)
     prospect.set_rank(rank)
     prospect.set_comparison(comparison)
@@ -170,8 +173,9 @@ def draft_pick_modal():
     draft_pick_id = int(request.args.get("ID"))
     draft_pick = DraftPick.query.get(draft_pick_id)
     team = draft_pick.pick_owner
+    p = get_top_available_prospects(team, 7)
 
-    return render_template("builds/draftPickModal.html", draft_pick=draft_pick, team=team)
+    return render_template("builds/draftPickModal.html", draft_pick=draft_pick, team=team, p=p)
 
 
 @app.route('/getDraftPicks', methods=['GET'])
