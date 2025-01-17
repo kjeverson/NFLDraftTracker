@@ -18,7 +18,7 @@
             <h4>{{ prospect.fname }}</h4>
             <h1>{{ prospect.lname }}</h1>
             <h6>{{ prospect.position }} • {{ prospect.drafted_team.fullname }}</h6>
-            <small>Height: {{ prospect.height }} • Weight: {{ prospect.weight }} lbs</small>
+            <small>Height: {{ prospect.height if prospect.height else '' }} • Weight: {{ prospect.weight if prospect.weight else '' }} lbs</small>
         </div>
     </div>
     <div class="col-2 d-flex justify-content-end align-items-center">
@@ -56,7 +56,7 @@
             <h4>{{ prospect.fname }}</h4>
             <h1>{{ prospect.lname }} {% if prospect.concern %}<span class="text-danger">*</span>{% endif %}</h1>
             <h6>{{ prospect.position }} • {{ prospect.college_team.fullname }}</h6>
-            <small>Height: {{ prospect.height }} • Weight: {{ prospect.weight }} lbs</small>
+            <small>Height: {{ prospect.height if prospect.height else '' }} • Weight: {{ prospect.weight if prospect.weight else '' }} lbs</small>
         </div>
     </div>
     <div class="col-2 d-flex justify-content-end align-items-center">
