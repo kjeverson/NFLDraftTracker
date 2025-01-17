@@ -1,72 +1,11 @@
+<!-- Jinja Macros -->
+{% from '/macros/editProspectInfoCard.html' import edit_player_card %}
+
 <div id="editProspectModal" class="modal" tabindex="-1" xmlns="http://www.w3.org/1999/html">
   <div class="modal-dialog modal-dialog-scrollable modal-xl bg-dark text-white">
     <div class="modal-content bg-dark" >
       <div class="modal-body bg-dark">
-          {% if prospect.drafted_team %}
-          <div class="row" style="background:linear-gradient(to top, rgba(0,0,0,0) 40%, #{{ prospect.drafted_team.primary_color }})">
-          {% else %}
-          <div class="row" style="background:linear-gradient(to top, rgba(0,0,0,0) 40%, #{{ prospect.college_team.primary_color }})">
-          {% endif %}
-            <div class="col-6 align-self-center">
-                <div class="row text-center">
-                    <h3>{{ prospect.name }}</h3>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-8 align-self-center">
-                        <div class="row p-1 text-center">
-                            <small><input id="positionForm" class="form-control p-2 position-relative" value="{{ prospect.position if prospect.position else '' }}"> | {{ prospect.college_team.fullname }}</small>
-                        </div>
-                        <div class="row p-1 text-center">
-                            <div class="col-6">
-                            <input id="heightForm" class="form-control p-2 position-relative" value="{{ prospect.height if prospect.height else '' }}">
-                            </div>
-                            <div class="col-6">
-                            <input id="weightForm" class="form-control p-2 position-relative" value="{{ prospect.weight if prospect.weight else '' }}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% if prospect.drafted_team %}
-                <div class="row text-center mt-2 justify-content-center">
-                    <div class="col-10">
-                      <div class="row mt-4 text-center">
-                        <button class="btn btn-dark text-white p-2 position-relative" style="pointer-events: none">
-                              <img src="{{ url_for('static', filename='img/NFL/'+ prospect.drafted_team.key +'.png') }}" height="40px"> Round {{ prospect.draft_pick.round }}, Pick {{ prospect.draft_pick.pick }}
-                          <span class="position-absolute top-0 start-50 translate-middle badge text-dark bg-light"><small>Drafted:</small></span>
-                        </button>
-                      </div>
-                    </div>
-                </div>
-                {% endif %}
-                <div class="row text-center mt-2 justify-content-center">
-                    <div class="col-6">
-                      <div class="row p-1 mt-4 text-center">
-                          Rank:
-                        <input id="rankForm" class="form-control p-2 position-relative" value="{{ prospect.rank }}">
-                      </div>
-                        <div class="row p-1 mt-4 text-center">
-                          Projection:
-                        <input id="projectionForm" class="form-control p-2 position-relative" value="{{ prospect.projection if prospect.projection else '' }}">
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="row p-1 mt-4 text-center">
-                          NFL Comparison:
-                        <input id="comparisonForm" class="form-control p-2 position-relative" value="{{ prospect.comparison if prospect.comparison else '' }}">
-                      </div>
-                        <div class="row p-1 mt-4 text-center">
-                          Role:
-                        <input id="roleForm" class="form-control p-2 position-relative" value="{{ prospect.role if prospect.role else '' }}">
-                      </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 align-self-center">
-                <div class="row">
-                    <img src="{{ url_for('static', filename='img/headshots/'+ prospect.prospect_year|string + '/' + prospect.ID|string +'.png') }}" onerror="this.src='{{ url_for('static', filename='img/headshots/default.png') }}'" class="img-fluid">
-                </div>
-            </div>
-        </div>
+         {{ edit_player_card(prospect) }}
               <div class="row pb-1 px-3">
                   <button class="btn active btn-secondary position-relative">
                     <div class="row mt-2">
@@ -86,21 +25,19 @@
                   <h6>Overview:</h6>
               </div>
               <div class="row p-1">
-                  <textarea class="form-control form-control-sm" id="overviewForm" rows="3">{{ prospect.overview if prospect.overview else '' }}</textarea>
+                  <textarea class="h-100 form-control form-control-sm" id="overviewForm" rows="3">{{ prospect.overview if prospect.overview else '' }}</textarea>
               </div>
-              <div class="row p-1 text-center">
-                  <h6>Strengths:</h6>
-              </div>
-              <div class="row p-1">
-                  <textarea class="form-control form-control-sm" id="strengthsForm" rows="3">{{ prospect.strengths if prospect.strengths else '' }}</textarea>
-              </div>
-              <div class="row p-1 text-center">
-                  <h6>Weaknesses:</h6>
-              </div>
-              <div class="row p-1">
-                  <textarea class="form-control form-control-sm" id="weaknessesForm" rows="3">{{ prospect.weaknesses if prospect.weaknesses else '' }}</textarea>
-              </div>
+              <div class="row pt-1 text-center">
+                  <div class="col-6">
+                      <h6>Strengths:</h6>
+                      <textarea class="h-100 form-control form-control-sm" id="strengthsForm" rows="3">{{ prospect.strengths if prospect.strengths else '' }}</textarea>
+                  </div>
+                  <div class="col-6">
+                      <h6>Weaknesses:</h6>
+                      <textarea class="h-100 form-control form-control-sm" id="weaknessesForm" rows="3">{{ prospect.weaknesses if prospect.weaknesses else '' }}</textarea>
+                  </div>
 
+              </div>
           </div>
               <div class="modal-footer">
                   <button class="btn btn-sm btn-danger" type="button" data-id="{{ prospect.ID }}" onclick="deleteProspect(this.getAttribute('data-id'))"><i class="bi bi-trash3-fill"></i> Delete</button>

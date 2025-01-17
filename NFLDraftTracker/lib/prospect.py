@@ -94,13 +94,22 @@ class Prospect(db.Model):
 		self.draft_pick_id = None
 		db.session.commit()
 
+	def set_name(self, fname, lname):
+		self.fname = fname
+		self.lname = lname
+
+		self.sname = fname[0] + ". " + lname
+		self.name = fname + " " + lname
+		db.session.commit()
+
 	def set_position(self, position):
 		self.position = position
 		db.session.commit()
 
 	def set_rank(self, rank):
-		self.rank = int(rank)
-		db.session.commit()
+		if rank:
+			self.rank = int(rank)
+			db.session.commit()
 
 	def set_comparison(self, comparison):
 		self.comparison = comparison

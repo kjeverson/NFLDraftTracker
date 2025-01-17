@@ -116,6 +116,9 @@ function editProspect(id) {
 }
 
 function saveProspect(id) {
+    var fname = document.getElementById("fnameForm");
+    var lname = document.getElementById("lnameForm");
+
     var overview = document.getElementById("overviewForm");
     var strengths = document.getElementById("strengthsForm");
     var weaknesses = document.getElementById("weaknessesForm");
@@ -145,6 +148,8 @@ function saveProspect(id) {
         type: "post",
         data: {
             id: id,
+            fname: fname.value,
+            lname: lname.value,
             overview: overview.value,
             strengths: strengths.value,
             weaknesses: weaknesses.value,

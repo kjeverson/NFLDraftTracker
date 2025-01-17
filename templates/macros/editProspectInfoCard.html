@@ -1,0 +1,81 @@
+{% macro edit_player_card(prospect) %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}"
+      xmlns="http://www.w3.org/1999/html">
+{% if prospect.drafted_team %}
+<div class="row prospect-row" style="background:linear-gradient(to top, rgba(0,0,0,0) 30%, #{{ prospect.drafted_team.primary_color }})">
+    <div class="col-3 position-relative">
+        <div class="img-container">
+            <img src="{{ url_for('static', filename='img/headshots/'+ prospect.prospect_year|string + '/' + prospect.ID|string +'.png') }}"
+                 onerror="this.src='{{ url_for('static', filename='img/headshots/default.png') }}'"
+                 class="img-fluid player-img"
+            >
+            <img class="team-logo"
+                 src="{{ url_for('static', filename='img/NFL/'+ prospect.drafted_team.key +'.png') }}"
+            >
+        </div>
+    </div>
+    <div class="col-4 d-flex align-items-center">
+        <div class="playerInformation">
+            <h4><input id="fnameForm" class="w-100" value="{{ prospect.fname }}"></h4>
+            <h1><input id="lnameForm" class="w-100" value="{{ prospect.lname }}"></h1>
+            <h6><input id="positionForm" class="w-25" value="{{ prospect.position }}"> • {{ prospect.drafted_team.fullname }}</h6>
+            <small>Height: <input id="heightForm" class="w-25" value="{{ prospect.height }}"> Weight: <input id="weightForm" class="w-25" value="{{ prospect.weight }}"> lbs</small>
+        </div>
+    </div>
+    <div class="col-2 d-flex justify-content-end align-items-center">
+        <div>
+            <h6 class="light-caps">Rank:</h6>
+            <h6 class="light-caps">Draft Status:</h6>
+            <h6 class="light-caps">Comparison:</h6>
+            <h6 class="light-caps">Role:</h6>
+        </div>
+    </div>
+    <div class="col-3 d-flex justify-content-start align-items-center">
+        <div>
+            <h6 class="caps"><input id="rankForm" class="w-100" value="{{ prospect.rank }}"></h6>
+            <h6 class="caps">Round {{ prospect.draft_pick.round }}, Pick {{ prospect.draft_pick.pick }}</h6>
+            <h6 class="caps"><input id="comparisonForm" class="w-100" value="{{ prospect.comparison if prospect.comparison else '' }}"></h6>
+            <h6 class="caps"><input id="roleForm" class="w-100" value="{{ prospect.role if prospect.role else '' }}"></h6>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="row prospect-row" style="background:linear-gradient(to top, rgba(0,0,0,0) 30%, #{{ prospect.college_team.primary_color if prospect.college_team else '4c8bc6' }})">
+    <div class="col-3 position-relative">
+        <div class="img-container">
+            <img src="{{ url_for('static', filename='img/headshots/'+ prospect.prospect_year|string + '/' + prospect.ID|string +'.png') }}"
+                 onerror="this.src='{{ url_for('static', filename='img/headshots/default.png') }}'"
+                 class="img-fluid player-img"
+            >
+            <img class="team-logo"
+                 src="{{ url_for('static', filename='img/NCAA/'+ prospect.college_team.ID|string +'.png') }}"
+            >
+        </div>
+    </div>
+    <div class="col-4 d-flex align-items-center">
+        <div class="playerInformation">
+            <h4><input id="fnameForm" class="w-100" value="{{ prospect.fname }}"></h4>
+            <h1><input id="lnameForm" class="w-100" value="{{ prospect.lname }}"></h1>
+            <h6><input id="positionForm" class="w-25" value="{{ prospect.position }}"> • {{ prospect.college_team.fullname }}</h6>
+            <small>Height: <input id="heightForm" class="w-25" value="{{ prospect.height }}"> Weight: <input id="weightForm" class="w-25" value="{{ prospect.weight }}"> lbs</small>
+        </div>
+    </div>
+    <div class="col-2 d-flex justify-content-end align-items-center">
+        <div>
+            <h6 class="light-caps">Rank:</h6>
+            <h6 class="light-caps">Draft Projection: </h6>
+            <h6 class="light-caps">Comparison: </h6>
+            <h6 class="light-caps">Role: </h6>
+        </div>
+    </div>
+    <div class="col-3 d-flex justify-content-start align-items-center">
+        <div>
+            <h6 class="caps"><input id="rankForm" class="w-100" value="{{ prospect.rank }}"></h6>
+            <h6 class="caps"><input id="projectionForm" class="w-100" value="{{ prospect.projection if prospect.projection else '' }}"></h6>
+            <h6 class="caps"><input id="comparisonForm" class="w-100" value="{{ prospect.comparison if prospect.comparison else '' }}"></h6>
+            <h6 class="caps"><input id="roleForm" class="w-100" value="{{ prospect.role if prospect.role else '' }}"></h6>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endmacro %}
