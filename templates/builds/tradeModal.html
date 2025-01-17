@@ -1,5 +1,6 @@
 <!-- Jinja Macros -->
 {% from '/macros/draftSelectionsCard.html' import draft_selections_card %}
+{% from '/macros/teamSelector.html' import team_selector %}
 
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}">
 <div id="tradeModal" class="modal" tabindex="-1">
@@ -7,128 +8,11 @@
         <div class="modal-content bg-dark" >
             <div class="modal-body bg-dark">
                 <div class="row p-1 text-center">
-                    <h5>Trade Picks:</h5>
-                    <small>(Only Current Years Draft Picks Are Shown)</small>
+                    <h5 class="light-caps">Trade Picks:</h5>
                 </div>
                 <div class="row p-1">
                     <div class="col-6">
-                        <div class="dropdown">
-                          <button class="btn btn-secondary w-100 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Team Select
-                          </button>
-                          <div class="shadow dropdown-menu dropdown-menu-dark p-4 mw-50" aria-labelledby="dropdownMenuButton1">
-                            <div class="row justify-content-center">AFC</div>
-                            <div class="row m-2">
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "AFC" and team.division == "North" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row">
-                                    <span class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Send')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></span>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "AFC" and team.division == "East" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row" >
-                                    <div class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Send')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></div>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "AFC" and team.division == "South" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row" >
-                                    <div class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Send')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></div>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "AFC" and team.division == "West" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row" >
-                                    <div class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Send')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></div>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row justify-content-center">NFC</div>
-                            <div class="row m-2">
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "NFC" and team.division == "North" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row" >
-                                    <div class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Send')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></div>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "NFC" and team.division == "East" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row" >
-                                    <div class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Send')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></div>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "NFC" and team.division == "South" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row" >
-                                    <div class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Send')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></div>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "NFC" and team.division == "West" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row" >
-                                    <div class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Send')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></div>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        {{ team_selector(teams, True, 'Send') }}
                         {% for team in teams %}
                         <div class="team-title-send row p-1 text-center" id="team{{ team.ID }}TitleSend" hidden>
                         </div>
@@ -138,123 +22,7 @@
                         {% endfor %}
                     </div>
                     <div class="col-6">
-                        <div class="dropdown">
-                          <button class="btn btn-secondary w-100 dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                            Team Select
-                          </button>
-                            <div class="shadow dropdown-menu dropdown-menu-dark p-4 mw-50" aria-labelledby="dropdownMenuButton1">
-                          <div class="row justify-content-center">AFC</div>
-                            <div class="row m-2">
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "AFC" and team.division == "North" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row" >
-                                    <div class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Rec')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></div>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "AFC" and team.division == "East" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row" >
-                                    <div class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Rec')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></div>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "AFC" and team.division == "South" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row" >
-                                    <div class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Rec')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></div>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "AFC" and team.division == "West" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row" >
-                                    <div class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Rec')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></div>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row justify-content-center">NFC</div>
-                            <div class="row m-2">
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "NFC" and team.division == "North" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row" >
-                                    <div class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Rec')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></div>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "NFC" and team.division == "East" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row" >
-                                    <div class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Rec')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></div>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "NFC" and team.division == "South" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row" >
-                                    <div class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Rec')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></div>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                              <div class="col-3">
-                                <div class="row justify-content-center">
-                                  {% for team in teams | sort(attribute='key', reverse=False) %}
-                                  {% if team.conference == "NFC" and team.division == "West" %}
-                                  <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                                  <div class="row" >
-                                    <div class="col text-start align-self-center" data-id="{{ team.ID }}" onclick="showTeamPicks(this.getAttribute('data-id'), 'Rec')"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" height="20px"> <small>{{ team.key }}</small></div>
-                                  </div>
-                                  </button>
-                                {% endif %}
-                                {% endfor %}
-                                </div>
-                              </div>
-                            </div>
-                                </div>
-                        </div>
+                        {{ team_selector(teams, True, 'Rec') }}
                         {% for team in teams %}
                         <div class="team-title-rec row p-1 text-center" id="team{{ team.ID }}TitleRec" hidden>
                         </div>

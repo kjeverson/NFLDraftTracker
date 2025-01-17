@@ -7,6 +7,10 @@
 <script src="{{ url_for('static', filename='js/team.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bigBoard.js') }}"></script>
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/draftPickCard.css') }}">
+
+<!-- Jinja Macros -->
+{% from '/macros/teamSelector.html' import team_selector %}
+
 <script>
   onload({{data|tojson}})
 </script>
@@ -32,133 +36,9 @@
         <!-- TEAM SELECTION -->
         <div class="row pt-1">
           <div class="col-9">
-            <div class="dropdown">
-              <button class="btn w-100 btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Select Team
-              </button>
-              <div class="shadow dropdown-menu dropdown-menu-dark p-4 mw-50" aria-labelledby="dropdownMenuButton1">
-                <div class="row justify-content-center">AFC</div>
-                <div class="row m-2">
-                  <div class="col-3">
-                    <div class="row justify-content-center">
-                      {% for team in teams | sort(attribute='key', reverse=False) %}
-                      {% if team.conference == "AFC" and team.division == "North" %}
-                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                      <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
-                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
-                      </div>
-                      </button>
-                    {% endif %}
-                    {% endfor %}
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="row justify-content-center">
-                      {% for team in teams | sort(attribute='key', reverse=False) %}
-                      {% if team.conference == "AFC" and team.division == "East" %}
-                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                      <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
-                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
-                      </div>
-                      </button>
-                    {% endif %}
-                    {% endfor %}
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="row justify-content-center">
-                      {% for team in teams | sort(attribute='key', reverse=False) %}
-                      {% if team.conference == "AFC" and team.division == "South" %}
-                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                      <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
-                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
-                      </div>
-                      </button>
-                    {% endif %}
-                    {% endfor %}
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="row justify-content-center">
-                      {% for team in teams | sort(attribute='key', reverse=False) %}
-                      {% if team.conference == "AFC" and team.division == "West" %}
-                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                      <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
-                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
-                      </div>
-                      </button>
-                    {% endif %}
-                    {% endfor %}
-                    </div>
-                  </div>
-                </div>
-                <div class="row justify-content-center">NFC</div>
-                <div class="row m-2">
-                  <div class="col-3">
-                    <div class="row justify-content-center">
-                      {% for team in teams | sort(attribute='key', reverse=False) %}
-                      {% if team.conference == "NFC" and team.division == "North" %}
-                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                      <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
-                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
-                      </div>
-                      </button>
-                    {% endif %}
-                    {% endfor %}
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="row justify-content-center">
-                      {% for team in teams | sort(attribute='key', reverse=False) %}
-                      {% if team.conference == "NFC" and team.division == "East" %}
-                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                      <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
-                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
-                      </div>
-                      </button>
-                    {% endif %}
-                    {% endfor %}
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="row justify-content-center">
-                      {% for team in teams | sort(attribute='key', reverse=False) %}
-                      {% if team.conference == "NFC" and team.division == "South" %}
-                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                      <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
-                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
-                      </div>
-                      </button>
-                    {% endif %}
-                    {% endfor %}
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="row justify-content-center">
-                      {% for team in teams | sort(attribute='key', reverse=False) %}
-                      {% if team.conference == "NFC" and team.division == "West" %}
-                      <button data-id="{{ team.ID }}" class="btn btn-small team-btn text-white">
-                      <div class="row" >
-                        <div class="col-4"><img src="{{ url_for('static', filename='img/NFL/'+team.key+'.png') }}" style="height: 20px;"></div>
-                        <div class="col-8 text-start align-self-center">{{ team.key }}</div>
-                      </div>
-                      </button>
-                    {% endif %}
-                    {% endfor %}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {{ team_selector(teams, False, None) }}
           </div>
-          <div class="col-3">
+            <div class="col-3">
               <button id="tradeBtn" class=" btn btn-secondary w-100 text-white" onclick="tradeModal()">
                   <i class="bi bi-arrow-repeat"></i> Trade
               </button>
