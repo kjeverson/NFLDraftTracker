@@ -19,7 +19,7 @@
             <h4><input id="fnameForm" class="w-100" value="{{ prospect.fname }}"></h4>
             <h1><input id="lnameForm" class="w-100" value="{{ prospect.lname }}"></h1>
             <h6><input id="positionForm" class="w-25" value="{{ prospect.position }}"> • {{ prospect.drafted_team.fullname }}</h6>
-            <small>Height: <input id="heightForm" class="w-25" value="{{ prospect.height }}"> Weight: <input id="weightForm" class="w-25" value="{{ prospect.weight }}"> lbs</small>
+            <small>Height: <input id="heightForm" class="w-25" value="{{ prospect.height if prospect.height else '' }}"> Weight: <input id="weightForm" class="w-25" value="{{ prospect.weight if prospect.weight else '' }}"> lbs</small>
         </div>
     </div>
     <div class="col-2 d-flex justify-content-end align-items-center">
@@ -57,7 +57,7 @@
             <h4><input id="fnameForm" class="w-100" value="{{ prospect.fname }}"></h4>
             <h1><input id="lnameForm" class="w-100" value="{{ prospect.lname }}"></h1>
             <h6><input id="positionForm" class="w-25" value="{{ prospect.position }}"> • {{ prospect.college_team.fullname }}</h6>
-            <small>Height: <input id="heightForm" class="w-25" value="{{ prospect.height }}"> Weight: <input id="weightForm" class="w-25" value="{{ prospect.weight }}"> lbs</small>
+            <small>Height: <input id="heightForm" class="w-25" value="{{ prospect.height if prospect.height else '' }}"> Weight: <input id="weightForm" class="w-25" value="{{ prospect.weight if prospect.weight else '' }}"> lbs</small>
         </div>
     </div>
     <div class="col-2 d-flex justify-content-end align-items-center">
