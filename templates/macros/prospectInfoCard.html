@@ -48,6 +48,7 @@
             >
             <img class="team-logo"
                  src="{{ url_for('static', filename='img/NCAA/'+ prospect.college_team.ID|string +'.png') }}"
+                 onerror="this.src='{{ url_for('static', filename='img/draft_logo.png') }}'"
             >
         </div>
     </div>
@@ -55,7 +56,7 @@
         <div class="playerInformation">
             <h4>{{ prospect.fname }}</h4>
             <h1>{{ prospect.lname }} {% if prospect.concern %}<span class="text-danger">*</span>{% endif %}</h1>
-            <h6>{{ prospect.position }} • {{ prospect.college_team.fullname }}</h6>
+            <h6>{{ prospect.position }} • {% if prospect.college_team %} {{ prospect.college_team.location }} {% else %} No College {% endif %}</h6>
             <small>Height: {{ prospect.height if prospect.height else '' }} • Weight: {{ prospect.weight if prospect.weight else '' }} lbs</small>
         </div>
     </div>

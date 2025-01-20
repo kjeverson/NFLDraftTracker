@@ -49,6 +49,7 @@
             >
             <img class="team-logo"
                  src="{{ url_for('static', filename='img/NCAA/'+ prospect.college_team.ID|string +'.png') }}"
+                 onerror="this.src='{{ url_for('static', filename='img/draft_logo.png') }}'"
             >
         </div>
     </div>
@@ -56,7 +57,7 @@
         <div class="playerInformation">
             <h4><input id="fnameForm" class="w-100" value="{{ prospect.fname }}"></h4>
             <h1><input id="lnameForm" class="w-100" value="{{ prospect.lname }}"></h1>
-            <h6><input id="positionForm" class="w-25" value="{{ prospect.position }}"> • {{ prospect.college_team.fullname }}</h6>
+            <h6><input id="positionForm" class="w-25" value="{{ prospect.position }}"> • {% if prospect.college_team %} {{ prospect.college_team.location }} {% else %} No College {% endif %}</h6>
             <small>Height: <input id="heightForm" class="w-25" value="{{ prospect.height if prospect.height else '' }}"> Weight: <input id="weightForm" class="w-25" value="{{ prospect.weight if prospect.weight else '' }}"> lbs</small>
         </div>
     </div>
