@@ -47,6 +47,15 @@
                             </tbody>
                         </table>
                     </div>
+                    {% else %}
+                    {% if draft_pick.prospect[0].overview %}
+                    <div class="col-6">
+                        <h5 class="light-caps">Prospect Overview:</h5>
+                        <blockquote>
+                            <p>{{ draft_pick.prospect[0].overview }}</p>
+                        </blockquote>
+                    </div>
+                    {% endif %}
                     {% endif %}
                 </div>
             </div>
