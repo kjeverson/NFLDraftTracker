@@ -333,7 +333,16 @@ def remove_all_prospects():
 
 def get_top_available_prospects(team, limit):
 	team_needs = team.get_needs()
+	if 'IOL' in team_needs:
+		team_needs.remove("IOL")
+		team_needs.append("OG")
+		team_needs.append("C")
+	
 	team_drafted = team.get_drafted_positions()
+	if 'IOL' in team_drafted:
+		team_drafted.remove("IOL")
+		team_drafted.append("OG")
+		team_drafted.append("C")
 	remaining_needs = list(set(team_needs)-set(team_drafted))
 
 	if len(remaining_needs) > 2:
