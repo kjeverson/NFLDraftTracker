@@ -191,3 +191,44 @@ function deleteProspect(id) {
     })
 }
 
+function favoriteProspect(id) {
+    $.ajax({
+        url: "/favoriteProspect",
+        type: "post",
+        data: {
+            id: id,
+            action: true
+        },
+        complete: function() {
+            var icon = $('#favIcon'+id);
+            icon.removeClass('bi-star');
+            icon.addClass('bi-star-fill text-warning');
+            setTimeout(function () {
+                icon.off('click').on('click', function() {
+                    unfavoriteProspect(id);
+                });
+            }, 500);
+        }
+    })
+}
+
+function unfavoriteProspect(id) {
+    $.ajax({
+        url: "/favoriteProspect",
+        type: "post",
+        data: {
+            id: id,
+            action: false
+        },
+        complete: function() {
+            var icon = $('#favIcon'+id);
+            icon.removeClass('text-warning bi-star-fill');
+            icon.addClass('bi-star');
+            setTimeout(function () {
+                icon.off('click').on('click', function() {
+                    favoriteProspect(id);
+                });
+            }, 500);
+        }
+    })
+}

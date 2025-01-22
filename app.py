@@ -435,3 +435,15 @@ def get_headshots():
         prospect.get_headshot()
 
     return jsonify()
+
+
+@app.route("/favoriteProspect", methods=['POST'])
+def favorite_prospect():
+    id = int(request.form.get("id"))
+    action = request.form.get("action")
+
+    prospect = Prospect.query.get(id)
+    prospect.favorite_prospect(action)
+
+    return jsonify()
+
