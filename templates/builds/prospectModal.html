@@ -22,14 +22,14 @@
 
             {% if prospect.overview %}
             <div class="row d-flex p-1 mt-2">
-                <h6 class="text-center">Overview:</h6>
+                <h5 class="light-caps text-center">Overview:</h5>
                 <small>{{ prospect.overview }}</small>
             </div>
             {% endif %}
             <div class="row p-1 justify-content-center">
             {% if prospect.strengths %}
                 <div class="col-6">
-                    <div class="row p-1 text-center"><h5 class="text-center">Strengths:</h5></div>
+                    <div class="row p-1 text-center"><h5 class=" light-caps text-center">Strengths:</h5></div>
                     <ul>
                     {% for strength in strengths %}
                       <li><small>{{ strength }}</small></li>
@@ -39,7 +39,7 @@
               {% endif %}
               {% if prospect.weaknesses %}
                 <div class="col-6">
-                    <div class="row p-1 text-center"><h5>Weaknesses:</h5></div>
+                    <div class="row p-1 text-center"><h5 class="light-caps">Weaknesses:</h5></div>
                     <ul>
                     {% for weakness in weaknesses %}
                         <li><small>{{ weakness }}</small></li>
