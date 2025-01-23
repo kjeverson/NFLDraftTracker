@@ -28,48 +28,63 @@ A web application designed to track and display information about the NFL draft 
     - Ability to drop pick order and manually rebuild within the web app
     
 ## Setup/Installation
+Your tool-chain is up to you, but for this application it is recommended you use a python virtual environment. </br>
+Clone the repository at: ```git@github.com:kjeverson/NFLDraftTracker.git```
 
-Built with simplicity in mind, aimed to deliver something with very little dependencies and provided necessary frameworks via CDNs.
-### Current Dependencies:
-```buildoutcfg
-beautifulsoup4==4.9.3
-Flask==2.0.1
-Flask_SQLAlchemy==2.5.1
-Pillow==8.2.0
-Pillow==11.1.0
-Requests==2.32.3
-SQLAlchemy==1.4.15
-```
-
-### Running the Application:
-Clone this repo, and install all necessary dependencies. Navigate to the main repo and run the following:
+To create the virtual environment run the following commands:
 ```bash
-flask run
+    cd ~/$path_to/NFLDraftTracker
+    python3 -m venv venv
+    source venv/bin/activate
+    ## To leave the virtual environment simply run 'deactivate'
 ```
-Open your browser (only tested on Firefox currently), and navigate to:
+You are now in a python virtual environment. The packages you need to install are follows:
+
+```bash
+    pip install flask flask_sqlalchemy requests Pillow bs4 
+    #  Alternativity you can also run 'pip install -r requirements.txt'
+```
+Run the command `pip freeze` and check to make sure it matches the following output. </br> 
+(Based on your python3 version the venv might have less/more packages and different version, but as long as the packages specified above are included it should work.)
+```bash
+    (venv) $you@$your_machine NFLDraftTracker % pip freeze                                            
+    beautifulsoup4==4.12.3
+    blinker==1.9.0
+    bs4==0.0.2
+    certifi==2024.12.14
+    charset-normalizer==3.4.1
+    click==8.1.8
+    Flask==3.1.0
+    Flask-SQLAlchemy==3.1.1
+    idna==3.10
+    itsdangerous==2.2.0
+    Jinja2==3.1.5
+    MarkupSafe==3.0.2
+    pillow==11.1.0
+    requests==2.32.3
+    soupsieve==2.6
+    SQLAlchemy==2.0.37
+    typing_extensions==4.12.2
+    urllib3==2.3.0
+    Werkzeug==3.1.3
+
+```
+Lasty you need to fix the database by running: 
+```bash
+    python3 fix.py
+```
+Now you are ready to run the NFL Tracker Application!
+
+### Running the Application
+Open your browser, In the address bar of your browser (Not the Search Bar!) navigate to:
 ```buildoutcfg
-http://localhost:5000/
+    http://localhost:5000/ 
 ```
-This should work as cloned, but if the database is outdated it might be in your best interest to rebuild it. Thankfully this can be done in the web app itself.
-
-### Rebuilding Database:
-
-#### Rebuilding Prospect Database:
-- Navigate to the "Database Control" Page
-- Click "Drop Prospects", and confirm the decision
-- Enter a draft class year in the "Add Prospects" section
-- Click "Add Prospects"
-
-The web app will now go and manually rebuild the prospects for that given year. If using 2024 or 2025 draft class, expect almost all of the Prospect images to be there, if not you can add all the headshots (provided ESPN has them) by clicking "Get Headshots" button.
-
-Additionally, draft order changes from year to year and isn't finalized until after the season. If you need to rebuild that table in the database, follow these steps:
-
-#### Rebuilding the Draft Pick Database:
-- Click "Drop Draft Picks", and confirm the decision
-- Navigate to the "Draft Order" page under the "Settings" drop down 
-- Manually rebuild the database, ensuring you click "Finalize Round" between rounds
-
-The web app should work provided there are prospects and draft picks in their respective tables. That being said, I cannot confirm how it will run if you drop either table after picks have been made.
+OR
+```bash
+    127.0.0.1:5000
+```
+Enjoy NFL Stuff n' Things 🏈🏈🤘.
     
 ### Adding Information:
 
