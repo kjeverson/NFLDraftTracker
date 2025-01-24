@@ -565,6 +565,10 @@ function submitTrade(send, rec) {
             var pickData = data.responseJSON["picks"];
             var picks = sendPickIDs.concat(recPickIDs);
 
+            $(".draftBtn").each(function() {
+                $(this).prop("disabled",true);
+            });
+
             picks.forEach(function(ID) {
                 var pickCardStatus = document.getElementById(`pick${ID}CardStatus`);
                 pickCardStatus.innerText = "TRADE THE PICK!";
@@ -593,6 +597,9 @@ function submitTrade(send, rec) {
 
                         setTimeout(() => {
                             newPickCardContainer.style.opacity = "1"; // Fade in the new card
+                            $(".draftBtn").each(function() {
+                                $(this).prop("disabled", false);
+                            });
                         }, 10);
                     }, 1000); // Wait for fade-out to complete
                 }, 2000); // Display "Traded the Pick!" for 2 seconds
