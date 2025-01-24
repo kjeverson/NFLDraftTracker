@@ -24,12 +24,14 @@
     position: absolute;
     top: -50%;
     left: -50%;
-    z-index: 2;
+    z-index: 1;
     height: 200px;
 }
 
 .dc-prospect-info-container {
     text-align: center;
+    position: relative;
+    z-index: 2;
 }
 
 .dc-prospect-name {
@@ -37,10 +39,12 @@
     margin-bottom: 0;
     font-style: italic;
     font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 1); /* Add a subtle shadow */
 }
 
 .dc-prospect-info {
     font-weight: 200;
     margin-top: 0;
     margin-bottom: 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 1); /* Add a subtle shadow */
 }
