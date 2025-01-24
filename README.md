@@ -49,7 +49,7 @@ Run the command `pip freeze` and check to make sure it includes, at the minimum,
 
 Lastly, you need to initialize the database by running: 
 ```bash
-    python3 NFLDraftTracker/scripts/db_init.py
+    python3 scripts/db_init.py
 ```
 Now you are ready to run the NFL Tracker Application!
 
