@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import logging
 import sys
 import os
+import shutil
 
 app = flask.Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.getcwd(), 'database.db')
@@ -13,6 +14,10 @@ log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
 db = SQLAlchemy(app)
+
+DATABASE_PATH = os.path.join(os.getcwd(), 'database.db')
+BACKUP_DIR = "database_backups"
+os.makedirs(BACKUP_DIR, exist_ok=True)
 
 from NFLDraftTracker.lib.team import NFLTeam, NCAATeam, add_college_team
 from NFLDraftTracker.lib.prospect import Prospect, add_prospect, remove_all_prospects, get_all_prospects, add_prospects, get_top_available_prospects
@@ -447,3 +452,21 @@ def favorite_prospect():
 
     return jsonify()
 
+
+def create_backup(filename):
+    if filename:
+        backup_path = os.path.join(BACKUP_DIR, "{}".format(filename))
+    else:
+        backup_path = os.path.join(BACKUP_DIR, f"backup_{len(os.listdir(BACKUP_DIR)) + 1}.db")
+    shutil.copy(DATABASE_PATH, backup_path)
+    return backup_path
+
+
+@app.route('/backup', methods=['POST'])
+def backup():
+    filename = request.form.get("filename")
+    try:
+        backup_path = create_backup(filename)
+        return jsonify({"message": "Backup created", "backup_path": backup_path}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

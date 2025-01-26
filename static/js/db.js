@@ -97,3 +97,19 @@ function getHeadshots() {
         }
     });
 }
+
+function saveSnapshot() {
+    const filename = $('#dbSnapshotInput')[0].value;
+
+    $.ajax({
+        url:"/backup",
+        type: "post",
+        data: {
+            filename: filename
+        },
+        success: function() {
+            packNewToast("bg-success", "bi bi-check-square-fill", "Success!", `Snapshot ${filename} saved.`);
+        }
+    });
+
+}
