@@ -417,7 +417,7 @@ function draftProspect(pick_id, prospect_id) {
             var placeholder = createPlaceholder(pick_id, data["team_name"], data["team_key"], data["team_color"], "PICK IS IN!");
             pickCardBody.appendChild(placeholder);
 
-            // After 5 seconds, replace the placeholder with the draft pick row
+            // After 2.5 seconds, replace the placeholder with the draft pick row
             setTimeout(() => {
                 placeholder.style.opacity = "0"; // Fade out
 
@@ -436,7 +436,7 @@ function draftProspect(pick_id, prospect_id) {
                         draftPickRow.style.opacity = "1";
                     }, 10);
                 }, 500); // Wait for fade-out to complete
-            }, 5000); // 5 seconds before switching
+            }, 2500); // 2.5 seconds before switching
 
             pickCard.scrollIntoView({ block: "nearest", behavior: "smooth", inline: "start" });
 
@@ -602,7 +602,7 @@ function submitTrade(send, rec) {
                             });
                         }, 10);
                     }, 1000); // Wait for fade-out to complete
-                }, 2000); // Display "Traded the Pick!" for 2 seconds
+                }, 1500); // Display "Traded the Pick!" for 1.5 seconds
             });
 
             var viewingTeamId = document.getElementById("draftPicksCard");
