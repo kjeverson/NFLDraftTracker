@@ -8,77 +8,109 @@
 <script src="{{ url_for('static', filename='js/toasts.js') }}"></script>
 
 <div id="mainContainer" class="container p-1 text-white">
-    <div class="row">
-        {{ db_Threads }}
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <div class="card m-2 bg-dark text-white">
-                <div class="card-header">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="card m-2 border-secondary bg-dark text-white">
+                <div class="card-header text-secondary">
                     Prospect Control
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Add Prospects</h5>
-                    <p class="card-text">Scrape the web for prospects, measurables, etc. This will build back the database if/when dropped. Expects a draft year. </p>
-                    <div class="input-group">
-                        <input id="addProspectsClassInput" class="form-control" placeholder="Draft Class Year">
-                        <button id="addProspectsBtn" class="btn btn-secondary" type="button" onclick="addProspects()">Add Prospects</button>
+                    <div class="row">
+                        <div class="col-8">
+                            <h5 class="card-title">Add Prospects</h5>
+                            <p class="card-text">Scrape the web for prospects, measurables, etc. This will build back the database if/when dropped. Expects a draft year. </p>
+                        </div>
+                        <div class="col-4 align-content-center">
+                            <div class="input-group">
+                                <input id="addProspectsClassInput" class="form-control" placeholder="Ex: 2023">
+                                <button id="addProspectsBtn" class="btn btn-secondary" type="button" onclick="addProspects()">Add</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Get Headshots</h5>
-                    <p class="card-text">Will attempt to find and download headshots for any prospect without one.</p>
-                    <a class="btn btn-secondary" onclick="getHeadshots()">Get Headshots</a>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Drop Prospect Database</h5>
-                    <p class="card-text">Drop the entire prospect database, this cannot be undone.</p>
-                    <a class="btn btn-danger" onclick="dropProspectsConfirm()">Drop Prospects</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card m-2 bg-dark text-white">
-                <div class="card-header">
-                    Draft Pick Control
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Drop Draft Pick Database</h5>
-                    <p class="card-text">Drop the entire draft pick database, this cannot be undone. Picks will then have to be entered again from the <i>Draft Order</i> page.</p>
-                    <a class="btn btn-danger" onclick="dropDraftPicksConfirm()">Drop Draft Picks</a>
+                    <div class="row">
+                        <div class="col-8">
+                            <h5 class="card-title">Get Headshots</h5>
+                            <p class="card-text">Will attempt to find and download headshots for any prospect without one.</p>
+                        </div>
+                        <div class="col-4 align-content-center">
+                            <a class="btn w-100 btn-secondary" onclick="getHeadshots()">Get Headshots</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card m-2 bg-dark text-white">
-                <div class="card-header">
+            <div class="card m-2 border-secondary bg-dark text-white">
+                <div class="card-header text-secondary">
                     Snapshots
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Load Historic Draft Snapshots</h5>
-                    <p class="card-text">Will load supported draft snapshots, pick up in the middle of a draft or start fresh.</p>
-                    <p><small><i>No Snapshot Selected.</i></small></p>
-                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                Select Snapshot
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">2018</a></li>
-                                <li><a class="dropdown-item" href="#">2019</a></li>
-                                <li><a class="dropdown-item" href="#">2020</a></li>
-                                <li><a class="dropdown-item" href="#">2021</a></li>
-                                <li><a class="dropdown-item" href="#">2022</a></li>
-                                <li><a class="dropdown-item" href="#">2023</a></li>
-                                <li><a class="dropdown-item" href="#">2024</a></li>
-                                <li><a class="dropdown-item" href="#">2025</a></li>
-                            </ul>
+                    <div class="row">
+                        <div class="col-8">
+                            <h5 class="card-title">Save Database Snapshot</h5>
+                            <p class="card-text">Save a local database snapshot, includes prospects, picks, and current progress.</p>
                         </div>
-                        <button type="button" class="btn btn-secondary" disabled>Load</button>
+                        <div class="col-4 align-content-center">
+                            <div class="input-group">
+                                <input id="" class="form-control" placeholder="placeholder.db">
+                                <button id="" class="btn btn-secondary" type="button" onclick="">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <h5 class="card-title">Load Draft Snapshots</h5>
+                            <p class="card-text">Will load supported draft snapshots, pick up in the middle of a draft or start fresh.</p>
+                        </div>
+                        <div class="col-4 align-content-center">
+                            <p><small><i>No Snapshot Selected.</i></small></p>
+                            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Select DB Snapshot
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">2018</a></li>
+                                    </ul>
+                                </div>
+                                <button type="button" class="btn btn-secondary" disabled>Load </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card m-2 border-danger bg-dark text-white">
+                <div class="card-header text-danger">
+                    Danger Zone
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <h5 class="card-title">Drop Prospect Database</h5>
+                            <p class="card-text">Drop the entire prospect database, this cannot be undone.</p>
+                        </div>
+                        <div class="col-4 align-content-center">
+                            <a class="btn w-100 btn-danger" onclick="dropProspectsConfirm()">Drop Prospects</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <h5 class="card-title">Drop Draft Pick Database</h5>
+                            <p class="card-text">Drop the entire draft pick database, this cannot be undone. Picks will then have to be entered again from the <i>Draft Order</i> page.</p>
+                        </div>
+                        <div class="col-4 align-content-center">
+                            <a class="btn w-100 btn-danger" onclick="dropDraftPicksConfirm()">Drop Draft Picks</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 
 <div id="modalContainer" class="container">
 
