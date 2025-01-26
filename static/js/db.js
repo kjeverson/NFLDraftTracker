@@ -113,3 +113,24 @@ function saveSnapshot() {
     });
 
 }
+
+function backupSelected(filename) {
+    $('#backupFilename')[0].innerText = filename;
+    const loadBtn = $('#restoreBackupBtn').first()
+    loadBtn.prop("disabled", false);
+    loadBtn.attr("data-filename", filename);
+}
+
+function restoreBackup(filename) {
+
+    $.ajax({
+        url: "/restore",
+        type: "post",
+        data: {
+            filename: filename
+        },
+        success: function() {
+            packNewToast("bg-success", "bi bi-check-square-fill", "Success!", `Restored ${filename} snapshot.`);
+        }
+    })
+}

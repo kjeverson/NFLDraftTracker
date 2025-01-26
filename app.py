@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import logging
 import sys
 import os
-import shutil
+from NFLDraftTracker.lib.database import create_backup, restore_backup, get_backup_list
 
 app = flask.Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.getcwd(), 'database.db')
@@ -397,7 +397,8 @@ def set_team_needs():
 
 @app.route('/databaseControl', methods=['GET'])
 def database():
-    return render_template("database.html")
+    backups = get_backup_list(BACKUP_DIR)
+    return render_template("database.html", backups=backups)
 
 
 @app.route('/getDropProspectsConfirm', methods=['GET'])
@@ -453,20 +454,23 @@ def favorite_prospect():
     return jsonify()
 
 
-def create_backup(filename):
-    if filename:
-        backup_path = os.path.join(BACKUP_DIR, "{}".format(filename))
-    else:
-        backup_path = os.path.join(BACKUP_DIR, f"backup_{len(os.listdir(BACKUP_DIR)) + 1}.db")
-    shutil.copy(DATABASE_PATH, backup_path)
-    return backup_path
-
-
 @app.route('/backup', methods=['POST'])
 def backup():
     filename = request.form.get("filename")
     try:
-        backup_path = create_backup(filename)
+        backup_path = create_backup(DATABASE_PATH, BACKUP_DIR, filename)
         return jsonify({"message": "Backup created", "backup_path": backup_path}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/restore', methods=['POST'])
+def restore():
+    backup_file = request.form.get("filename")
+    if not backup_file:
+        return jsonify({"error": "Backup file name is required"}), 400
+    try:
+        restore_backup(DATABASE_PATH, BACKUP_DIR, backup_file)
+        return jsonify({"message": "Database restored"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500

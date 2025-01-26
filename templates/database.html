@@ -65,17 +65,19 @@
                             <p class="card-text">Will load supported draft snapshots, pick up in the middle of a draft or start fresh.</p>
                         </div>
                         <div class="col-4 align-content-center">
-                            <p><small><i>No Snapshot Selected.</i></small></p>
+                            <p><small><i><span id="backupFilename">No Snapshot</span> Selected.</i></small></p>
                             <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false">
                                         Select DB Snapshot
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">2018</a></li>
+                                        {% for file in backups %}
+                                        <li><a class="dropdown-item" data-filename="{{file}}" onclick="backupSelected(this.getAttribute('data-filename'))">{{ file }}</a></li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
-                                <button type="button" class="btn btn-secondary" disabled>Load </button>
+                                <button id="restoreBackupBtn" type="button" class="btn btn-secondary" onclick="restoreBackup(this.getAttribute('data-filename'))" disabled>Load </button>
                             </div>
                         </div>
                     </div>
