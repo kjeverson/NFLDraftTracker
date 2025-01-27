@@ -68,10 +68,10 @@ def get_prospects_by_position():
         pos = [request.args.get("pos")]
 
         if pos[0] == "IOL":
-            pos = ['OG', 'C', 'IOL']
+            pos = ['OG', 'G', 'OC', 'C', 'IOL']
 
         if pos[0] == "ST":
-            pos = ['K', 'P', 'LS']
+            pos = ['K', 'PK', 'P', 'LS']
 
         prospects = []
         for p in pos:

@@ -1,0 +1,10 @@
+.light-caps{
+    font-weight: 200;
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+.caps {
+    text-transform: uppercase;
+    font-style: italic;
+}
