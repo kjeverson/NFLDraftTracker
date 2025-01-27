@@ -115,7 +115,6 @@ function saveSnapshot() {
 }
 
 function backupSelected(filename) {
-    $('#backupFilename')[0].innerText = filename;
     const loadBtn = $('#restoreBackupBtn').first()
     loadBtn.prop("disabled", false);
     loadBtn.attr("data-filename", filename);
