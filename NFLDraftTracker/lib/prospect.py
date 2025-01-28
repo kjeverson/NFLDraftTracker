@@ -111,6 +111,11 @@ class Prospect(db.Model):
 			self.rank = int(rank)
 			db.session.commit()
 
+	def set_grade(self, grade):
+		if grade:
+			self.grade = float(grade)
+			db.session.commit()
+
 	def set_comparison(self, comparison):
 		self.comparison = comparison
 		db.session.commit()

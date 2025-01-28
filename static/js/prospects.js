@@ -139,6 +139,7 @@ function saveProspect(id) {
     var twenty_shuttle = document.getElementById("prospectCardTwentyShuttle");
     var bench = document.getElementById("prospectCardBench");
     var ras = document.getElementById("prospectCardRAS");
+    var grade = document.getElementById("prospectCardGrade");
 
     var favorite = document.getElementById("favoriteProspect");
     var concern = document.getElementById("concernProspect");
@@ -168,6 +169,7 @@ function saveProspect(id) {
             twenty_shuttle: twenty_shuttle.value,
             bench: bench.value,
             ras: ras.value,
+            grade: grade.value,
             favorite: favorite.checked,
             concern: concern.checked
         },

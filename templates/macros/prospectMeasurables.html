@@ -91,6 +91,96 @@
         </div>
     </div>
 </div>
-<div class="row">
+{% endmacro %}
+
+
+{% macro edit_measurables(prospect) %}
+<div class="row justify-content-center p-0">
+    <div class="col-6">
+        <div class="row">
+            <div class="col-6 p-0 d-flex justify-content-center align-items-center">
+            <div class="card bg-transparent border-0">
+              <div class="card-body gauge-card">
+                <small class="pt-0 pb-2 caps text-center">Prospect Grade:</small>
+                  <input id="prospectCardGrade" type="text" class="form-control w-100" value="{{ prospect.grade if prospect.grade else '' }}">
+              </div>
+            </div>
+            </div>
+            <div class="col-6 p-0 d-flex justify-content-center align-items-center">
+                <div class="card bg-transparent border-0">
+                  <div class="card-body gauge-card">
+                    <small class="pt-0 pb-2 caps text-center">Relative Athletic Score:</small>
+                      <input id="prospectCardRAS" type="text" class="form-control w-100" value="{{ prospect.ras if prospect.ras else '' }}">
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 p-0">
+        <div class="row">
+            <div class="col p-0 text-center">
+                <div class="card bg-transparent border-0">
+                  <div class="card-body">
+                    <small class="card-title pt-0 caps">40-Yard Dash:</small>
+                    <h2 class="card-text" style="margin-bottom: 0;">
+                        <input id="prospectCardForty" type="text" class="form-control" value="{{ prospect.forty if prospect.forty else '' }}">
+                    </h2>
+                  </div>
+                </div>
+            </div>
+            <div class="col p-0 text-center">
+                <div class="card bg-transparent border-0">
+                  <div class="card-body">
+                    <small class="card-title caps">Vertical Jump:</small>
+                    <h2 class="card-text">
+                        <input id="prospectCardVertical" type="text" class="form-control" value="{{ prospect.vertical if prospect.vertical else '' }}">
+                    </h2>
+                  </div>
+                </div>
+            </div>
+            <div class="col p-0 text-center">
+                 <div class="card bg-transparent border-0">
+                  <div class="card-body">
+                    <small class="card-title caps">Broad Jump:</small>
+                    <h2 class="card-text">
+                        <input id="prospectCardBroad" type="text" class="form-control" value="{{ prospect.broad if prospect.broad else '' }}">
+                    </h2>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col p-0 text-center">
+                <div class="card bg-transparent border-0">
+                  <div class="card-body">
+                    <small class="card-title caps">Three-Cone:</small>
+                    <h2 class="card-text">
+                        <input id="prospectCardThreeCone" type="text" class="form-control" value="{{ prospect.three_cone if prospect.three_cone else '' }}">
+                    </h2>
+                  </div>
+                </div>
+            </div>
+            <div class="col p-0 text-center">
+                <div class="card bg-transparent border-0">
+                  <div class="card-body">
+                    <small class="card-title caps">20-Yard Shuttle:</small>
+                    <h2 class="card-text">
+                        <input id="prospectCardTwentyShuttle" type="text" class="form-control" value="{{ prospect.twenty_shuttle if prospect.twenty_shuttle else '' }}">
+                    </h2>
+                  </div>
+                </div>
+            </div>
+            <div class="col p-0 text-center">
+                <div class="card bg-transparent border-0">
+                  <div class="card-body">
+                    <small class="card-title caps">Bench Press:</small>
+                    <h2 class="card-text">
+                        <input id="prospectCardBench" type="text" class="form-control" value="{{ prospect.bench if prospect.bench else '' }}">
+                    </h2>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endmacro %}

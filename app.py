@@ -123,6 +123,7 @@ def save_prospect():
     twenty_shuttle = request.form.get("twenty_shuttle")
     bench = request.form.get("bench")
     ras = request.form.get("ras")
+    grade = request.form.get("grade")
     favorite = request.form.get("favorite")
     concern = request.form.get("concern")
 
@@ -130,6 +131,7 @@ def save_prospect():
     prospect.set_name(fname, lname)
     prospect.set_position(position)
     prospect.set_rank(rank)
+    prospect.set_grade(grade)
     prospect.set_comparison(comparison)
     prospect.set_projection(projection)
     prospect.set_role(role)
