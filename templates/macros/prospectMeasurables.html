@@ -5,7 +5,7 @@
             <div class="col-6 p-0 d-flex justify-content-center align-items-center">
             <div class="card bg-transparent border-0">
               <div class="card-body gauge-card">
-                <h6 class="pt-0 caps text-center">Prospect Grade:</h6>
+                <small class="pt-0 pb-2 caps text-center">Prospect Grade:</small>
                   <div class="gauge" style="background: conic-gradient(#{{ prospect.drafted_team.primary_color if prospect.drafted_team else prospect.college_team.primary_color }} 0% {{ prospect.grade if prospect.grade else 0}}%, #1e293b 12% 100%);">
                       <div class="gauge-inner">
                           {{ prospect.grade if prospect.grade else "--" }}
@@ -17,7 +17,7 @@
             <div class="col-6 p-0 d-flex justify-content-center align-items-center">
                 <div class="card bg-transparent border-0">
                   <div class="card-body gauge-card">
-                    <h6 class="pt-0 caps text-center">Relative Athletic Score:</h6>
+                    <small class="pt-0 pb-2 caps text-center">Relative Athletic Score:</small>
                       <div class="gauge" style="background: conic-gradient(#{{ prospect.drafted_team.primary_color if prospect.drafted_team else prospect.college_team.primary_color }} 0% {{ prospect.ras * 10 if prospect.ras else 0}}%, #1e293b 12% 100%);">
                           <div class="gauge-inner">
                               {{ prospect.ras if prospect.ras else "--" }}
