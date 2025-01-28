@@ -1,0 +1,96 @@
+{% macro measurables(prospect) %}
+<div class="row justify-content-center p-0">
+    <div class="col-6">
+        <div class="row">
+            <div class="col-6 p-0 d-flex justify-content-center align-items-center">
+            <div class="card bg-transparent border-0">
+              <div class="card-body gauge-card">
+                <h6 class="pt-0 caps text-center">Prospect Grade:</h6>
+                  <div class="gauge" style="background: conic-gradient(#{{ prospect.drafted_team.primary_color if prospect.drafted_team else prospect.college_team.primary_color }} 0% {{ prospect.grade if prospect.grade else 0}}%, #1e293b 12% 100%);">
+                      <div class="gauge-inner">
+                          {{ prospect.grade if prospect.grade else "--" }}
+                      </div>
+                  </div>
+              </div>
+            </div>
+            </div>
+            <div class="col-6 p-0 d-flex justify-content-center align-items-center">
+                <div class="card bg-transparent border-0">
+                  <div class="card-body gauge-card">
+                    <h6 class="pt-0 caps text-center">Relative Athletic Score:</h6>
+                      <div class="gauge" style="background: conic-gradient(#{{ prospect.drafted_team.primary_color if prospect.drafted_team else prospect.college_team.primary_color }} 0% {{ prospect.ras * 10 if prospect.ras else 0}}%, #1e293b 12% 100%);">
+                          <div class="gauge-inner">
+                              {{ prospect.ras if prospect.ras else "--" }}
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-0 mt-0">
+            <div class="col-6 text-center">
+                <small class="light-caps text-muted"><small>{{ prospect.grade_string() }}</small></small>
+            </div>
+            <div class="col-6 text-center">
+                <small class="light-caps text-muted"><small>{{ prospect.ras_string() }}</small></small>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 p-0">
+        <div class="row">
+            <div class="col p-0 text-center">
+                <div class="card bg-transparent border-0">
+                  <div class="card-body">
+                    <small class="card-title pt-0 caps">40-Yard Dash:</small>
+                    <h2 class="card-text" style="margin-bottom: 0;">{{ prospect.forty if prospect.forty else ' -- ' }}</h2>
+                  </div>
+                </div>
+            </div>
+            <div class="col p-0 text-center">
+                <div class="card bg-transparent border-0">
+                  <div class="card-body">
+                    <small class="card-title caps">Vertical Jump:</small>
+                    <h2 class="card-text">{{ prospect.vertical if prospect.vertical else ' -- ' }}</h2>
+                  </div>
+                </div>
+            </div>
+            <div class="col p-0 text-center">
+                 <div class="card bg-transparent border-0">
+                  <div class="card-body">
+                    <small class="card-title caps">Broad Jump:</small>
+                    <h2 class="card-text">{{ prospect.broad if prospect.broad else ' -- ' }}</h2>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col p-0 text-center">
+                <div class="card bg-transparent border-0">
+                  <div class="card-body">
+                    <small class="card-title caps">Three-Cone:</small>
+                    <h2 class="card-text">{{ prospect.three_cone if prospect.three_cone else ' -- ' }}</h2>
+                  </div>
+                </div>
+            </div>
+            <div class="col p-0 text-center">
+                <div class="card bg-transparent border-0">
+                  <div class="card-body">
+                    <small class="card-title caps">20-Yard Shuttle:</small>
+                    <h2 class="card-text">{{ prospect.twenty_shuttle if prospect.twenty_shuttle else ' -- ' }}</h2>
+                  </div>
+                </div>
+            </div>
+            <div class="col p-0 text-center">
+                <div class="card bg-transparent border-0">
+                  <div class="card-body">
+                    <small class="card-title caps">Bench Press:</small>
+                    <h2 class="card-text">{{ prospect.bench if prospect.bench else ' -- ' }}</h2>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+</div>
+{% endmacro %}

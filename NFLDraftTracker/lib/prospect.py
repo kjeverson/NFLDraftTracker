@@ -184,6 +184,55 @@ class Prospect(db.Model):
 
 		db.session.commit()
 
+	def ras_string(self):
+		if self.ras:
+			if self.ras == 10.00:
+				return "Unicorn"
+			elif 10 > self.ras >= 9:
+				return "Elite Athlete"
+			elif 9 > self.ras >= 8:
+				return "Great Athlete"
+			elif 8 > self.ras >= 7:
+				return "Good Athlete"
+			elif 7 > self.ras >= 5:
+				return "Okay Athlete"
+			else:
+				return "Poor Athlete"
+		else:
+			return "No Athletic Profile"
+
+	def grade_string(self):
+		if self.grade:
+			if self.grade == 100:
+				return "The Perfect Prospect"
+			elif 100 > self.grade >= 95:
+				return "Perennial All-Pro"
+			elif 95 > self.grade >= 90:
+				return "Pro Bowl Talent"
+			elif 90 > self.grade >= 85:
+				return "Year 1 Starter"
+			elif 85 > self.grade >= 80:
+				return "Boom-or-Bust Potential"
+			elif 80 > self.grade >= 75:
+				return "Will Become A Good Starter Within Two Years"
+			elif 75 > self.grade >= 70:
+				return "Will Eventually Be A Plus Starter"
+			elif 70 > self.grade >= 65:
+				return "Will Eventually Be An Average Starter"
+			elif 65 > self.grade >= 60:
+				return "Good Backup With The Potential To Develop Into A Starter"
+			elif 60 > self.grade >= 55:
+				return "Traits Or Talent To Be An Above-Average Backup"
+			elif 55 > self.grade >= 50:
+				return "Average Backup or Special Teamer"
+			elif 50 > self.grade >= 45:
+				return "Candidate For The Bottom Of The Roster Or Practice Squad"
+			else:
+				return "Priority Free Agent"
+
+		else:
+			return "No Grade Available"
+
 
 def add_prospect(database, fname, lname, position, college_id):
 	name = "{} {}".format(fname, lname)
