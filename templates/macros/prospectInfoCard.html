@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}">
 {% if prospect.drafted_team %}
 <div class="row prospect-row" style="background:linear-gradient(to top, rgba(0,0,0,0) 30%, #{{ prospect.drafted_team.primary_color }})">
-    <div class="col-3 position-relative">
+    <div class="col-3 pr-col-3 position-relative">
         <div class="img-container">
             <img src="{{ url_for('static', filename='img/headshots/'+ prospect.prospect_year|string + '/' + prospect.ID|string +'.png') }}"
                  onerror="this.src='{{ url_for('static', filename='img/headshots/default.png') }}'"

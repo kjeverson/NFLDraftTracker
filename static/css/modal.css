@@ -6,7 +6,7 @@
 }
 
 /* Ensure the player image is above the team logo */
-.col-3.position-relative {
+.pr-col-3.position-relative {
     position: relative; /* Position this container relative to the rest of the layout */
 }
 
@@ -21,7 +21,6 @@
     top: 10%; /* Adjust the vertical position as needed */
     left: 65%; /* Center the logo horizontally */
     z-index: 0; /* Put the logo behind the player image */
-    opacity: 0.85; /* Optional: Adjust opacity for a faded look */
     width: auto; /* Set width of the logo */
     height: 100px; /* Maintain aspect ratio */
 }

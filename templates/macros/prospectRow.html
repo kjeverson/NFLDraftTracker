@@ -1,76 +1,89 @@
 {% macro prospect_row(prospect, current_pick, draftable) %}
 {% if prospect.drafted_team %}
 <tr data-prospect-name="{{ prospect.name|lower }}" class="player-btn">
-    <td style="background:linear-gradient(to left, rgba(0,0,0,0) 35%, #{{ prospect.drafted_team.primary_color }})">
-        <div class="row align-items-center">
-            <div class="col-2">
-                <div class="row text-center justify-content-center">
-                    <h4><i>{{ prospect.rank if prospect.rank > 0 and prospect.rank < 301 else "--" }}</i></h4>
-                </div>
+    <td class="p-0 m-0" style="background: linear-gradient(to right, #{{ prospect.drafted_team.primary_color }}, rgba(0,0,0,0) 65%);">
+        <div class="row align-items-center p-0 m-0 prospect-table-row" style="overflow: hidden;">
+            <div class="ptr-team-logo-container">
+                <img src="{{ url_for('static', filename='img/NFL/' + prospect.drafted_team.key + '.png') }}"
+                     onerror="this.src='{{ url_for('static', filename='img/draft_logo.png') }}'"
+                     class="ptr-team-logo">
             </div>
-            <div class="col-1"><img src="{{ url_for('static', filename='img/NFL/'+ prospect.drafted_team.key|string +'.png') }}" height="40px"></div>
-            <div class="col-6">
-                <div class="row"><h6 style="text-transform: uppercase;  margin-bottom: 0;">{% if prospect.favorite %}<i class="bi bi-star-fill text-warning"></i> {% else %}<i class="bi bi-star"></i> {% endif %}<i>{{ prospect.name }}  {% if prospect.concern %} <span class="text-danger">*</span>{% endif %}</i></h6></div>
-                <div class="row"><small style="font-weight: 200; text-transform: uppercase;  margin-top: 0;">{{ prospect.position }} | {{ prospect.drafted_team.fullname }}</small></div>
+            <div class="col-2 text-center">
+                <h6 class="ptr-rank-text"><i>{{ prospect.rank if prospect.rank != 1000 else "--" }}</i></h6>
+            </div>
+            <div class="col-1">
+
+            </div>
+            <div class="col-6 pt-2 pb-2">
+                <h6 style="text-transform: uppercase; margin-bottom: 0;">
+                    {% if prospect.favorite %}
+                    <i id="favIcon{{prospect.ID}}" class="bi bi-star-fill text-warning" data-id="{{ prospect.ID }}" onclick="unfavoriteProspect(this.getAttribute('data-id'))"></i>
+                    {% else %}
+                    <i id="favIcon{{prospect.ID}}" class="bi bi-star" data-id="{{ prospect.ID }}" onclick="favoriteProspect(this.getAttribute('data-id'))"></i>
+                    {% endif %}
+                    <i>{{ prospect.name }}
+                        {% if prospect.concern %}
+                        <span class="text-danger">*</span>
+                        {% endif %}
+                    </i>
+                </h6>
+                <small style="font-weight: 200; text-transform: uppercase; margin-top: 0;">
+                    {{ prospect.position }}{% if prospect.drafted_team %} | {{ prospect.drafted_team.fullname }} {% endif %}
+                </small>
             </div>
             <div class="col-1">
                 <i type="button" class="bi bi-clipboard2-data-fill h4" data-id="{{ prospect.ID }}" onclick="getProspect(this.getAttribute('data-id'))"></i>
             </div>
             <div class="col-2">
-                <div class="row"><h6 style="text-transform: uppercase;  margin-bottom: 0; text-align:center;">Round {{ prospect.draft_pick.round }}</h6></div>
+                <div class="row"><small style="text-transform: uppercase;  margin-bottom: 0; text-align:center;">Round {{ prospect.draft_pick.round }}</small></div>
                 <div class="row"><small style="font-weight: 200; text-transform: uppercase;  margin-top: 0; text-align:center;">Pick {{ prospect.draft_pick.pick }}</small></div>
             </div>
         </div>
     </td>
 </tr>
 {% else %}
-<tr data-prospect-name="{{ prospect.name|lower }}" class="player-btn">
-    <td style="background:linear-gradient(to left, rgba(0,0,0,0) 35%, #{{ prospect.college_team.primary_color if prospect.college_team else '4c8bc6' }})">
-        <div class="row align-items-center">
-            <div class="col-2">
-                <div class="row text-center justify-content-center">
-                    <h4><i>{{ prospect.rank if prospect.rank > 0 and prospect.rank < 301 else "--" }}</i></h4>
-                </div>
-            </div>
-            <div class="col-1">
-                <img src="{{ url_for('static', filename='img/NCAA/'+ prospect.college_team.ID|string +'.png') }}"
+<tr data-prospect-name="{{ prospect.name|lower }}" class="player-btn p-0 m-0">
+    <td class="p-0 m-0" style="background: linear-gradient(to right, #{{ prospect.college_team.primary_color if prospect.college_team else '4c8bc6' }}, rgba(0,0,0,0) 65%);">
+        <div class="row align-items-center p-0 m-0 prospect-table-row" style="overflow: hidden;">
+            <div class="ptr-team-logo-container">
+                <img src="{{ url_for('static', filename='img/NCAA/' + prospect.college_team.ID|string + '.png') }}"
                      onerror="this.src='{{ url_for('static', filename='img/draft_logo.png') }}'"
-                     height="40px">
+                     class="ptr-team-logo">
             </div>
-            <div class="col-6">
-                <div class="row">
-                    <h6 style="text-transform: uppercase;  margin-bottom: 0;">
-                        {% if prospect.favorite %}
-                        <i id="favIcon{{prospect.ID}}" type="button" class="bi bi-star-fill text-warning" data-id="{{ prospect.ID }}" onclick="unfavoriteProspect(this.getAttribute('data-id'))"></i>
-                        {% else %}
-                        <i id="favIcon{{prospect.ID}}" type="button" class="bi bi-star" data-id="{{ prospect.ID }}" onclick="favoriteProspect(this.getAttribute('data-id'))"></i>
-                        {% endif %}
-                        <i>{{ prospect.name }}
-                            {% if prospect.concern %}
-                            <span class="text-danger">*</span>
-                            {% endif %}
-                        </i>
-                    </h6>
-                </div>
-                <div class="row">
-                    <small style="font-weight: 200; text-transform: uppercase;  margin-top: 0;">
-                        {{ prospect.position }}{% if prospect.college_team %} | {{ prospect.college_team.location }} {% endif %}
-                    </small>
-                </div>
+            <div class="col-2 text-center">
+                <h6 class="ptr-rank-text"><i>{{ prospect.rank if prospect.rank != 1000 else "--" }}</i></h6>
             </div>
             <div class="col-1">
+
+            </div>
+            <div class="col-6 pt-2 pb-2">
+                <h6 style="text-transform: uppercase; margin-bottom: 0;">
+                    {% if prospect.favorite %}
+                    <i id="favIcon{{prospect.ID}}" class="bi bi-star-fill text-warning" data-id="{{ prospect.ID }}" onclick="unfavoriteProspect(this.getAttribute('data-id'))"></i>
+                    {% else %}
+                    <i id="favIcon{{prospect.ID}}" class="bi bi-star" data-id="{{ prospect.ID }}" onclick="favoriteProspect(this.getAttribute('data-id'))"></i>
+                    {% endif %}
+                    <i>{{ prospect.name }}
+                        {% if prospect.concern %}
+                        <span class="text-danger">*</span>
+                        {% endif %}
+                    </i>
+                </h6>
+                <small style="font-weight: 200; text-transform: uppercase; margin-top: 0;">
+                    {{ prospect.position }}{% if prospect.college_team %} | {{ prospect.college_team.location }} {% endif %}
+                </small>
+            </div>
+            <div class="col-1 text-center">
                 <i type="button" class="bi bi-clipboard2-data-fill h4" data-id="{{ prospect.ID }}" onclick="getProspect(this.getAttribute('data-id'))"></i>
             </div>
             <div class="col-2">
-                {% if current_pick and draftable%}
+                {% if current_pick and draftable %}
                 <button class="btn w-100 btn-secondary draftBtn" type="button" data-pick-id="{{ current_pick.ID }}" data-id="{{ prospect.ID }}" onclick="draftProspect(this.getAttribute('data-pick-id'), this.getAttribute('data-id'))"><i>DRAFT</i></button>
-                {% elif editPage %}
-                {% else %}
-
                 {% endif %}
             </div>
         </div>
     </td>
 </tr>
+
 {% endif %}
 {% endmacro %}

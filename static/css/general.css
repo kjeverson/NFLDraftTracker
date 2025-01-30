@@ -8,3 +8,40 @@
     text-transform: uppercase;
     font-style: italic;
 }
+
+.prospect-table-row {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.ptr-rank-text {
+    font-weight: bold;
+    position: relative;
+    z-index: 3;
+}
+
+.ptr-team-logo-container {
+    position: absolute;
+    left: 13%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    width: 5%
+}
+
+.ptr-trade-icon{
+    position: absolute;
+    top: 30%; /* Adjust positioning */
+    left: 83%; /* Adjust positioning */
+    z-index: 2;
+}
+
+.ptr-team-logo {
+    height: 50px;
+    width: auto;
+    transform: scale(1.4);
+}
+

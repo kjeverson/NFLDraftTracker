@@ -332,7 +332,7 @@ function createPickCard(pick, currentPick) {
     card.appendChild(header);
 
     const tradedIcon = document.createElement('i');
-    tradedIcon.className = 'bi bi-arrow-repeat text-warning';
+    tradedIcon.className = 'bi bi-arrow-repeat text-warning dc-trade';
     tradedIcon.style.position = 'absolute';
     tradedIcon.style.top = '5px';
     tradedIcon.style.right = '10px';
