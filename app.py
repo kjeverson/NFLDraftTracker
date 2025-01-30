@@ -288,11 +288,6 @@ def colleges():
     return render_template("colleges.html")
 
 
-@app.route('/prospects', methods=['GET'])
-def prospects():
-    return render_template("prospects.html")
-
-
 @app.route('/collegesList', methods=['GET'])
 def colleges_list():
     colleges = NCAATeam.query.all()
