@@ -65,13 +65,20 @@ def get_prospects_by_position():
             prospects = Prospect.query.filter_by(draft_pick_id=None).all()
 
     else:
-        pos = [request.args.get("pos")]
+        if pos == "OL":
+            pos = ['OT', 'T', 'OG', 'G', 'OC', 'C', 'IOL']
 
-        if pos[0] == "IOL":
-            pos = ['OG', 'G', 'OC', 'C', 'IOL']
+        elif pos == "DL":
+            pos = ['DE', 'EDGE', 'DT', 'NT']
 
-        if pos[0] == "ST":
+        elif pos == "DB":
+            pos = ['DB', 'S', 'CB', 'SS', 'FS']
+
+        elif pos == "ST":
             pos = ['K', 'PK', 'P', 'LS']
+
+        else:
+            pos = [pos]
 
         prospects = []
         for p in pos:
