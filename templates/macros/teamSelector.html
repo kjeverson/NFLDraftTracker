@@ -14,13 +14,19 @@
             <div class="row justify-content-center">
               {% for team in teams | sort(attribute='key') %}
               {% if team.conference == conference and team.division == division %}
-              <button data-id="{{ team.ID }}" class="btn btn-small border-dark team-btn text-white" style="background:linear-gradient(to left, rgba(0,0,0,0) 5%, #{{ team.primary_color }})" {% if trading %} onclick="showTeamPicks(this.getAttribute('data-id'), '{{ tradeTeam }}' )"{% endif %}>
-                <div class="row">
-                  <div class="col-4">
-                    <img src="{{ url_for('static', filename='img/NFL/' + team.key + '.png') }}" style="height: 30px;">
+              <button data-id="{{ team.ID }}"
+                  class="btn btn-small border-dark team-btn text-white w-100 d-flex align-items-center justify-content-center p-2"
+                  style="background: linear-gradient(to left, rgba(0,0,0,0) 5%, #{{ team.primary_color }});"
+                  {% if trading %} onclick="showTeamPicks(this.getAttribute('data-id'), '{{ tradeTeam }}')" {% endif %}>
+
+                  <div class="d-flex align-items-center w-100">
+                      <div class="col-5 d-flex justify-content-center pe-2">
+                          <img src="{{ url_for('static', filename='img/NFL/' + team.key + '.png') }}" class="img-fluid" style="max-height: 30px;">
+                      </div>
+                      <div class="col-7 d-flex align-items-center justify-content-start">
+                          <small class="caps">{{ team.key }}</small>
+                      </div>
                   </div>
-                  <div class="col-8 text-start align-self-center"><small class="caps">{{ team.key }}</small></div>
-                </div>
               </button>
               {% endif %}
               {% endfor %}

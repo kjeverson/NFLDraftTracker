@@ -10,9 +10,19 @@
             <div class="modal-body bg-dark">
                 <!-- SELECTED PROSPECT -->
                 {% if draft_pick.prospect[0] %}
-                {{ player_card(draft_pick.prospect[0]) }}
+                    {{ player_card(draft_pick.prospect[0]) }}
                 {% endif %}
-                <!-- PICK OWNER NEEDS -->
+                <!-- PICK OWNER DRAFT CLASS -->
+                <div class="row p-2 justify-content-start">
+                    <div class="col-6">
+                        <h5 class="light-caps text-center">{{ team.name }} Draft Class:</h5>
+                        <div class="card bg-dark" data-team-id="{{ team.ID }}">
+                            {{ draft_selections_card(draft_pick.pick_owner) }}
+                        </div>
+                    </div>
+                    {% if not draft_pick.prospect[0] %}
+                    <div class="col-6">
+                        <!-- PICK OWNER NEEDS -->
                 <div class="row p-2 justify-content-center">
                     <h5 class="light-caps text-center">Team Needs:</h5>
                     <div class="row p-1 justify-content-center">
@@ -26,19 +36,7 @@
                         {% endfor %}
                     </div>
                 </div>
-                <!-- PICK OWNER DRAFT CLASS -->
-                <div class="row p-2 justify-content-start">
-                    <div class="col-6">
-                        <h5 class="light-caps">{{ team.name }} Draft Class:</h5>
-                        <div class="card bg-dark" data-team-id="{{ team.ID }}">
-                            <div class="row text-white">
-                                {{ draft_selections_card(draft_pick.pick_owner, False) }}
-                            </div>
-                        </div>
-                    </div>
-                    {% if not draft_pick.prospect[0] %}
-                    <div class="col-6">
-                        <h5 class="light-caps">Top Remaining Prospects:</h5>
+                        <h5 class="light-caps text-center">Top Remaining Prospects:</h5>
                         <table class="table table-dark">
                             <tbody id="">
                             {% for prospect in p %}
@@ -48,14 +46,62 @@
                         </table>
                     </div>
                     {% else %}
-                    {% if draft_pick.prospect[0].overview %}
                     <div class="col-6">
-                        <h5 class="light-caps">Prospect Overview:</h5>
+                        <!-- PICK OWNER NEEDS -->
+                        <div class="row p-2 justify-content-center">
+                            <h5 class="light-caps text-center">Team Needs:</h5>
+                            <div class="row p-1 justify-content-center">
+                                {% set drafted = team.get_drafted_positions() %}
+                                {% for need in team.get_needs() %}
+                                <div class="col-2">
+                                    <button class="btn w-100 {% if need in drafted %}btn-outline-secondary{% else %}btn-secondary{% endif %}"disabled>
+                                        {{ need }}
+                                    </button>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                         {% if draft_pick.prospect[0].overview %}
+                        <h5 class="light-caps text-center">Prospect Overview:</h5>
                         <blockquote>
                             <p>{{ draft_pick.prospect[0].overview }}</p>
                         </blockquote>
+                        {% endif %}
+                        <div class="row">
+                            <div class="col-6 p-0 d-flex justify-content-center align-items-center">
+                            <div class="card bg-transparent border-0">
+                              <div class="card-body gauge-card">
+                                <small class="pt-0 pb-2 caps text-center">Prospect Grade:</small>
+                                  <div class="gauge" style="background: conic-gradient(#{{ draft_pick.prospect[0].drafted_team.primary_color if draft_pick.prospect[0].drafted_team else draft_pick.prospect[0].college_team.primary_color }} 0% {{ draft_pick.prospect[0].grade if draft_pick.prospect[0].grade else 0}}%, #1e293b 12% 100%);">
+                                      <div class="gauge-inner">
+                                          {{ draft_pick.prospect[0].grade if draft_pick.prospect[0].grade else "--" }}
+                                      </div>
+                                  </div>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="col-6 p-0 d-flex justify-content-center align-items-center">
+                                <div class="card bg-transparent border-0">
+                                  <div class="card-body gauge-card">
+                                    <small class="pt-0 pb-2 caps text-center">Relative Athletic Score:</small>
+                                      <div class="gauge" style="background: conic-gradient(#{{ draft_pick.prospect[0].drafted_team.primary_color if draft_pick.prospect[0].drafted_team else draft_pick.prospect[0].college_team.primary_color }} 0% {{ draft_pick.prospect[0].ras * 10 if draft_pick.prospect[0].ras else 0}}%, #1e293b 12% 100%);">
+                                          <div class="gauge-inner">
+                                              {{ draft_pick.prospect[0].ras if draft_pick.prospect[0].ras else "--" }}
+                                          </div>
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-0 mt-0">
+                            <div class="col-6 text-center">
+                                <small class="light-caps text-muted"><small>{{ draft_pick.prospect[0].grade_string() }}</small></small>
+                            </div>
+                            <div class="col-6 text-center">
+                                <small class="light-caps text-muted"><small>{{ draft_pick.prospect[0].ras_string() }}</small></small>
+                            </div>
+                        </div>
                     </div>
-                    {% endif %}
                     {% endif %}
                 </div>
             </div>
