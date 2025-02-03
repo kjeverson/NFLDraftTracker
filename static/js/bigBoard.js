@@ -226,6 +226,7 @@ function createPlaceholder(pick, team_name, team_key, team_color, status) {
     teamName.style.fontWeight = "200";
     teamName.style.fontStyle = "italic";
     teamName.style.margin.bottom = 0;
+    teamName.style.textTransform = "uppercase";
 
     // Status Message
     const placeholderText = document.createElement("h5");
@@ -364,6 +365,7 @@ function createPickCard(pick, currentPick) {
     teamName.style.color = "#fff";
     teamName.style.fontStyle = "italic";
     teamName.textContent = pick['pick_owner']['name'];
+    teamName.style.textTransform = "uppercase";
     statusRow.appendChild(teamName);
 
     // Status
