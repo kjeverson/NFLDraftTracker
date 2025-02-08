@@ -46,3 +46,19 @@
     filter: drop-shadow(0 0 10px black);
 }
 
+.ptr-team-helmet {
+    height: 60px;
+    width: auto;
+    transform: scale(1.35) rotate(15deg);
+    filter: drop-shadow(0 0 10px black);
+}
+
+.ptr-team-helmet-container {
+    position: absolute;
+    left: 2%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 5%
+}
+
