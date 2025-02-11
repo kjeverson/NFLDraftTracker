@@ -49,7 +49,7 @@
 .ptr-team-helmet {
     height: 60px;
     width: auto;
-    transform: scale(1.35) rotate(15deg);
+    transform: scale(1.15);
     filter: drop-shadow(0 0 10px black);
 }
 
