@@ -1,6 +1,6 @@
 {% macro prospect_row(prospect, current_pick, draftable) %}
 {% if prospect.drafted_team %}
-<tr data-prospect-name="{{ prospect.name|lower }}" class="player-btn">
+<tr data-prospect-id="{{ prospect.ID }}" data-prospect-name="{{ prospect.name|lower }}" class="player-btn">
     <td class="p-0 m-0" style="background: linear-gradient(to right, #{{ prospect.drafted_team.primary_color }} 15%, rgba(0,0,0,0) 65%);"
         onmouseover="this.style.background='linear-gradient(to right, #{{ prospect.drafted_team.primary_color }} 25%, rgba(0,0,0,0) 95%)'"
         onmouseout="this.style.background='linear-gradient(to right, #{{ prospect.drafted_team.primary_color }} 15%, rgba(0,0,0,0) 65%)'"
@@ -43,7 +43,7 @@
     </td>
 </tr>
 {% else %}
-<tr data-prospect-name="{{ prospect.name|lower }}" class="player-btn p-0 m-0">
+<tr data-prospect-id="{{ prospect.ID }}" data-prospect-name="{{ prospect.name|lower }}" class="player-btn p-0 m-0">
     <td class="p-0 m-0" style="background: linear-gradient(to right, #{{ prospect.college_team.primary_color if prospect.college_team else '4c8bc6' }} 15%, rgba(0,0,0,0) 65%);"
         onmouseover="this.style.background='linear-gradient(to right, #{{ prospect.college_team.primary_color if prospect.college_team else '4c8bc6' }} 25%, rgba(0,0,0,0) 95%)'"
         onmouseout="this.style.background='linear-gradient(to right, #{{ prospect.college_team.primary_color if prospect.college_team else '4c8bc6' }} 15%, rgba(0,0,0,0) 65%)'"
@@ -80,7 +80,7 @@
                 <i type="button" class="bi bi-clipboard2-data-fill h4" data-id="{{ prospect.ID }}" onclick="getProspect(this.getAttribute('data-id'))"></i>
             </div>
             <div class="col-2">
-                <button class="btn w-100 btn-secondary draftBtn" type="button" data-pick-id="{{ current_pick.ID }}" data-id="{{ prospect.ID }}" onclick="draftProspect(this.getAttribute('data-pick-id'), this.getAttribute('data-id'))"><i>PICK</i></button>
+                <button class="btn w-100 btn-secondary draftBtn" type="button" data-id="{{ prospect.ID }}" onclick="draftProspect(this.getAttribute('data-id'))"><i>PICK</i></button>
             </div>
         </div>
         {% else %}

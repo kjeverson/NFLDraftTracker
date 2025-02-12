@@ -395,17 +395,19 @@ function createPickCard(pick, currentPick) {
     return container;
 }
 
-function draftProspect(pick_id, prospect_id) {
+function draftProspect(prospect_id) {
     $.ajax({
         url: "/draftProspect",
         type: "post",
         data: {
             prospect_id: prospect_id,
-            pick_id: pick_id
         },
         success: function(data) {
+            pick_id = data['currPick'];
             const audio = document.getElementById('draftChime');
             audio.play();
+
+            $(`.player-btn[data-prospect-id='${prospect_id}']`).fadeOut();
 
             var pickCard = document.getElementById("pick" + pick_id);
             pickCard.classList.remove("border-light", "border-3");
@@ -447,7 +449,7 @@ function draftProspect(pick_id, prospect_id) {
         },
         complete: function(data) {
 
-            getPosition(getPositionBtn());
+            //getPosition(getPositionBtn());
 
             if (data.responseJSON['nextPick'] != null){
                 next_pick = parseInt(data.responseJSON["nextPick"]);

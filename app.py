@@ -209,20 +209,12 @@ def get_draft_order():
 @app.route('/draftProspect', methods=['POST'])
 def draft_prospect():
     prospect_id = request.form.get("prospect_id")
-    pick_id = int(request.form.get("pick_id"))
 
     prospect = Prospect.query.get(prospect_id)
-    pick = DraftPick.query.get(pick_id)
-
+    pick = get_current_pick()
     prospect.draft(pick)
 
     next_pick = get_current_pick()
-    if next_pick:
-        next_pick_msg = next_pick.pick_owner.fullname + " Are On The Clock!"
-        next_pick_color = next_pick.pick_owner.primary_color
-    else:
-        next_pick_msg = "The NFL Draft Has Concluded!"
-        next_pick_color = "6c757d"
 
     draft_pick = {
         "id": prospect.ID,
@@ -233,6 +225,7 @@ def draft_prospect():
         "team_key": pick.pick_owner.key,
         "team_name": pick.pick_owner.name,
         "team_full_name": pick.pick_owner.fullname,
+        "currPick": pick.pick,
         "nextPick": next_pick.pick if next_pick else None,
         "next_pick_team_name": next_pick.pick_owner.name if next_pick else None,
         "next_pick_team_key": next_pick.pick_owner.key if next_pick else None,
