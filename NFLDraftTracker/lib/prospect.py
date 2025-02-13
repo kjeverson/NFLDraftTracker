@@ -60,6 +60,27 @@ class Prospect(db.Model):
 	def __gt__(self, prospect):
 		return self.rank > prospect.rank
 
+	def serialize(self):
+		dict = {
+			"ID": self.ID,
+			"name": self.name,
+			"sname": self.sname,
+			"favorite": self.favorite,
+			"concern": self.concern,
+			"rank": self.rank,
+			"position": self.position,
+			"college_team": self.college_team.location,
+			"prospect_year": self.prospect_year
+		}
+
+		if self.drafted_team:
+			team = self.drafted_team.serialize()
+			pick = self.draft_pick.serialize()
+			dict.update({"drafted_team": team})
+			dict.update({"draft_pick": pick})
+
+		return dict
+
 	def delete(self):
 		Prospect.query.filter(Prospect.ID == self.ID).delete()
 		db.session.commit()

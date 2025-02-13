@@ -248,7 +248,7 @@ function createPlaceholder(pick, team_name, team_key, team_color, status) {
 
 }
 
-function createDraftPickRow(pick) {
+function createDraftPickRow(pick, prospect) {
     const row = document.createElement("div");
     row.className = "row";
 
@@ -257,7 +257,7 @@ function createDraftPickRow(pick) {
     leftCol.className = "col-6 dc-player-img-container";
 
     const playerImg = document.createElement("img");
-    playerImg.src = `/static/img/headshots/${pick['year']}/${pick['id']}.png`; // Adjust path as necessary
+    playerImg.src = `/static/img/headshots/${prospect['prospect_year']}/${prospect['ID']}.png`; // Adjust path as necessary
     playerImg.onerror = function () {
         this.src = `/static/img/headshots/default.png`; // Default image
     };
@@ -270,7 +270,7 @@ function createDraftPickRow(pick) {
     rightCol.className = "col-6";
 
     const teamImg = document.createElement("img");
-    teamImg.src = `/static/img/NFL/${pick['team_key']}.png`; // Adjust path as necessary
+    teamImg.src = `/static/img/NFL/${pick['pick_owner']['key']}.png`; // Adjust path as necessary
     teamImg.height = 60;
 
     rightCol.appendChild(teamImg);
@@ -283,7 +283,7 @@ function createDraftPickRow(pick) {
 
     const prospectName = document.createElement("small");
     prospectName.className = "dc-prospect-name";
-    prospectName.innerHTML = pick['sname'];
+    prospectName.innerHTML = prospect['sname'];
 
     prospectNameRow.appendChild(prospectName);
 
@@ -292,7 +292,7 @@ function createDraftPickRow(pick) {
 
     prospectInfo = document.createElement("small");
     prospectInfo.className = "dc-prospect-info";
-    prospectInfo.innerHTML = pick["position"] + " | " + pick["college"]
+    prospectInfo.innerHTML = prospect["position"] + " | " + prospect["college_team"]
 
     prospectInfoRow.appendChild(prospectInfo);
 
@@ -395,6 +395,160 @@ function createPickCard(pick, currentPick) {
     return container;
 }
 
+function createProspectRowPlaceHolder(prospect) {
+    let tr = document.createElement("tr");
+    tr.setAttribute("data-prospect-id", prospect['ID']);
+    tr.setAttribute("data-prospect-name", prospect['name'].toLowerCase());
+    tr.classList.add("player-btn");
+
+    let td = document.createElement("td");
+    td.classList.add("p-0", "m-0");
+    td.style.background = `linear-gradient(to right, #${prospect['drafted_team']['primary_color']} 25%, rgba(0,0,0,0) 95%)`;
+
+    let divRow = document.createElement("div");
+    divRow.classList.add("row", "align-items-center", "p-0", "m-0", "prospect-table-row");
+    divRow.style.overflow = "hidden";
+
+    let helmetContainer = document.createElement("div");
+    helmetContainer.classList.add("ptr-team-logo-container");
+
+    let img = document.createElement("img");
+    img.src = `/static/img/NFL/${prospect['drafted_team']['key']}.png`;
+    img.classList.add("ptr-team-logo");
+
+    helmetContainer.appendChild(img);
+    divRow.appendChild(helmetContainer);
+
+    let emptyCol = document.createElement("div");
+    emptyCol.classList.add("col-2");
+
+    let textCol = document.createElement("div");
+    textCol.classList.add("col-7", "pt-2", "pb-2", "text-center");
+
+    let h6 = document.createElement("h5");
+    h6.style.textTransform = "uppercase";
+    h6.style.marginBottom = "0";
+
+    let name = document.createElement("i");
+    name.innerHTML = ` <b>PICK IS IN!</b> `;
+
+    h6.appendChild(name);
+
+    let small = document.createElement("small");
+    small.style.fontWeight = "200";
+    small.style.textTransform = "uppercase";
+    small.innerHTML = `<i>${prospect['drafted_team']['name']}</i>`;
+
+    textCol.appendChild(small);
+    textCol.appendChild(h6);
+    divRow.appendChild(emptyCol);
+    divRow.appendChild(textCol);
+
+    td.appendChild(divRow);
+    tr.appendChild(td);
+
+    return tr;
+}
+
+function createProspectRow(prospect) {
+    let tr = document.createElement("tr");
+    tr.setAttribute("data-prospect-id", prospect['ID']);
+    tr.setAttribute("data-prospect-name", prospect['name'].toLowerCase());
+    tr.classList.add("player-btn");
+
+    let td = document.createElement("td");
+    td.classList.add("p-0", "m-0");
+    td.style.background = `linear-gradient(to right, #${prospect['drafted_team']['primary_color']} 15%, rgba(0,0,0,0) 65%)`;
+    td.onmouseover = function () {
+        this.style.background = `linear-gradient(to right, #${prospect['drafted_team']['primary_color']} 25%, rgba(0,0,0,0) 95%)`;
+    };
+    td.onmouseout = function () {
+        this.style.background = `linear-gradient(to right, #${prospect['drafted_team']['primary_color']} 15%, rgba(0,0,0,0) 65%)`;
+    };
+
+    let divRow = document.createElement("div");
+    divRow.classList.add("row", "align-items-center", "p-0", "m-0", "prospect-table-row");
+    divRow.style.overflow = "hidden";
+
+    let helmetContainer = document.createElement("div");
+    helmetContainer.classList.add("ptr-team-helmet-container");
+
+    let img = document.createElement("img");
+    img.src = `/static/img/Helmets/${prospect['drafted_team']['key']}.png`;
+    img.classList.add("ptr-team-helmet");
+
+    helmetContainer.appendChild(img);
+    divRow.appendChild(helmetContainer);
+
+    let emptyCol = document.createElement("div");
+    emptyCol.classList.add("col-2");
+
+    let textCol = document.createElement("div");
+    textCol.classList.add("col-7", "pt-2", "pb-2");
+
+    let h6 = document.createElement("h6");
+    h6.style.textTransform = "uppercase";
+    h6.style.marginBottom = "0";
+
+    let favIcon = document.createElement("i");
+    favIcon.id = `favIcon${prospect['ID']}`;
+    favIcon.classList.add("bi", prospect['favorite'] ? "bi-star-fill" : "bi-star");
+    favIcon.classList.add(prospect['favorite'] ? "text-warning" : "text-white");
+    favIcon.setAttribute("data-id", prospect['ID']);
+    favIcon.onclick = function () {
+        prospect.favorite ? unfavoriteProspect(prospect['ID']) : favoriteProspect(prospect['ID']);
+    };
+
+    let name = document.createElement("i");
+    name.textContent = ` ${prospect.name} `;
+
+    if (prospect['concern']) {
+        let concernSpan = document.createElement("span");
+        concernSpan.classList.add("text-danger");
+        concernSpan.textContent = "*";
+        name.appendChild(concernSpan);
+    }
+
+    h6.appendChild(favIcon);
+    h6.appendChild(name);
+    textCol.appendChild(h6);
+
+    let small = document.createElement("small");
+    small.style.fontWeight = "200";
+    small.style.textTransform = "uppercase";
+    small.innerHTML = `<span class="badge bg-light text-dark"># ${prospect['rank'] !== 1000 ? prospect['rank'] : "--"}</span> ${prospect['position']} ${prospect['drafted_team'] ? " | " + prospect['college_team'] : ""}`;
+
+    textCol.appendChild(small);
+    divRow.appendChild(emptyCol);
+    divRow.appendChild(textCol);
+
+    let clipboardCol = document.createElement("div");
+    clipboardCol.classList.add("col-1");
+    let clipboardIcon = document.createElement("i");
+    clipboardIcon.classList.add("bi", "bi-clipboard2-data-fill", "h4");
+    clipboardIcon.setAttribute("data-id", prospect['ID']);
+    clipboardIcon.onclick = function () {
+        getProspect(prospect['ID']);
+    };
+    clipboardCol.appendChild(clipboardIcon);
+    divRow.appendChild(clipboardCol);
+
+    let roundCol = document.createElement("div");
+    roundCol.classList.add("col-2");
+    let roundRow = document.createElement("div");
+    roundRow.innerHTML = `<small style="text-transform: uppercase; text-align:center;">Round ${prospect['draft_pick']['round']}</small>`;
+    let pickRow = document.createElement("div");
+    pickRow.innerHTML = `<small style="font-weight: 200; text-transform: uppercase; text-align:center;">Pick ${prospect['draft_pick']['pick']}</small>`;
+    roundCol.appendChild(roundRow);
+    roundCol.appendChild(pickRow);
+
+    divRow.appendChild(roundCol);
+    td.appendChild(divRow);
+    tr.appendChild(td);
+
+    return tr;
+}
+
 function draftProspect(prospect_id) {
     $.ajax({
         url: "/draftProspect",
@@ -403,24 +557,32 @@ function draftProspect(prospect_id) {
             prospect_id: prospect_id,
         },
         success: function(data) {
-            pick_id = data['currPick'];
+            pick = data['pick'];
             const audio = document.getElementById('draftChime');
             audio.play();
 
-            $(`.player-btn[data-prospect-id='${prospect_id}']`).fadeOut();
-
-            var pickCard = document.getElementById("pick" + pick_id);
+            var playerRow = $(`.player-btn[data-prospect-id='${prospect_id}']`);
+            playerRow.fadeIn(function() {
+                var placeholderPR = createProspectRowPlaceHolder(data['prospect']);
+                $(this).replaceWith(placeholderPR);
+                $(placeholderPR).delay(2700).fadeOut(function() {
+                    var newPlayerRow = createProspectRow(data['prospect']);
+                    $(this.replaceWith(newPlayerRow));
+                    $(newPlayerRow).delay(2000).fadeOut();
+                });
+            });
+            var pickCard = document.getElementById("pick" + pick["ID"]);
             pickCard.classList.remove("border-light", "border-3");
 
-            var pickContainer = document.getElementById("pick" + pick_id + "Container");
+            var pickContainer = document.getElementById("pick" + pick['ID'] + "Container");
             pickContainer.classList.remove("col-2");
             pickContainer.classList.add("col-3");
 
-            var pickCardBody = document.getElementById("pick" + pick_id + "CardBody");
+            var pickCardBody = document.getElementById("pick" + pick['ID'] + "CardBody");
             pickCardBody.innerHTML = "";
             pickCardBody.style.height = "140px";
 
-            var placeholder = createPlaceholder(pick_id, data["team_name"], data["team_key"], data["team_color"], "PICK IS IN!");
+            var placeholder = createPlaceholder(pick['ID'], pick["pick_owner"]["name"], pick["pick_owner"]["key"], pick["pick_owner"]["primary_color"], "PICK IS IN!");
             pickCardBody.appendChild(placeholder);
 
             // After 2.5 seconds, replace the placeholder with the draft pick row
@@ -429,7 +591,7 @@ function draftProspect(prospect_id) {
 
                 setTimeout(() => {
                     pickCardBody.innerHTML = ""; // Remove placeholder
-                    const draftPickRow = createDraftPickRow(data);
+                    const draftPickRow = createDraftPickRow(data["pick"], data["prospect"]);
                     // Reinforce the overflow-hidden style!!!
                     pickContainer.style.borderRadius = "20px";
                     pickContainer.style.overflow = "hidden";
@@ -452,7 +614,7 @@ function draftProspect(prospect_id) {
             //getPosition(getPositionBtn());
 
             if (data.responseJSON['nextPick'] != null){
-                next_pick = parseInt(data.responseJSON["nextPick"]);
+                next_pick = parseInt(data.responseJSON["nextPick"]["pick"]);
 
                 var card = document.getElementById("pick" + next_pick);
                 card.classList.add("border-light", "border-3");
@@ -460,7 +622,7 @@ function draftProspect(prospect_id) {
                 var pickCardBody = document.getElementById(`pick${next_pick}CardBody`);
                 pickCardBody.innerHTML = "";
                 pickCardBody.style.height = "140px";
-                pickCardBody.appendChild(createPlaceholder(next_pick, data.responseJSON["next_pick_team_name"], data.responseJSON["next_pick_team_key"], data.responseJSON["next_pick_team_color"], "ON THE CLOCK!"));
+                pickCardBody.appendChild(createPlaceholder(next_pick, data.responseJSON["nextPick"]["pick_owner"]["name"], data.responseJSON["nextPick"]["pick_owner"]["key"], data.responseJSON["nextPick"]["pick_owner"]["primary_color"], "ON THE CLOCK!"));
             }
 
             var viewingTeamId = document.getElementById("draftPicksCard");

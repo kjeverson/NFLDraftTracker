@@ -217,19 +217,9 @@ def draft_prospect():
     next_pick = get_current_pick()
 
     draft_pick = {
-        "id": prospect.ID,
-        "year": prospect.prospect_year,
-        "sname": prospect.sname,
-        "position": prospect.position,
-        "college": prospect.college_team.location if prospect.college_team else "None",
-        "team_key": pick.pick_owner.key,
-        "team_name": pick.pick_owner.name,
-        "team_full_name": pick.pick_owner.fullname,
-        "currPick": pick.pick,
-        "nextPick": next_pick.pick if next_pick else None,
-        "next_pick_team_name": next_pick.pick_owner.name if next_pick else None,
-        "next_pick_team_key": next_pick.pick_owner.key if next_pick else None,
-        "next_pick_team_color": next_pick.pick_owner.primary_color if next_pick else None,
+        "prospect": prospect.serialize(),
+        "pick": pick.serialize(),
+        "nextPick": next_pick.serialize() if next_pick else None,
     }
 
     return jsonify(draft_pick)
