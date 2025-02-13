@@ -534,7 +534,7 @@ function createProspectRow(prospect) {
     divRow.appendChild(clipboardCol);
 
     let roundCol = document.createElement("div");
-    roundCol.classList.add("col-2");
+    roundCol.classList.add("col-2", "text-center");
     let roundRow = document.createElement("div");
     roundRow.innerHTML = `<small style="text-transform: uppercase; text-align:center;">Round ${prospect['draft_pick']['round']}</small>`;
     let pickRow = document.createElement("div");
