@@ -74,6 +74,9 @@ Also, at any given time of the year this method can return empty or incomplete l
 
 That being said, ESPN sometimes miss guys. Because of this there is a means of adding prospects manually. Just use the "Add Prospect" button found on the "War Room" or "Prospects" page. This simply requires: first name, last name, position, and college to initiate a prospect. They can then be edited like every other prospect in the database, from the "Edit" button found on their prospect profile.
 
+Example Prospect Profile:
+![War Room Screenshot](./README/Player_Modal.png)
+
 #### Colleges
 I use ESPN's college list, and have no means of updating that (I currently don't see the need to add any more colleges, as the most common ones should be there). But if a college needs to be added, it can be manually added using the "Add College" button found on the "Edit Colleges" page under the "Settings" tab.
 
