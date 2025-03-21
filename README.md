@@ -1,3 +1,5 @@
+![War Room Screenshot](./README/War_Room.png)
+
 # NFLDraftTracker
 A web application designed to track and display information about the NFL draft and prospects. Built with Python, Flask, SQLAlchemy, Bootstrap, and jQuery.
 
