@@ -88,7 +88,6 @@ class Prospect(db.Model):
 	def get_headshot(self):
 		prospect_url = "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/athletes/{}"
 
-		print(self.name, self.ID)
 		if not self.athlete_id:
 			return
 		prospect_url = prospect_url.format(self.athlete_id)
@@ -213,7 +212,7 @@ class Prospect(db.Model):
 	def ras_string(self):
 		if self.ras:
 			if self.ras == 10.00:
-				return "Unicorn"
+				return "Mewtwo"
 			elif 10 > self.ras >= 9:
 				return "Elite Athlete"
 			elif 9 > self.ras >= 8:
@@ -387,7 +386,7 @@ def add_prospects(database, prospects, year):
 			college_team=college,
 			height=height,
 			weight=prospect['weight'],
-			rank=i+1,
+			rank=0,
 			position=position,
 			projection=None,
 			role=None,

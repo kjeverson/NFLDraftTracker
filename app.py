@@ -424,8 +424,28 @@ def add_prospects_table():
 @app.route("/getHeadshots", methods=['GET'])
 def get_headshots():
     prospects = Prospect.query.all()
+    counter = 0
+    counter_final = len(prospects)
+    breaker = round(counter_final / 25)
+    space = " "
+    hash = "#"
+    hash_count = 0
+    print("\rGetting Prospect Headshots [{}{}] {}"
+          .format(space * 25, hash * 0, "{:.1f}%".format(0)), end="", flush=True)
+
     for prospect in prospects:
         prospect.get_headshot()
+        counter += 1
+        if counter % breaker == 0:
+            hash_count += 1
+        print("\rGetting Prospect Headshots [{}{}] {}"
+              .format(hash * hash_count, space * (25 - hash_count),
+                      "{:.1f}%".format((counter / len(prospects) * 100))), end="",
+              flush=True)
+
+    print("\rGetting Prospect Headshots [{}{}] {}"
+          .format(space * 0, hash * 25, "{:.1f}%".format(100)) + '\033[92m' + " DONE" + '\033[0m',
+          flush=True)
 
     return jsonify()
 
