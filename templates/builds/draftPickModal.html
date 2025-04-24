@@ -72,7 +72,7 @@
                             <div class="card bg-transparent border-0">
                               <div class="card-body gauge-card">
                                 <small class="pt-0 pb-2 caps text-center">Prospect Grade:</small>
-                                  <div class="gauge" style="background: conic-gradient(#{{ draft_pick.prospect[0].drafted_team.primary_color if draft_pick.prospect[0].drafted_team else draft_pick.prospect[0].college_team.primary_color }} 0% {{ draft_pick.prospect[0].grade if draft_pick.prospect[0].grade else 0}}%, #1e293b 12% 100%);">
+                                  <div class="gauge" style="background: conic-gradient(#{{ draft_pick.prospect[0].drafted_team.primary_color if draft_pick.prospect[0].drafted_team else draft_pick.prospect[0].college_team.primary_color }} 0% {{ draft_pick.prospect[0].grade / 8 * 100 if draft_pick.prospect[0].grade else 0}}%, #1e293b 12% 100%);">
                                       <div class="gauge-inner">
                                           {{ draft_pick.prospect[0].grade if draft_pick.prospect[0].grade else "--" }}
                                       </div>

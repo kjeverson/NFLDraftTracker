@@ -1,13 +1,13 @@
 .dc-card {
-    border-radius: 20px;
+    border-radius: 1.25rem;
     cursor: pointer;
-    height: 180px;
+    height: 11.25rem;
     overflow: hidden;
 }
 
 .dc-card-header {
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
+    border-top-right-radius: 1.25rem;
+    border-top-left-radius: 1.25rem;
 }
 
 .dc-trade {
@@ -26,7 +26,7 @@
     top: -50%;
     left: -50%;
     z-index: 1;
-    height: 200px;
+    height: 12.5rem;
 }
 
 .dc-prospect-info-container {
@@ -51,5 +51,5 @@
 }
 
 .dc-team-img {
-    height: 60px;
+    height: 3.75rem;
 }

@@ -2,39 +2,135 @@
 {% from '/macros/prospectInfoCard.html' import player_card %}
 {% from '/macros/prospectMeasurables.html' import measurables %}
 
-<div id="prospectModal" class="modal" tabindex="-1">
+<div id="prospectModal" class="modal" tabindex="-1" xmlns="http://www.w3.org/1999/html">
   <div class="modal-dialog modal-dialog-scrollable modal-xl bg-dark text-white">
     <div class="modal-content bg-dark" >
         <div class="modal-body bg-dark">
             {{ player_card(prospect) }}
-            {{ measurables(prospect) }}
-            {% if prospect.overview %}
-            <div class="row d-flex p-1 mt-2">
-                <h5 class="caps text-center">Overview:</h5>
-                <small>{{ prospect.overview }}</small>
+            {% if hero_image %}
+            <div id="prospectHero">
+                <img src="{{ url_for('static', filename='img/hero/'+ prospect.prospect_year|string + '/' + prospect.ID|string +'.png') }}">
             </div>
             {% endif %}
-            <div class="row p-1 justify-content-center">
-            {% if prospect.strengths %}
-                <div class="col-6">
-                    <div class="row p-1 text-center"><h5 class="caps text-center">Strengths:</h5></div>
-                    <ul>
-                    {% for strength in strengths %}
-                      <li><small>{{ strength }}</small></li>
-                    {% endfor %}
-                    </ul>
+            <div class="row p-2">
+                <div class="col-2">
+                    <div class="card w-100 bg-dark text-white">
+                        <div class="card-body">
+                            <h6 class="card-title light-caps">Rank:</h6>
+                            <h4 class="caps">{{ prospect.rank if prospect.rank else "--" }}</h4>
+                        </div>
+                    </div>
                 </div>
-              {% endif %}
-              {% if prospect.weaknesses %}
-                <div class="col-6">
-                    <div class="row p-1 text-center"><h5 class="caps">Weaknesses:</h5></div>
-                    <ul>
-                    {% for weakness in weaknesses %}
-                        <li><small>{{ weakness }}</small></li>
-                    {% endfor %}
-                    </ul>
+                {% if prospect.comparison %}
+                <div class="col-3">
+
+                    <div class="card w-100 bg-dark text-white">
+                        <div class="card-body">
+                            <h6 class="card-title light-caps">Comparison:</h6>
+                            <h5 class="caps">{{ prospect.comparison }}</h5>
+                        </div>
+                    </div>
                 </div>
                 {% endif %}
+                {% if prospect.role %}
+                <div class="col-3">
+                    <div class="card w-100 bg-dark text-white">
+                        <div class="card-body">
+                            <h6 class="card-title light-caps">Role:</h6>
+                            <h5 class="caps">{{ prospect.role }}</h5>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <div class="card w-100 bg-dark text-white">
+                        <div class="card-body">
+                            <h6 class="light-caps">Prospect Bio:</h6>
+                            <hr>
+                            {% if prospect.drafted_team %}
+                            <h6 class="light-caps">Drafted Team: </h6>
+                            <div class="row">
+                                <div class="col-4 justify-content-center">
+                                    <img class="img-fluid"
+                                         src="{{ url_for('static', filename='img/NFL/'+ prospect.drafted_team.key +'.png') }}"
+                                    >
+                                </div>
+                                <div class="col-8">
+                                    <small class="light-caps"><small>{{ prospect.drafted_team.location }}</small></small>
+                                    <h6 class="caps">{{ prospect.drafted_team.name }}</h6>
+                                </div>
+                            </div>
+                            <div class="row text-center">
+                                <small class="light-caps text-center"><small>Round {{ prospect.draft_pick.round }}, Pick {{ prospect.draft_pick.pick }}</small></small>
+                            </div>
+                            <hr>
+                            {% endif %}
+                            <h6 class="light-caps">College Team:</h6>
+                            <div class="row">
+                                <div class="col-4 justify-content-center">
+                                    <img class="img-fluid"
+                                         src="{{ url_for('static', filename='img/NCAA/'+ prospect.college_team.ID|string +'.png') }}"
+                                    >
+                                </div>
+                                <div class="col-8">
+                                    <small class="light-caps"><small>{{ prospect.college_team.location }}</small></small>
+                                    <h6 class="caps">{{ prospect.college_team.name }}</h6>
+                                </div>
+                            </div>
+                            <hr>
+                            <small class="light-caps">ESPNID: {{ prospect.ID }}</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="row p-2">
+                        <div class="card w-100 bg-dark text-white">
+                            <div class="card-body">
+                                {{ measurables(prospect) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if prospect.overview %}
+            <div class="row p-2">
+                <div class="card w-100 bg-dark text-white">
+                    <div class="card-body">
+                        <h6 class="light-caps text-center">Overview:</h6>
+                        <small>{{ prospect.overview }}</small>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="row p-2">
+                <div class="card w-100 bg-dark text-white">
+                    <div class="card-body">
+                        <div class="row">
+                            {% if prospect.strengths %}
+                            <div class="col-6">
+                                <h6 class="light-caps text-center">Strengths:</h6>
+                                <ul>
+                                {% for strength in strengths %}
+                                  <li><small>{{ strength }}</small></li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                            {% if prospect.weaknesses %}
+                            <div class="col-6">
+                                <h6 class="light-caps text-center">Weaknesses:</h6>
+                                <ul>
+                                {% for weakness in weaknesses %}
+                                    <li><small>{{ weakness }}</small></li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="modal-footer">

@@ -1,6 +1,7 @@
 {% macro player_card(prospect) %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}">
 {% if prospect.drafted_team %}
+<div class="prospect-row-wrapper">
 <div class="row prospect-row" style="background:linear-gradient(to top, rgba(0,0,0,0) 30%, #{{ prospect.drafted_team.primary_color }})">
     <div class="col-3 pr-col-3 position-relative">
         <div class="img-container">
@@ -21,24 +22,10 @@
             <small>Height: {{ prospect.height if prospect.height else '' }} • Weight: {{ prospect.weight if prospect.weight else '' }} lbs</small>
         </div>
     </div>
-    <div class="col-2 d-flex justify-content-end align-items-center">
-        <div>
-            <h6 class="light-caps">Rank:</h6>
-            <h6 class="light-caps">Draft Status:</h6>
-            <h6 class="light-caps">Comparison:</h6>
-            <h6 class="light-caps">Role:</h6>
-        </div>
-    </div>
-    <div class="col-3 d-flex justify-content-start align-items-center">
-        <div>
-            <h6 class="caps">{{ prospect.rank if prospect.rank else "--" }}</h6>
-            <h6 class="caps">Round {{ prospect.draft_pick.round }}, Pick {{ prospect.draft_pick.pick }}</h6>
-            <h6 class="caps">{{ prospect.comparison if prospect.comparison else "--" }}</h6>
-            <h6 class="caps">{{ prospect.role if prospect.role else "--" }}</h6>
-        </div>
-    </div>
+</div>
 </div>
 {% else %}
+<div class="prospect-row-wrapper">
 <div class="row prospect-row" style="background:linear-gradient(to top, rgba(0,0,0,0) 30%, #{{ prospect.college_team.primary_color if prospect.college_team else '4c8bc6' }})">
     <div class="col-3 position-relative">
         <div class="img-container">
@@ -60,22 +47,7 @@
             <small>Height: {{ prospect.height if prospect.height else '' }} • Weight: {{ prospect.weight if prospect.weight else '' }} lbs</small>
         </div>
     </div>
-    <div class="col-2 d-flex justify-content-end align-items-center">
-        <div>
-            <h6 class="light-caps">Rank:</h6>
-            <h6 class="light-caps">Draft Projection: </h6>
-            <h6 class="light-caps">Comparison: </h6>
-            <h6 class="light-caps">Role: </h6>
-        </div>
-    </div>
-    <div class="col-3 d-flex justify-content-start align-items-center">
-        <div>
-            <h6 class="caps">{{ prospect.rank if prospect.rank else "--" }}</h6>
-            <h6 class="caps">{{ prospect.projection if prospect.projection else "--" }}</h6>
-            <h6 class="caps">{{ prospect.comparison if prospect.comparison else "--" }}</h6>
-            <h6 class="caps">{{ prospect.role if prospect.role else "--" }}</h6>
-        </div>
-    </div>
+</div>
 </div>
 {% endif %}
 {% endmacro %}

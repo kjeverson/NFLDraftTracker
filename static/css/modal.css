@@ -1,8 +1,14 @@
+.prospect-row-wrapper {
+    width: 65%;
+    overflow: hidden;
+    border-top-left-radius: 1.25rem;
+    border-top-right-radius: 1.25rem;
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
 .prospect-row {
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px; /* Increased border radius for smoother edges */
-    overflow: hidden; /* Hide overflow for rounded corners */
-    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5); /* Larger and more pronounced shadow effect */
+    width: 153.85%;
 }
 
 /* Ensure the player image is above the team logo */
@@ -22,11 +28,11 @@
     left: 65%; /* Center the logo horizontally */
     z-index: 0; /* Put the logo behind the player image */
     width: auto; /* Set width of the logo */
-    height: 100px; /* Maintain aspect ratio */
+    height: 6.25rem; /* Maintain aspect ratio */
 }
 
 .modal-dialog {
-    border-radius: 20px; /* Increased border radius for smoother edges */
+    border-radius: 1.25rem; /* Increased border radius for smoother edges */
     box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5); /* Larger and more pronounced shadow effect */
 }
 
@@ -36,7 +42,7 @@
 }
 
 .modal-body {
-    padding: 40px; /* Increased padding for better spacing */
+    padding: 2.5rem; /* Increased padding for better spacing */
 }
 
 .modal-footer {
@@ -45,7 +51,7 @@
 }
 
 .btn.active {
-    border-radius: 20px; /* Increased border radius for smoother edges */
+    border-radius: 1.25rem; /* Increased border radius for smoother edges */
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.3); /* Slightly lighter shadow effect */
     transition: all 0.3s ease; /* Smooth transition on hover */
 }
@@ -110,8 +116,8 @@
 .gauge {
     display: grid;
     place-items: center;
-    width: 90px;
-    height: 90px;
+    width: 5.625rem;
+    height: 5.625rem;
     border-radius: 50%;
     font-size: 2rem;
     background: conic-gradient(#{{ prospect.college_team.secondary_color }} 0% {{ prospect.grade if prospect.grade else 0}}%, #1e293b 12% 100%);
@@ -120,10 +126,21 @@
 .gauge-inner {
     display: grid;
     place-items: center;
-    width: 75px;
-    height: 75px;
+    width: 4.6875rem;
+    height: 4.6875rem;
     border-radius: 50%;
     background: var(--bs-dark);
     color: white;
     font-size: 1.5rem;
+}
+
+#prospectHero {
+    position:absolute;
+    height: 100%;
+    top:0;
+    right: 0;
+    background-repeat: no-repeat;
+    background-position: right top;
+    overflow: hidden;
+    text-align: right;
 }
