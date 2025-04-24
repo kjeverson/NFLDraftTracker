@@ -228,29 +228,29 @@ class Prospect(db.Model):
 
 	def grade_string(self):
 		if self.grade:
-			if self.grade == 100:
+			if self.grade == 8:
 				return "The Perfect Prospect"
-			elif 100 > self.grade >= 95:
+			elif 8 > self.grade >= 7.1:
 				return "Perennial All-Pro"
-			elif 95 > self.grade >= 90:
+			elif 7.1 > self.grade >= 7:
 				return "Pro Bowl Talent"
-			elif 90 > self.grade >= 85:
+			elif 7 > self.grade >= 6.7:
 				return "Year 1 Starter"
-			elif 85 > self.grade >= 80:
+			elif 6.7 > self.grade >= 6.5:
 				return "Boom-or-Bust Potential"
-			elif 80 > self.grade >= 75:
+			elif 6.5 > self.grade >= 6.4:
 				return "Will Become A Good Starter Within Two Years"
-			elif 75 > self.grade >= 70:
+			elif 6.4 > self.grade >= 6.3:
 				return "Will Eventually Be A Plus Starter"
-			elif 70 > self.grade >= 65:
+			elif 6.3 > self.grade >= 6.2:
 				return "Will Eventually Be An Average Starter"
-			elif 65 > self.grade >= 60:
+			elif 6.2 > self.grade >= 6.1:
 				return "Good Backup With The Potential To Develop Into A Starter"
-			elif 60 > self.grade >= 55:
+			elif 6.1 > self.grade >= 6:
 				return "Traits Or Talent To Be An Above-Average Backup"
-			elif 55 > self.grade >= 50:
+			elif 6 > self.grade >= 5.8:
 				return "Average Backup or Special Teamer"
-			elif 50 > self.grade >= 45:
+			elif 5.8 > self.grade >= 5.6:
 				return "Candidate For The Bottom Of The Roster Or Practice Squad"
 			else:
 				return "Priority Free Agent"
