@@ -98,7 +98,9 @@ def get_prospect_modal():
     prospect = Prospect.query.get(prospect_id)
     strengths = prospect.strengths.split("\n") if prospect.strengths else ""
     weaknesses = prospect.weaknesses.split("\n") if prospect.weaknesses else ""
-    return render_template("builds/prospectModal.html", prospect=prospect, strengths=strengths, weaknesses=weaknesses)
+    hero_path = f'static/img/hero/{prospect.prospect_year}/{prospect.ID}.png'
+    hero_image = os.path.exists(hero_path)
+    return render_template("builds/prospectModal.html", prospect=prospect, strengths=strengths, weaknesses=weaknesses, hero_image=hero_image)
 
 
 @app.route('/editProspectModal', methods=['GET'])
@@ -188,7 +190,6 @@ def draft_pick_modal():
     draft_pick = DraftPick.query.get(draft_pick_id)
     team = draft_pick.pick_owner
     p = get_top_available_prospects(team, 7)
-
     return render_template("builds/draftPickModal.html", draft_pick=draft_pick, team=team, p=p)
 
 
