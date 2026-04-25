@@ -111,20 +111,28 @@
                             {% if prospect.strengths %}
                             <div class="col-6">
                                 <h6 class="light-caps text-center">Strengths:</h6>
-                                <ul>
-                                {% for strength in strengths %}
-                                  <li><small>{{ strength }}</small></li>
-                                {% endfor %}
+
+                                <ul class="list-unstyled">
+                                    {% for strength in strengths %}
+                                    <li class="d-flex align-items-start mb-1">
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        <small>{{ strength }}</small>
+                                    </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                             {% endif %}
                             {% if prospect.weaknesses %}
                             <div class="col-6">
                                 <h6 class="light-caps text-center">Weaknesses:</h6>
-                                <ul>
-                                {% for weakness in weaknesses %}
-                                    <li><small>{{ weakness }}</small></li>
-                                {% endfor %}
+
+                                <ul class="list-unstyled">
+                                    {% for weakness in weaknesses %}
+                                    <li class="d-flex align-items-start mb-1">
+                                        <i class="bi bi-dash-circle-fill text-danger me-2"></i>
+                                        <small>{{ weakness }}</small>
+                                    </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                             {% endif %}
